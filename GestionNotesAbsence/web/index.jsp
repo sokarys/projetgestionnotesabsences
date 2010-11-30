@@ -14,6 +14,22 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%!
+            ArrayList<Etudiant> l = new ArrayList<Etudiant>();
+            Etudiant e = new Etudiant(1,"kikoo","non","3IS");
+          //  l.add(e);
+        %>
+        <%
+            l.add(e);
+            l.add(e);
+            l.add(e);
+        %>
+
+    <ul>
+    <% for(Etudiant e : l){ %>
+    <li><%=     e.toString() %></li>
+    <%}%>
+    </ul>
+    
     </body>
 </html>
