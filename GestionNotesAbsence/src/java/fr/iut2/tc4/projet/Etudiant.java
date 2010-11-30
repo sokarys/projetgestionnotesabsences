@@ -1,11 +1,14 @@
 package fr.iut2.tc4.projet;
 
+import java.util.ArrayList;
+
 public class Etudiant {
 	
 	private Integer id;
 	private String prenom;
 	private String nom;
-        private String groupe;
+	private ArrayList<Absence> listAbsences;
+	private String groupe;
 	
 	public Etudiant() {
 		super();
@@ -15,7 +18,8 @@ public class Etudiant {
 		super();
 		this.id = id;
 		this.prenom = prenom;
-		this.nom = nom;		
+		this.nom = nom;
+		this.listAbsences = new ArrayList<Absence>();
 		this.groupe = groupe;
 	}
 
@@ -42,6 +46,17 @@ public class Etudiant {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+	
+	public int getNbAbsences() {
+		return this.listAbsences.size();
+	}
+
+        public Absence getAbsence(int index){
+            return this.listAbsences.get(index);
+        }
+        public void addAbsence(Absence a){
+            this.listAbsences.add(a);
+        }
 
 	public String getGroupe() {
 		return groupe;
