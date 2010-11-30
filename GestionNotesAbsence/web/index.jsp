@@ -21,6 +21,7 @@
             Etudiant e = new Etudiant(1,"kikoo","non","3IS");
         %>
         <%
+        //Init de la liste
             l.add(e);
             l.add(e);
             l.add(e);

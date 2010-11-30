@@ -1,4 +1,4 @@
-package fr.iut2.tc4.projet;
+package fr.iut2.tc4.projet.data;
 
 import java.util.ArrayList;
 
