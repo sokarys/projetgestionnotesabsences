@@ -60,4 +60,11 @@ public class Etudiant {
 	public void setGroupe(String groupe) {
 		this.groupe = groupe;
 	}
+
+        @Override
+        public String toString() {
+            return nom+" "+prenom+" "+groupe+"\n";
+        }
+
+        
 }

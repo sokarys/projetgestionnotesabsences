@@ -5,7 +5,8 @@ public class TestAbsences {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+    //public static void main(String[] args) {
+	public static void main() {
 		
 		System.out.println("Liste des étudiants :");
 		for (Etudiant etu : GestionFactory.getEtudiants()) {
@@ -27,5 +28,9 @@ public class TestAbsences {
 			System.out.println(etu.getPrenom() + " " + etu.getNom() + " " + etu.getGroupe() + " " + etu.getNbAbsences());
 		}
 	}
+
+        public static String test(){
+            return "hello world";
+        }
 
 }
