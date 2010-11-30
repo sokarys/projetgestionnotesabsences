@@ -19,7 +19,6 @@
         <%!
             ArrayList<Etudiant> l = new ArrayList<Etudiant>();
             Etudiant e = new Etudiant(1,"kikoo","non","3IS");
-          //  l.add(e);
         %>
         <%
             l.add(e);
