@@ -11,6 +11,7 @@ package fr.iut2.tc4.projet;
  */
 public class Note {
     private int note;
+    private String matiere;
 
     public Note(int note) {
         this.note = note;
@@ -23,6 +24,15 @@ public class Note {
     public void setNote(int note) {
         this.note = note;
     }
+
+    public String getMatiere() {
+        return matiere;
+    }
+
+    public void setMatiere(String matiere) {
+        this.matiere = matiere;
+    }
+    
 
 
 
