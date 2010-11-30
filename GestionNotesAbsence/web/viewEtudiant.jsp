@@ -29,7 +29,7 @@
         <% for(Etudiant e : listeEtudiant.getListe()) { %>
         <tr>
         
-            <td> <center><a href=""><%= e.getNom() %></a></center></td>
+            <td> <center><a href="/GestionNotesAbsence/do/addEtudiant"><%= e.getNom() %></a></center></td>
             <td> <center><%= e.getPrenom() %></center></td>
             <td> <center><%= e.getGroupe() %></center></td>
             <td> <center><%= e.getNbAbsences() %></center></td>

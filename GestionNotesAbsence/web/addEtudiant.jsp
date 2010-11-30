@@ -15,7 +15,7 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <form method="post" action="viewEtudiant"> <!-- action : -->
+        <form method="post" action="/GestionNotesAbsence/do/addedEtudiant"> <!-- action : -->
             Nom : <input type="text" name="nom" /><br /> <!-- name = meme nom que la classe etudiant-->
             Prenom : <input type="text" name="prenom" /><br />
             Id : <input type="text" name="id" /><br />

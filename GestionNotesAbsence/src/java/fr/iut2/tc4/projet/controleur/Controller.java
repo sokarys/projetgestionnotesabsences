@@ -75,23 +75,23 @@ public class Controller extends HttpServlet {
 
 		// On récupère l'action à exécuter
 		String action = request.getPathInfo();
+                
+               System.out.println("action == " + action + "   met == " + methode + "   " + request.getPathTranslated());
 		if (action == null) {
 			action = "/ViewEtudiant";
-			System.out.println("action == null");
 		}
-		System.out.println(action);
+		
 
 		// Exécution action
 
-		if (methode.equals("post") && action.equals("/addEtudiant")) {
+		if (methode.equals("get") && action.equals("/addEtudiant")) {
 			
                         System.out.print("Postttt");
-                        doEtudiant(request, response);
-
-		} else if (action.equals("/viewEtudiant")) {
-
-                        System.out.print("view");
-                        doEtudiant(request, response);
+                        doAddEtudiant(request, response);
+                        
+		}else if (methode.equals("post") && action.equals("/addedEtudiant")) {
+                        System.out.print("Postttt");
+                        doAddedEtudiant(request, response);
 
 		}else {
                     
@@ -107,6 +107,23 @@ public class Controller extends HttpServlet {
              request.setAttribute("listeEtudiant", Controller.listeEtudiant);
 
             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+        
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", Controller.listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             System.out.print(request.getParameter("etudiant"));
+             Controller.listeEtudiant.getListe().add(new Etudiant(0,request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", Controller.listeEtudiant);
+              
+             loadJSP(this.urlViewEtudiant, request, response);
 
         }
 	//

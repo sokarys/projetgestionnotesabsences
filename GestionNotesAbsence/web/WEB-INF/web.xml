@@ -34,8 +34,20 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
-        <url-pattern>/Controller</url-pattern>
+        <url-pattern>/do/*</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+<servlet-name>addEtudiant</servlet-name>
+<jsp-file>/GestionNotesAbsence/Controller/addEtudiant</jsp-file>
+</servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>addEtudiant</servlet-name>
+        <url-pattern>/GestionNotesAbsence/Controller/addEtudiant</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>
             30
