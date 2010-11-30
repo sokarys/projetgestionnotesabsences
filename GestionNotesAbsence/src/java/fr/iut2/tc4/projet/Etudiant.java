@@ -5,8 +5,7 @@ public class Etudiant {
 	private Integer id;
 	private String prenom;
 	private String nom;
-	private int nbAbsences;
-	private String groupe;
+        private String groupe;
 	
 	public Etudiant() {
 		super();
@@ -16,8 +15,7 @@ public class Etudiant {
 		super();
 		this.id = id;
 		this.prenom = prenom;
-		this.nom = nom;
-		this.nbAbsences = 0;
+		this.nom = nom;		
 		this.groupe = groupe;
 	}
 
@@ -43,14 +41,6 @@ public class Etudiant {
 
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-	
-	public int getNbAbsences() {
-		return nbAbsences;
-	}
-
-	public void setNbAbsences(int nbAbsences) {
-		this.nbAbsences = nbAbsences;
 	}
 
 	public String getGroupe() {
