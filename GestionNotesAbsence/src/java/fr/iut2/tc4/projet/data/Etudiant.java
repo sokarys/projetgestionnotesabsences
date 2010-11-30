@@ -6,9 +6,9 @@ public class Etudiant {
 	
 	private Integer id;
 	private String prenom;
-	private String nom;
-	private ArrayList<Absence> listAbsences;
-        private ArrayList<Note> listNote;
+	private String nom = "1";
+	private ArrayList<Absence> listAbsences = new ArrayList<Absence>();
+        private ArrayList<Note> listNote = new ArrayList<Note>();
 	private String groupe;
 	
 	public Etudiant() {

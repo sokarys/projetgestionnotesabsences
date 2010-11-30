@@ -11,9 +11,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title><%= getServletContext().getInitParameter("title")%></title>
     </head>
     <body>
         <h1>Hello World!</h1>
+        <form method="post" action="viewEtudiant"> <!-- action : -->
+            Nom : <input type="text" name="nom" /><br /> <!-- name = meme nom que la classe etudiant-->
+            Prenom : <input type="text" name="prenom" /><br />
+            Id : <input type="text" name="id" /><br />
+            Groupe : <input type="text" name="groupe" /><br />
+            <input type="submit" />
+        </form>
     </body>
 </html>

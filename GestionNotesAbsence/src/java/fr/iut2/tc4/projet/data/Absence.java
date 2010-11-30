@@ -15,6 +15,10 @@ public class Absence {
     private GregorianCalendar date;
     private String motif;
 
+    public Absence(){
+        
+    }
+            
     public Absence(GregorianCalendar date, String motif) {
         this.date = date;
         this.motif = motif;

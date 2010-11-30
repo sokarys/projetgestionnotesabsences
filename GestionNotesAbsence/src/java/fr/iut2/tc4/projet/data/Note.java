@@ -13,6 +13,7 @@ public class Note {
     private int note;
     private String matiere;
 
+    public Note(){}
     public Note(int note) {
         this.note = note;
     }
