@@ -8,6 +8,7 @@ public class Etudiant {
 	private String prenom;
 	private String nom;
 	private ArrayList<Absence> listAbsences;
+        private ArrayList<Note> listNote;
 	private String groupe;
 	
 	public Etudiant() {
@@ -20,6 +21,7 @@ public class Etudiant {
 		this.prenom = prenom;
 		this.nom = nom;
 		this.listAbsences = new ArrayList<Absence>();
+                this.listNote = new ArrayList<Note>();
 		this.groupe = groupe;
 	}
 
@@ -56,6 +58,17 @@ public class Etudiant {
         }
         public void addAbsence(Absence a){
             this.listAbsences.add(a);
+        }
+
+        public int getNbNote() {
+		return this.listNote.size();
+	}
+
+        public Note getNote(int index){
+            return this.listNote.get(index);
+        }
+        public void addnote(Note n){
+            this.listNote.add(n);
         }
 
 	public String getGroupe() {
