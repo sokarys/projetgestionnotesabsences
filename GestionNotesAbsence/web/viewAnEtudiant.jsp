@@ -22,18 +22,26 @@
         <h1>un Etudiant</h1>
         <%= etudiant.toString() %>
         <table>
-         <% for(Note n : etudiant.getListNote()){ %>
+         <% for(int i=0; i<etudiant.getListNote().size(); i++){
+             Note n = etudiant.getNote(i);
+         %>
             <tr>
                 <td><%=n.getMatiere() %></td>
                 <td><%=n.getStringNote() %></td>
+                 <td><a href="/GestionNotesAbsence/do/dellNoteEtudiant?id=<%=etudiant.getId()%>&idNote=<%=i%>">Supprimer</a></td>
+                  <td><a href="/GestionNotesAbsence/do/modifNoteEtudiant?id=<%=etudiant.getId()%>&idNote=<%=n.getId()%>">Modif</a></td>
             </tr>
             <% } %>
         </table>
         <table>
-         <% for(Absence a : etudiant.getListAbsences()){ %>
+         <% for(int i=0; i<etudiant.getListAbsences().size(); i++){ 
+             Absence a = etudiant.getAbsence(i);
+             %>
             <tr>
                 <td><%= a.getMotif() %></td>
                 <td><%=a.getDate().get(GregorianCalendar.DAY_OF_MONTH) %>/<%=a.getDate().get(GregorianCalendar.MONTH)+1 %>/<%=a.getDate().get(GregorianCalendar.YEAR) %></td>
+                <td><a href="/GestionNotesAbsence/do/dellAbsenceEtudiant?id=<%=etudiant.getId()%>&idAbsence=<%=i%>">Supprimer</a></td>
+                <td><a href="/GestionNotesAbsence/do/modifAbsenceEtudiant?id=<%=etudiant.getId()%>&idAbsence=<%=a.getId()%>">Modif</a></td>
             </tr>
             <% } %>
         </table>

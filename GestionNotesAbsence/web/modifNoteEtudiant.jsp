@@ -16,7 +16,7 @@
     </head>
     <body>
         <h1>Rajouter une note pour <%= etudiant.getNom() +" " +  etudiant.getPrenom() %> </h1>
-        <form method="post" action="/GestionNotesAbsence/do/addedNoteEtudiant?id=<%=etudiant.getId()%>"> <!-- action : -->
+        <form method="post" action="/GestionNotesAbsence/do/modifiedNoteEtudiant?id=<%=etudiant.getId()%>&idNote=<%=note.getId()%>"> <!-- action : -->
             Note : <input type="text" name="note" /><br /> <!-- name = meme nom que la classe etudiant-->
             Matiere : <input type="text" name="matiere" /><br />
             <input type="submit" />

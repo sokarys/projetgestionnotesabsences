@@ -12,12 +12,24 @@ package fr.iut2.tc4.projet.data;
 public class Note {
     private int note;
     private String matiere;
+    private int id;
 
     public Note(){}
-    public Note(int note,String matiere) {
+    public Note(int id, int note,String matiere) {
+        this.id = id;
         this.note = note;
         this.matiere = matiere;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
 
     public int getNote() {
         return note;

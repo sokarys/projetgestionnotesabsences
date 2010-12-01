@@ -14,15 +14,26 @@ import java.util.GregorianCalendar;
 public class Absence {
     private GregorianCalendar date;
     private String motif;
+    private int id;
 
     public Absence(){
         
     }
             
-    public Absence(GregorianCalendar date, String motif) {
+    public Absence(int id, GregorianCalendar date, String motif) {
+        this.id = id;
         this.date = date;
         this.motif = motif;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
 
     public GregorianCalendar getDate() {
         return date;

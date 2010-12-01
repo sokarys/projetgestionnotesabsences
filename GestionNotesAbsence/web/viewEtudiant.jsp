@@ -33,6 +33,7 @@
             <td> <center><%= e.getPrenom() %></center></td>
             <td> <center><%= e.getGroupe() %></center></td>
             <td> <center><%= e.getNbAbsences() %></center></td>
+             <td><a href="/GestionNotesAbsence/do/dellEtudiant?id=<%=e.getId()%>">Supprimer</a></td>
         </tr>
         <%}%>
             </table>
