@@ -16,12 +16,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="" >
+            <jsp:include page="css/gestion.css" />
+        </style>
         <title>JSP Page</title>
     </head>
     <body>
         <h1>un Etudiant</h1>
         <%= etudiant.toString() %>
-        <table>
+        <table class="table">
          <% for(int i=0; i<etudiant.getListNote().size(); i++){
              Note n = etudiant.getNote(i);
          %>
