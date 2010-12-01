@@ -1,0 +1,33 @@
+/* 
+    Document   : gestion
+    Created on : 1 déc. 2010, 22:19:14
+    Author     : Michael
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+body{
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    width:30%;
+}
+.table{
+    background-color:#DDDDDD;
+border:3px solid #003366;
+border-collapse:separate;
+}
+.table td{
+    background-color:#66CCCC;
+    border:1px solid #000099;
+    padding:5px;
+}
+
