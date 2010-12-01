@@ -15,11 +15,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css" >
+            <jsp:include page="css/gestion.css" />
+        </style>
         <title>JSP Page</title>
     </head>
     <body>
         <h1>ViewEtudiant</h1>
-        <table border="solid">
+        <table class="table">
         <tr>
             <td> Nom</td>
             <td> Prenom </td>
