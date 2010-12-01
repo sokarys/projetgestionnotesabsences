@@ -31,6 +31,10 @@
             <param-name>urlViewEtudiant</param-name>
             <param-value>/viewEtudiant.jsp</param-value>
         </init-param>
+        <init-param>
+            <param-name>urlViewAnEtudiant</param-name>
+            <param-value>/viewAnEtudiant.jsp</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>

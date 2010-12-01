@@ -64,6 +64,16 @@ public class Etudiant {
 		return this.listNote.size();
 	}
 
+        public ArrayList<Absence> getListAbsences() {
+            return listAbsences;
+        }
+
+        public ArrayList<Note> getListNote() {
+            return listNote;
+        }
+
+
+
         public Note getNote(int index){
             return this.listNote.get(index);
         }
@@ -78,6 +88,7 @@ public class Etudiant {
 	public void setGroupe(String groupe) {
 		this.groupe = groupe;
 	}
+
 
         @Override
         public String toString() {

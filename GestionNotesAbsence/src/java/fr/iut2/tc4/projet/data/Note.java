@@ -14,12 +14,17 @@ public class Note {
     private String matiere;
 
     public Note(){}
-    public Note(int note) {
+    public Note(int note,String matiere) {
         this.note = note;
+        this.matiere = matiere;
     }
 
     public int getNote() {
         return note;
+    }
+
+     public String getStringNote() {
+        return String.valueOf(note);
     }
 
     public void setNote(int note) {

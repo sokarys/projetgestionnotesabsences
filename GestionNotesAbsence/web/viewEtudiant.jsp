@@ -29,13 +29,16 @@
         <% for(Etudiant e : listeEtudiant.getListe()) { %>
         <tr>
         
-            <td> <center><a href="/GestionNotesAbsence/do/addEtudiant"><%= e.getNom() %></a></center></td>
+            <td> <center><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getId()) %>"><%= e.getNom() %></a></center></td>
             <td> <center><%= e.getPrenom() %></center></td>
             <td> <center><%= e.getGroupe() %></center></td>
             <td> <center><%= e.getNbAbsences() %></center></td>
         </tr>
         <%}%>
             </table>
+
+            <a href="/GestionNotesAbsence/do/addEtudiant">Rajouter un Etudiant</a><br />
+            <a href="/GestionNotesAbsence/do/viewAllNotes">Voir les notes</a>
        
       
     </body>
