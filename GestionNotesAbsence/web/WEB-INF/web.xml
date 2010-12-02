@@ -53,16 +53,7 @@
         <url-pattern>/do/*</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-<servlet-name>addEtudiant</servlet-name>
-<jsp-file>/GestionNotesAbsence/Controller/addEtudiant</jsp-file>
-</servlet>
 
-
-    <servlet-mapping>
-        <servlet-name>addEtudiant</servlet-name>
-        <url-pattern>/GestionNotesAbsence/Controller/addEtudiant</url-pattern>
-    </servlet-mapping>
 
     <session-config>
         <session-timeout>
@@ -71,6 +62,6 @@
     </session-config>
 
     <welcome-file-list>
-<welcome-file> index.jsp </welcome-file>
+<welcome-file> viewEtudiant.jsp </welcome-file>
 </welcome-file-list>
     </web-app>

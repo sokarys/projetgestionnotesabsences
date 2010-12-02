@@ -256,6 +256,9 @@ public class Controller extends HttpServlet {
               int index = Integer.valueOf(request.getParameter("id"));
               int indexNote = Integer.valueOf(request.getParameter("idNote"));
               Note remove = listeEtudiant.getListe().get(index).getListNote().remove(indexNote);
+              for(int i=0; i<listeEtudiant.getListe().get(index).getNbNote(); i++){
+                  listeEtudiant.getListe().get(index).getListNote().get(i).setId(i);
+              }
               request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
               loadJSP(this.urlViewAnEtudiant, request, response);
             }
@@ -269,6 +272,9 @@ public class Controller extends HttpServlet {
               int index = Integer.valueOf(request.getParameter("id"));
               int indexAbsence = Integer.valueOf(request.getParameter("idAbsence"));
               listeEtudiant.getListe().get(index).getListAbsences().remove(indexAbsence);
+              for(int i=0; i<listeEtudiant.getListe().get(index).getNbAbsences(); i++){
+                  listeEtudiant.getListe().get(index).getListAbsences().get(i).setId(i);
+              }
               
               request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
               loadJSP(this.urlViewAnEtudiant, request, response);

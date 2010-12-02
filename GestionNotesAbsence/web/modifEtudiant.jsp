@@ -16,9 +16,9 @@
     <body>
         <h1>Modifie Etudiant</h1>
         <form method="post" action="/GestionNotesAbsence/do/modifedEtudiant?id=<%=etudiant.getId()%>"> <!-- action : -->
-            Nom : <input type="text" name="nom" /><br /> <!-- name = meme nom que la classe etudiant-->
-            Prenom : <input type="text" name="prenom" /><br />
-            Groupe : <input type="text" name="groupe" /><br />
+            Nom : <input type="text" name="nom" value="<%= etudiant.getNom() %>"/><br /> <!-- name = meme nom que la classe etudiant-->
+            Prenom : <input type="text" name="prenom" value="<%= etudiant.getPrenom() %>" /><br />
+            Groupe : <input type="text" name="groupe" value="<%= etudiant.getGroupe() %>" /><br />
             <input type="submit" />
         </form>
     </body>

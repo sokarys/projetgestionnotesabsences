@@ -39,6 +39,7 @@
             <td> <center><%= e.getMoyenne() %></center></td>
             <td> <center><%= e.getNbAbsences() %></center></td>
              <td><a href="/GestionNotesAbsence/do/dellEtudiant?id=<%=e.getId()%>">Supprimer</a></td>
+             <td><a href="/GestionNotesAbsence/do/modifEtudiant?id=<%=e.getId()%>">Modifier</a></td>
         </tr>
         <%}%>
             </table>

@@ -44,7 +44,7 @@
              %>
             <tr>
                 <td><%= a.getMotif() %></td>
-                <td><%=a.getDate().get(GregorianCalendar.DAY_OF_MONTH) %>/<%=a.getDate().get(GregorianCalendar.MONTH)+1 %>/<%=a.getDate().get(GregorianCalendar.YEAR) %></td>
+                <td><%=a.getFormatDate() %></td>
                 <td><a href="/GestionNotesAbsence/do/dellAbsenceEtudiant?id=<%=etudiant.getId()%>&idAbsence=<%=i%>">Supprimer</a></td>
                 <td><a href="/GestionNotesAbsence/do/modifAbsenceEtudiant?id=<%=etudiant.getId()%>&idAbsence=<%=a.getId()%>">Modif</a></td>
             </tr>

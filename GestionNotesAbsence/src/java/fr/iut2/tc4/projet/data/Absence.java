@@ -39,6 +39,10 @@ public class Absence {
         return date;
     }
 
+    public String getFormatDate(){
+        return String.valueOf(this.getDate().get(GregorianCalendar.DAY_OF_MONTH) +"/" + (this.getDate().get(GregorianCalendar.MONTH)+1) +"/" + this.getDate().get(GregorianCalendar.YEAR));
+    }
+
     public void setDate(GregorianCalendar date) {
         this.date = date;
     }
