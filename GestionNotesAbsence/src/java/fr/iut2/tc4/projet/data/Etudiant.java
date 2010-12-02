@@ -91,11 +91,13 @@ public class Etudiant {
 
         public double getMoyenne(){
             double moyenne = 0.0;
-            for(Note n : this.listNote){
-                moyenne += n.getNote();
+            if(this.getNbNote()>0){
+                for(Note n : this.listNote){
+                    moyenne += n.getNote();
+                }
+                return moyenne/this.getNbNote();
             }
-
-            return moyenne/this.getNbNote();
+            return 0;
         }
 
 
