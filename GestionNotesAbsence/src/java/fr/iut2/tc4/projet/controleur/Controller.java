@@ -299,7 +299,12 @@ public class Controller extends HttpServlet {
               int index = Integer.valueOf(request.getParameter("id"));
               int indexNote = Integer.valueOf(request.getParameter("idNote"));
 
-              int note = Integer.valueOf(request.getParameter("note"));
+              double note = 0.0;
+              try {
+                  note = Double.valueOf(request.getParameter("note"));
+              }catch(Exception e){
+                  note = Integer.valueOf(request.getParameter("note"));
+              }
               String matiere = request.getParameter("matiere");
 
               //listeEtudiant.getListe().get(index).getListAbsences().remove(indexAbsence);
@@ -321,7 +326,7 @@ public class Controller extends HttpServlet {
               loadJSP(this.urlModifAbsence, request, response);
             }
 
-               private void doModifNoteEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+          private void doModifNoteEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              //response.
 

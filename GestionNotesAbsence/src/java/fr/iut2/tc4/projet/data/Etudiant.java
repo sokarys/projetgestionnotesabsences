@@ -89,6 +89,15 @@ public class Etudiant {
 		this.groupe = groupe;
 	}
 
+        public double getMoyenne(){
+            double moyenne = 0.0;
+            for(Note n : this.listNote){
+                moyenne += n.getNote();
+            }
+
+            return moyenne/this.getNbNote();
+        }
+
 
         @Override
         public String toString() {

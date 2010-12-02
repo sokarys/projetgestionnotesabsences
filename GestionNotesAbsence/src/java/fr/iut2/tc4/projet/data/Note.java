@@ -10,12 +10,12 @@ package fr.iut2.tc4.projet.data;
  * @author sokarys
  */
 public class Note {
-    private int note;
+    private double note;
     private String matiere;
     private int id;
 
     public Note(){}
-    public Note(int id, int note,String matiere) {
+    public Note(int id, double note,String matiere) {
         this.id = id;
         this.note = note;
         this.matiere = matiere;
@@ -31,7 +31,7 @@ public class Note {
 
 
 
-    public int getNote() {
+    public double getNote() {
         return note;
     }
 
@@ -39,7 +39,7 @@ public class Note {
         return String.valueOf(note);
     }
 
-    public void setNote(int note) {
+    public void setNote(double note) {
         this.note = note;
     }
 
