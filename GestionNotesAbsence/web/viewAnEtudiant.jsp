@@ -19,12 +19,13 @@
         <style type="" >
             <jsp:include page="css/gestion.css" />
         </style>
-        <title>JSP Page</title>
+        <title>Information de l'étudiant</title>
     </head>
     <body>
         <h1>un Etudiant</h1>
         <%= etudiant.toString() %>
         <table class="table">
+        <caption>Liste des Notes</caption>
          <% for(int i=0; i<etudiant.getListNote().size(); i++){
              Note n = etudiant.getNote(i);
          %>
@@ -37,6 +38,7 @@
             <% } %>
         </table>
         <table class="table">
+         <caption>Liste des absences</caption>
          <% for(int i=0; i<etudiant.getListAbsences().size(); i++){ 
              Absence a = etudiant.getAbsence(i);
              %>
