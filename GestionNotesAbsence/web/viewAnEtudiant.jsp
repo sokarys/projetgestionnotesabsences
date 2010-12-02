@@ -32,8 +32,8 @@
             <tr>
                 <td><%=n.getMatiere() %></td>
                 <td><%=n.getStringNote() %></td>
-                 <td><a href="/GestionNotesAbsence/do/dellNoteEtudiant?id=<%=etudiant.getId()%>&idNote=<%=i%>">Supprimer</a></td>
-                  <td><a href="/GestionNotesAbsence/do/modifNoteEtudiant?id=<%=etudiant.getId()%>&idNote=<%=n.getId()%>">Modif</a></td>
+                 <td><a href="/GestionNotesAbsence/do/dellNoteEtudiant?id=<%=etudiant.getId()%>&idNote=<%=i%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer la note" alt="Supprimer"/></a></td>
+                  <td><a href="/GestionNotesAbsence/do/modifNoteEtudiant?id=<%=etudiant.getId()%>&idNote=<%=n.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifier la note" alt="Modifier"/></a></td>
             </tr>
             <% } %>
         </table>
@@ -45,13 +45,12 @@
             <tr>
                 <td><%= a.getMotif() %></td>
                 <td><%=a.getFormatDate() %></td>
-                <td><a href="/GestionNotesAbsence/do/dellAbsenceEtudiant?id=<%=etudiant.getId()%>&idAbsence=<%=i%>">Supprimer</a></td>
-                <td><a href="/GestionNotesAbsence/do/modifAbsenceEtudiant?id=<%=etudiant.getId()%>&idAbsence=<%=a.getId()%>">Modif</a></td>
+                <td><a href="/GestionNotesAbsence/do/dellAbsenceEtudiant?id=<%=etudiant.getId()%>&idAbsence=<%=i%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer l'absence" alt="Supprimer"/></a></td>
+                <td><a href="/GestionNotesAbsence/do/modifAbsenceEtudiant?id=<%=etudiant.getId()%>&idAbsence=<%=a.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer l'absence" alt="Modifier"/></a></td>
             </tr>
             <% } %>
         </table>
-
-        <a href="/GestionNotesAbsence/do/addAbsenceEtudiant?id=<%=etudiant.getId()%>">Rajouter une absence</a>
-        <a href="/GestionNotesAbsence/do/addNoteEtudiant?id=<%=etudiant.getId()%>">Rajouter une Note</a>
+        <a href="/GestionNotesAbsence/do/addAbsenceEtudiant?id=<%=etudiant.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une absence" alt="Ajouter absence"/></a>
+        <a href="/GestionNotesAbsence/do/addNoteEtudiant?id=<%=etudiant.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une note" alt="Ajouter Note"/></a>
     </body>
 </html>
