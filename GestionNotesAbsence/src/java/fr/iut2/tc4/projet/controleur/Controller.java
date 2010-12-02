@@ -14,9 +14,6 @@ import fr.iut2.tc4.projet.data.Etudiant;
 import fr.iut2.tc4.projet.data.ListeEtudiant;
 import fr.iut2.tc4.projet.data.Note;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.servlet.RequestDispatcher;
@@ -202,7 +199,7 @@ public class Controller extends HttpServlet {
              //response.
              listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
               request.setAttribute("listeEtudiant", listeEtudiant);
-              
+               request.setAttribute("groupe", "allgroupe");
              loadJSP(this.urlViewEtudiant, request, response);
 
         }
@@ -254,6 +251,7 @@ public class Controller extends HttpServlet {
                   i++;
               }
               request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
               loadJSP(this.urlViewEtudiant, request, response);
             }
             
@@ -358,6 +356,7 @@ public class Controller extends HttpServlet {
               this.listeEtudiant.getListe().get(index).setPrenom(prenom);
               this.listeEtudiant.getListe().get(index).setGroupe(groupe);
               request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
               loadJSP(this.urlViewEtudiant, request, response);
             }
 
