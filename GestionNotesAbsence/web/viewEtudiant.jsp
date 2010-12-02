@@ -27,6 +27,7 @@
             <td> Nom</td>
             <td> Prenom </td>
             <td> Groupe</td>
+            <td> Moyenne</td>
             <td> Nb Absence</td>
         </tr>
         <% for(Etudiant e : listeEtudiant.getListe()) { %>
@@ -36,6 +37,7 @@
             <td> <center><%= e.getPrenom() %></center></td>
             <td> <center><%= e.getGroupe() %></center></td>
             <td> <center><%= e.getNbAbsences() %></center></td>
+            <td> <center><%= e.getMoyenne() %></center></td>
              <td><a href="/GestionNotesAbsence/do/dellEtudiant?id=<%=e.getId()%>">Supprimer</a></td>
         </tr>
         <%}%>
