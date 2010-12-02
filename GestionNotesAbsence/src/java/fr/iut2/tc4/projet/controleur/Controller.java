@@ -120,6 +120,8 @@ public class Controller extends HttpServlet {
 
 		}else if (methode.equals("get") && action.equals("/viewAllNotes")) {
                         doViewAllNotes(request, response);
+		}else if (methode.equals("get") && action.equals("/viewAllAbsence")) {
+                        doViewAllAbsence(request, response);
 		}else if (methode.equals("get") && action.equals("/viewAnEtudiant")) {
                         doViewAnEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/addAbsenceEtudiant")) {
@@ -236,7 +238,25 @@ public class Controller extends HttpServlet {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              //response.
               request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
               loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+           private void doViewAllAbsence(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllAbsence, request, response);
 
         }
 
