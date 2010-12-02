@@ -138,12 +138,14 @@ public class Controller extends HttpServlet {
                         doModifiedAbsenceEtudiant(request, response);
 		}else if (methode.equals("post") && action.equals("/modifiedNoteEtudiant")) {
                         doModifiedNoteEtudiant(request, response);
-		}else if (methode.equals("post") && action.equals("/modifiedEtudiant")) {
-                        doModifiedAbsenceEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/modifAbsenceEtudiant")) {
                         doModifAbsenceEtudiant(request, response);
+		}else if (methode.equals("get") && action.equals("/modifEtudiant")) {
+                        doModifEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/modifNoteEtudiant")) {
                         doModifNoteEtudiant(request, response);
+		}else if (methode.equals("post") && action.equals("/modifiedEtudiant")) {
+                        doModifiedEtudiant(request, response);
 		}else {
                     
                     doEtudiant(request, response);
@@ -280,7 +282,7 @@ public class Controller extends HttpServlet {
               loadJSP(this.urlViewAnEtudiant, request, response);
             }
 
-                private void doModifiedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+           private void doModifiedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
             
               int index = Integer.valueOf(request.getParameter("id"));
@@ -331,6 +333,30 @@ public class Controller extends HttpServlet {
               request.setAttribute("absence", listeEtudiant.getListe().get(index).getAbsence(indexAbsence));
               loadJSP(this.urlModifAbsence, request, response);
             }
+              
+            private void doModifEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+               
+              int index = Integer.valueOf(request.getParameter("id"));
+
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+              loadJSP(this.urlModifEtudiant, request, response);
+            }
+
+             private void doModifiedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+              int index = Integer.valueOf(request.getParameter("id"));
+              String nom = request.getParameter("nom");
+              String prenom = request.getParameter("prenom");
+              String groupe = request.getParameter("groupe");
+
+              this.listeEtudiant.getListe().get(index).setNom(nom);
+              this.listeEtudiant.getListe().get(index).setPrenom(prenom);
+              this.listeEtudiant.getListe().get(index).setGroupe(groupe);
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              loadJSP(this.urlViewEtudiant, request, response);
+            }
+
+
 
           private void doModifNoteEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
