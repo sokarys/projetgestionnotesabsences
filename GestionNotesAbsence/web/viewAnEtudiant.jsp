@@ -22,8 +22,8 @@
         <title>Information de l'étudiant</title>
     </head>
     <body>
-        <h1>un Etudiant</h1>
-        <%= etudiant.toString() %>
+        <h1>Informations Etudiant</h1>
+        <div class="titre_etudiant"><%= etudiant.toString() %></div>
         <table class="table">
         <caption>Liste des Notes</caption>
          <% for(int i=0; i<etudiant.getListNote().size(); i++){
