@@ -36,7 +36,7 @@
             </tr>
             <% } %>
         </table>
-        <table>
+        <table class="table">
          <% for(int i=0; i<etudiant.getListAbsences().size(); i++){ 
              Absence a = etudiant.getAbsence(i);
              %>
