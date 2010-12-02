@@ -7,7 +7,6 @@
 <%@page import="java.util.ArrayList"%>
 <jsp:useBean id="listeEtudiant" class="fr.iut2.tc4.projet.data.ListeEtudiant" scope="request" />
 
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
@@ -18,10 +17,10 @@
         <style type="text/css" >
             <jsp:include page="css/gestion.css" />
         </style>
-        <title>JSP Page</title>
+        <title>Listes des étudiants</title>
     </head>
     <body>
-        <h1>ViewEtudiant</h1>
+        <h1>Listes des étudiants</h1>
         <table class="table">
         <tr>
             <td> Nom</td>
@@ -29,24 +28,24 @@
             <td> Groupe</td>
             <td> Moyenne</td>
             <td> Nb Absence</td>
+            <td> Voir Informations</td>
+            <td> Modifier</td>
+            <td> Supprimer</td>
         </tr>
         <% for(Etudiant e : listeEtudiant.getListe()) { %>
         <tr>
-        
-            <td> <center><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getId()) %>"><%= e.getNom() %></a></center></td>
-            <td> <center><%= e.getPrenom() %></center></td>
-            <td> <center><%= e.getGroupe() %></center></td>
-            <td> <center><%= e.getMoyenne() %></center></td>
-            <td> <center><%= e.getNbAbsences() %></center></td>
-             <td><a href="/GestionNotesAbsence/do/dellEtudiant?id=<%=e.getId()%>">Supprimer</a></td>
-             <td><a href="/GestionNotesAbsence/do/modifEtudiant?id=<%=e.getId()%>">Modifier</a></td>
+            <td><%= e.getNom() %></td>
+            <td><%= e.getPrenom() %></td>
+            <td><%= e.getGroupe() %></td>
+            <td><%= e.getMoyenne() %></td>
+            <td><%= e.getNbAbsences() %></td>
+            <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
+            <td><a href="/GestionNotesAbsence/do/modifEtudiant?id=<%=e.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="modifier" alt="modifier"/></a></td>
+            <td><a href="/GestionNotesAbsence/do/dellEtudiant?id=<%=e.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="supprimer" alt="supprimer"/></a></td>
         </tr>
         <%}%>
             </table>
-
-            <a href="/GestionNotesAbsence/do/addEtudiant">Rajouter un Etudiant</a><br />
-            <a href="/GestionNotesAbsence/do/viewAllNotes">Voir les notes</a>
-       
-      
+            <a href="/GestionNotesAbsence/do/addEtudiant"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="ajouter un étudiant" alt="ajouter un étudiant"/></a>
+            <a href="/GestionNotesAbsence/do/viewAllNotes"><img src="<%=getServletContext().getContextPath()%>/img/note.gif" title="Voir la liste des notes" alt="Voir notes"/></a>      
     </body>
 </html>
