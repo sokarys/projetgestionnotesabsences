@@ -53,8 +53,9 @@ public class Controller extends HttpServlet {
         listeEtudiant = new ListeEtudiant();
         
         listeEtudiant.getListe().add(new Etudiant(0,"kikoo0","non","3IS"));
-        listeEtudiant.getListe().add(new Etudiant(1,"kikoo1","non","3IS"));
-        listeEtudiant.getListe().add(new Etudiant(2,"kikoo2","non","3IS"));
+        listeEtudiant.getListe().add(new Etudiant(1,"kikoo1","non","MIAM"));
+        listeEtudiant.getListe().add(new Etudiant(2,"kikoo2","non","MIAM"));
+        listeEtudiant.getListe().add(new Etudiant(3,"kikoo2","non","MESSI"));
         
         
         listeEtudiant.getListe().get(0).addnote(new Note(0,12,"ENV1"));
@@ -158,8 +159,12 @@ public class Controller extends HttpServlet {
         private void doEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              request.setAttribute("listeEtudiant", listeEtudiant);
-
-            loadJSP(this.urlViewEtudiant, request, response);
+             if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+             }else{
+                 request.setAttribute("groupe", request.getParameter("groupe"));
+            }
+             loadJSP(this.urlViewEtudiant, request, response);
 
         }
          private void doAddAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -22,8 +22,28 @@ public class ListeEtudiant {
         return liste;
     }
 
+    public ArrayList<Etudiant> getListe(String groupe) {
+        ArrayList<Etudiant> l = new ArrayList<Etudiant>();
+        for(Etudiant e : liste){
+            if(e.getGroupe().equals(groupe)){
+                l.add(e);
+            }
+        }
+        return l;
+    }
+
     public void setListe(ArrayList<Etudiant> liste) {
         this.liste = liste;
+    }
+
+    public ArrayList<String> getGroupes(){
+        ArrayList<String> lg = new ArrayList<String>();
+        for(Etudiant e : liste){
+            if(!lg.contains(e.getGroupe())){
+                lg.add(e.getGroupe());
+            }
+        }
+        return lg;
     }
 
 }
