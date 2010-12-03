@@ -43,7 +43,8 @@
            Prénom : <%= etudiant.getPrenom() %><br/>
            Classe : <%= etudiant.getGroupe() %>
         </div>
-        <table class="table">
+        <table class="table" 
+           <% if(etudiant.getNbNote()==0){%>style="display : none ;"<%}%>>
         <caption>Liste des Notes</caption>
         <tr>
              <th>Matière</th>
@@ -60,7 +61,7 @@
             </tr>
             <% } %>
         </table>
-        <table class="table">
+        <table class="table" <% if(etudiant.getNbAbsences()==0){%>style="display : none ;"<%}%>>
          <caption>Liste des absences</caption>
          <tr>
              <th>Motif</th>
