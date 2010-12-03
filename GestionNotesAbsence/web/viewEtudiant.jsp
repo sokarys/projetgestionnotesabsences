@@ -25,11 +25,12 @@
         <jsp:include page="menu.jsp" />
         <div id="corps">
         <h1>Listes des étudiants</h1>
+        <div id="groupe">
         <a href="/GestionNotesAbsence/do/viewEtudiant?groupe=allgroupe">Tous</a>
         <% for(String s : listeEtudiant.getGroupes() ) { %>
         <a href="/GestionNotesAbsence/do/viewEtudiant?groupe=<%=s%>"><%=s%></a>
         <%}%>
-         
+        </div>
         <table class="table">
         <tr>
             <td> Nom</td>

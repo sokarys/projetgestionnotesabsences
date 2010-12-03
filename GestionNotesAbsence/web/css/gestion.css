@@ -20,6 +20,7 @@ body{
     text-align:center;
     width:100%;
     background-image:url('../img/background.jpg');
+    color:#fcefa1;
 }
 .table{
 background-color:transparent;
@@ -27,6 +28,9 @@ border:3px solid #003366;
 border-collapse:separate;
 -moz-border-radius:15px 15px 15px 15px;
 margin-top: 10px;
+text-align:center;
+margin-left:auto;
+margin-right:auto;
 }
 .table td{
     background-color:transparent;
@@ -48,10 +52,15 @@ margin-top: 10px;
 }
 #menu{
     float:left;
+    -moz-border-radius:15px 15px 15px 15px;
+     border:3px solid #003366;
+     padding:10px;
 }
 #corps{
     float:left;
     width:77%;
+    margin-left:auto;
+    margin-right:auto;
 }
 #footer{
    float:right;
@@ -70,4 +79,9 @@ a:hover{
 }
 img{
     border: none;
+}
+#groupe{
+     -moz-border-radius:15px 15px 15px 15px;
+     border:3px solid #003366;
+     padding:10px;
 }
