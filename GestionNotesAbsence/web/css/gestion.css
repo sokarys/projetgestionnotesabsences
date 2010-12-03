@@ -50,7 +50,7 @@ border-spacing: 0;
     padding:7px;
     width:-moz-max-content;
     font-size:23px;
-    
+    text-align:left;
 }
 #menu{
     float:left;
