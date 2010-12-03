@@ -36,6 +36,8 @@
                 <th>Date</th>
                 <th>Motif</th>
                 <th>Voir Informations</th>
+                <th>Supprimer</th>
+                <th>Modifier</th>
             </tr>
             <% for(Etudiant e : listeEtudiant.getListe()){
                 if(e.getGroupe().equals(groupe) || groupe.equals("allgroupe")){
@@ -48,6 +50,9 @@
                     <td><%=a.getFormatDate() %></td>
                     <td><%=a.getMotif() %></td>
                     <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
+                    <td><a href="/GestionNotesAbsence/do/dellAbsenceEtudiant?id=<%=a.getId()%>&idAbsence=<%=a.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer l'absence" alt="Supprimer"/></a></td>
+                    <td><a href="/GestionNotesAbsence/do/modifAbsenceEtudiant?id=<%=a.getId()%>&idAbsence=<%=a.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer l'absence" alt="Modifier"/></a></td>
+
                 </tr>
             <% } } }%>
             <tr

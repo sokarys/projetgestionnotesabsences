@@ -36,7 +36,9 @@
                 <th>Groupe</th>
                 <th>Matiere</th>
                 <th>Notes</th>
-                <th> Voir Informations</th>
+                <th>Voir Informations</th>
+                <th>Supprimer</th>
+                <th>Modifier</th>
             </tr>
             <% for(Etudiant e : listeEtudiant.getListe()){
                 if(e.getGroupe().equals(groupe) || groupe.equals("allgroupe")){
@@ -49,6 +51,9 @@
                     <td><%=n.getMatiere() %></td>
                     <td><%=n.getStringNote() %></td>
                     <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
+                    <td><a href="/GestionNotesAbsence/do/dellNoteEtudiant?id=<%=e.getId()%>&idNote=<%=n.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer la note" alt="Supprimer"/></a></td>
+                    <td><a href="/GestionNotesAbsence/do/modifNoteEtudiant?id=<%=e.getId()%>&idNote=<%=n.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifier la note" alt="Modifier"/></a></td>
+
                 </tr>
             <% } } }%>
             <tr
