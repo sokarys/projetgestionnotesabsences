@@ -12,23 +12,28 @@
 */
 
 root { 
-    display: block;
+   
 }
 body{
     margin-left:auto;
     margin-right:auto;
     text-align:center;
-    width:30%;
+    width:100%;
+    background-image:url('../img/background.jpg');
 }
 .table{
-    background-color:#DDDDDD;
+background-color:transparent;
 border:3px solid #003366;
 border-collapse:separate;
+-moz-border-radius:15px 15px 15px 15px;
+margin-top: 10px;
 }
 .table td{
-    background-color:#66CCCC;
-    border:1px solid #000099;
+    background-color:transparent;
     padding:5px;
+}
+.table tr{
+    border-bottom:1px solid #003366;
 }
 .titre_etudiant{
    -moz-border-radius:15px 15px 15px 15px;
@@ -41,4 +46,28 @@ border-collapse:separate;
     font-size:23px;
     
 }
-
+#menu{
+    float:left;
+}
+#corps{
+    float:left;
+    width:77%;
+}
+#footer{
+   float:right;
+}
+h1{
+    color:#FFCC66;
+}
+a{
+    color:#fbcb09;
+}
+a:visited{
+    color:#b81900;
+}
+a:hover{
+    color: #fcefa1;
+}
+img{
+    border: none;
+}

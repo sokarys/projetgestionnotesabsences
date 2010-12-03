@@ -8,5 +8,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 <div id="footer" >
-     <p> Created by Lefevre Mike et Locci Olivier</p>
+     <p> Created by Lefevre Michael et Locci Olivier</p>
 </div>
