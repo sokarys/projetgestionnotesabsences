@@ -36,9 +36,9 @@
         <caption>Liste des Notes</caption>
         <tr>
              <th>Matière</th>
-             <th>Note</th>
-             <th>Supprimer</th>
+             <th>Note</th>             
              <th>Modifier</th>
+             <th>Supprimer</th>
          </tr>
          <% for(Note n : etudiant.getListNote()) { %>
             <tr>
