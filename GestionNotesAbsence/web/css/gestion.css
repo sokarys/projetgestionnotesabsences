@@ -25,10 +25,8 @@ body{
 .table{
 background-color:transparent;
 border:3px solid #003366;
-border-collapse:separate;
 -moz-border-radius:15px 15px 15px 15px;
 margin-top: 10px;
-text-align:center;
 margin-left:auto;
 margin-right:auto;
 }
@@ -37,7 +35,12 @@ margin-right:auto;
     padding:5px;
 }
 .table tr{
+    border-bottom:1px solid #003366;    
+}
+.table th{
     border-bottom:1px solid #003366;
+    border-right:1px solid #003366;
+    padding:9px;
 }
 .titre_etudiant{
    -moz-border-radius:15px 15px 15px 15px;
@@ -80,6 +83,9 @@ img{
 }
 #groupe{
      -moz-border-radius:15px 15px 15px 15px;
-     border:3px solid #003366;
-     padding:10px;
+border:3px solid #003366;
+margin-left:auto;
+margin-right:auto;
+padding:10px;
+width:-moz-max-content;
 }

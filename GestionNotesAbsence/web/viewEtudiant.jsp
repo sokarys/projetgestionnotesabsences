@@ -32,16 +32,18 @@
         <%}%>
         </div>
         <table class="table">
-        <tr>
-            <td> Nom</td>
-            <td> Prenom </td>
-            <td> Groupe</td>
-            <td> Moyenne</td>
-            <td> Nb Absence</td>
-            <td> Voir Informations</td>
-            <td> Modifier</td>
-            <td> Supprimer</td>
-        </tr>
+            <thead>
+            <tr>
+                <th> Nom</th>
+                <th> Prenom </th>
+                <th> Groupe</th>
+                <th> Moyenne</th>
+                <th> Nb Absence</th>
+                <th> Voir Informations</th>
+                <th> Modifier</th>
+                 <th> Supprimer</th>
+            </tr>
+            </thead>
         <% for(Etudiant e : listeEtudiant.getListe()) { 
             if(e.getGroupe().equals(groupe) || groupe.equals("allgroupe")){
         %>
