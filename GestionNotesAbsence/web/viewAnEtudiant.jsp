@@ -34,24 +34,37 @@
         </div>
         <table class="table">
         <caption>Liste des Notes</caption>
+        <tr>
+             <th>Matière</th>
+             <th>Note</th>
+             <th>Supprimer</th>
+             <th>Modifier</th>
+         </tr>
          <% for(Note n : etudiant.getListNote()) { %>
             <tr>
                 <td><%=n.getMatiere() %></td>
                 <td><%=n.getStringNote() %></td>
-                 <td><a href="/GestionNotesAbsence/do/dellNoteEtudiant?id=<%=etudiant.getId()%>&idNote=<%=n.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer la note" alt="Supprimer"/></a></td>
-                  <td><a href="/GestionNotesAbsence/do/modifNoteEtudiant?id=<%=etudiant.getId()%>&idNote=<%=n.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifier la note" alt="Modifier"/></a></td>
+                <td><a href="/GestionNotesAbsence/do/modifNoteEtudiant?id=<%=etudiant.getId()%>&idNote=<%=n.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifier la note" alt="Modifier"/></a></td>
+                <td><a href="/GestionNotesAbsence/do/dellNoteEtudiant?id=<%=etudiant.getId()%>&idNote=<%=n.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer la note" alt="Supprimer"/></a></td>
             </tr>
             <% } %>
         </table>
         <table class="table">
          <caption>Liste des absences</caption>
+         <tr>
+             <th>Motif</th>
+             <th>Date</th>
+             <th>Modifier</th>
+             <th>Supprimer</th>            
+         </tr>
          <%  for(Absence a : etudiant.getListAbsences() ) {
              %>
             <tr>
                 <td><%= a.getMotif() %></td>
-                <td><%=a.getFormatDate() %></td>
-                <td><a href="/GestionNotesAbsence/do/dellAbsenceEtudiant?id=<%=etudiant.getId()%>&idAbsence=<%=a.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer l'absence" alt="Supprimer"/></a></td>
+                <td><%=a.getFormatDate() %></td> 
                 <td><a href="/GestionNotesAbsence/do/modifAbsenceEtudiant?id=<%=etudiant.getId()%>&idAbsence=<%=a.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer l'absence" alt="Modifier"/></a></td>
+                <td><a href="/GestionNotesAbsence/do/dellAbsenceEtudiant?id=<%=etudiant.getId()%>&idAbsence=<%=a.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer l'absence" alt="Supprimer"/></a></td>
+               
             </tr>
             <% } %>
         </table>
