@@ -20,7 +20,11 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="header.jsp" />
+        <jsp:include page="menu.jsp" />
+         <div id="corps">
         <h1>Les Notes</h1>
+
         <a href="/GestionNotesAbsence/do/viewAllNotes?groupe=allgroupe">Tous</a>
         <% for(String s : listeEtudiant.getGroupes() ) { %>
         <a href="/GestionNotesAbsence/do/viewAllNotes?groupe=<%=s%>"><%=s%></a>
@@ -28,6 +32,7 @@
         <table class="table">
             <tr>
                 <td>Nom</td>
+                <td>Prenom</td>
                 <td>Groupe</td>
                 <td>Matiere</td>
                 <td>Notes</td>
@@ -37,7 +42,8 @@
             %>
                 <% for(Note n : e.getListNote()){ %>
                 <tr>
-                    <td><%=e.getNom() + " " + e.getPrenom()%></td>
+                    <td><%=e.getNom()%></td>
+                    <td><%=e.getPrenom()%></td>
                     <td><%=e.getGroupe()%></td>
                     <td><%=n.getMatiere() %></td>
                     <td><%=n.getStringNote() %></td>
@@ -45,5 +51,7 @@
             <% } } }%>
             <tr
         </table>
+    </div>
+            <jsp:include page="footer.jsp" />
     </body>
 </html>

@@ -22,7 +22,11 @@
         <title>Information de l'étudiant</title>
     </head>
     <body>
+        <jsp:include page="header.jsp" />
+        <jsp:include page="menu.jsp" />
+         <div id="corps">
         <h1>Informations Etudiant</h1>
+        
         <div class="titre_etudiant"><%= etudiant.toString() %></div>
         <table class="table">
         <caption>Liste des Notes</caption>
@@ -52,5 +56,7 @@
         </table>
         <a href="/GestionNotesAbsence/do/addAbsenceEtudiant?id=<%=etudiant.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une absence" alt="Ajouter absence"/></a>
         <a href="/GestionNotesAbsence/do/addNoteEtudiant?id=<%=etudiant.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une note" alt="Ajouter Note"/></a>
+        </div>
+    <jsp:include page="footer.jsp" />
     </body>
 </html>

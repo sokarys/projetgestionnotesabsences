@@ -15,11 +15,16 @@
         <title>Modifier l'absence d'un étudiant</title>
     </head>
     <body>
+        <jsp:include page="header.jsp" />
+        <jsp:include page="menu.jsp" />
+         <div id="corps">
         <h1>Rajouter une Absence pour <%= etudiant.getNom() +" " +  etudiant.getPrenom() %> </h1>
         <form method="post" action="/GestionNotesAbsence/do/modifiedAbsenceEtudiant?id=<%=etudiant.getId()%>&idAbsence=<%=absence.getId() %>"> <!-- action : -->
             Date : <input type="text" name="date" value="<%=absence.getFormatDate() %>"/><br /> <!-- name = meme nom que la classe etudiant-->
             Motif : <input type="text" name="motif" value="<%=absence.getMotif() %>"/><br />
             <input type="submit" />
         </form>
+         </div>
+        <jsp:include page="footer.jsp" />
     </body>
 </html>

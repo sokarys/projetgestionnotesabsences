@@ -15,11 +15,16 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="header.jsp" />
+        <jsp:include page="menu.jsp" />
+         <div id="corps">
         <h1>Rajouter une note pour <%= etudiant.getNom() +" " +  etudiant.getPrenom() %> </h1>
         <form method="post" action="/GestionNotesAbsence/do/modifiedNoteEtudiant?id=<%=etudiant.getId()%>&idNote=<%=note.getId()%>"> <!-- action : -->
             Note : <input type="text" name="note" value="<%=note.getNote() %>" /><br /> <!-- name = meme nom que la classe etudiant-->
             Matiere : <input type="text" name="matiere" value="<%=note.getMatiere() %>"/><br />
             <input type="submit" />
         </form>
+            </div>
+            <jsp:include page="footer.jsp" />
     </body>
 </html>

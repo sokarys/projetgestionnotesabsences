@@ -21,12 +21,15 @@
         <title>Listes des étudiants</title>
     </head>
     <body>
+       <jsp:include page="header.jsp" />
+        <jsp:include page="menu.jsp" />
+        <div id="corps">
         <h1>Listes des étudiants</h1>
         <a href="/GestionNotesAbsence/do/viewEtudiant?groupe=allgroupe">Tous</a>
         <% for(String s : listeEtudiant.getGroupes() ) { %>
         <a href="/GestionNotesAbsence/do/viewEtudiant?groupe=<%=s%>"><%=s%></a>
         <%}%>
-        
+         
         <table class="table">
         <tr>
             <td> Nom</td>
@@ -57,5 +60,7 @@
             <a href="/GestionNotesAbsence/do/addEtudiant"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="ajouter un étudiant" alt="ajouter un étudiant"/></a>
             <a href="/GestionNotesAbsence/do/viewAllNotes"><img src="<%=getServletContext().getContextPath()%>/img/note.gif" title="Voir la liste des notes" alt="Voir notes"/></a>
             <a href="/GestionNotesAbsence/do/viewAllAbsence"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir la liste des Absences" alt="Voir Absence"/></a>
+        </div>
+             <jsp:include page="footer.jsp" />
     </body>
 </html>

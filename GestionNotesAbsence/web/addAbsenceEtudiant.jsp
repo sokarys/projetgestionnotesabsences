@@ -19,18 +19,23 @@
         <script type="text/javascript">
         <jsp:include page="/jquery/js/jquery-1.4.2.min.js" />
         <jsp:include page="/jquery/js/jquery-ui-1.8.6.custom.min.js" />
-       jQuery(document).ready(function(){
+        jQuery(document).ready(function(){
              $("#datepicker").datepicker({dateFormat:'dd/mm/yy'});
             });
          </script>
         <title>Ajouter une absence</title>
     </head>
     <body>
+         <jsp:include page="header.jsp" />
+        <jsp:include page="menu.jsp" />
+         <div id="corps">
         <h1>Rajouter une Absence pour <%= etudiant.getNom() +" " +  etudiant.getPrenom() %> </h1>
         <form method="post" action="/GestionNotesAbsence/do/addedAbsenceEtudiant?id=<%=etudiant.getId()%>"> <!-- action : -->
             Date : <input type="text" name="date" id="datepicker"/><br /> <!-- name = meme nom que la classe etudiant-->
             Motif : <input type="text" name="motif" /><br />
             <input type="submit" />
         </form>
+         </div>
+             <jsp:include page="footer.jsp" />
     </body>
 </html>

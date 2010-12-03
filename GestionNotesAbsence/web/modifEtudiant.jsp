@@ -14,6 +14,9 @@
         <title><%= getServletContext().getInitParameter("title")%></title>
     </head>
     <body>
+        <jsp:include page="header.jsp" />
+        <jsp:include page="menu.jsp" />
+         <div id="corps">
         <h1>Modifie Etudiant</h1>
         <form method="post" action="/GestionNotesAbsence/do/modifiedEtudiant?id=<%=etudiant.getId()%>"> <!-- action : -->
             Nom : <input type="text" name="nom" value="<%= etudiant.getNom() %>"/><br /> <!-- name = meme nom que la classe etudiant-->
@@ -21,5 +24,7 @@
             Groupe : <input type="text" name="groupe" value="<%= etudiant.getGroupe() %>" /><br />
             <input type="submit" />
         </form>
+         </div>
+            <jsp:include page="footer.jsp" />
     </body>
 </html>
