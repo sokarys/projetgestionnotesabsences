@@ -30,11 +30,12 @@
         <%}%>
         <table class="table">
             <tr>
-                <td>Nom</td>
-                <td>Prenom</td>
-                <td>Groupe</td>
-                <td>Date</td>
-                <td>Motif</td>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Groupe</th>
+                <th>Date</th>
+                <th>Motif</th>
+                <th>Voir Informations</th>
             </tr>
             <% for(Etudiant e : listeEtudiant.getListe()){
                 if(e.getGroupe().equals(groupe) || groupe.equals("allgroupe")){
@@ -46,6 +47,7 @@
                     <td><%=e.getGroupe()%></td>
                     <td><%=a.getFormatDate() %></td>
                     <td><%=a.getMotif() %></td>
+                    <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
                 </tr>
             <% } } }%>
             <tr
