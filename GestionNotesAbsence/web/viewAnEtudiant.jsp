@@ -54,9 +54,17 @@
             </tr>
             <% } %>
         </table>
-        <a href="/GestionNotesAbsence/do/addAbsenceEtudiant?id=<%=etudiant.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une absence" alt="Ajouter absence"/></a>
-        <a href="/GestionNotesAbsence/do/addNoteEtudiant?id=<%=etudiant.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une note" alt="Ajouter Note"/></a>
-        </div>
+        <table class="table">
+            <tr>
+                <th>Ajouter absence</th>
+                <th>Ajouter Note</th>
+            </tr>
+        <tr>
+        <td><a href="/GestionNotesAbsence/do/addAbsenceEtudiant?id=<%=etudiant.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une absence" alt="Ajouter absence"/></a></td>
+        <td><a href="/GestionNotesAbsence/do/addNoteEtudiant?id=<%=etudiant.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une note" alt="Ajouter Note"/></a></td>
+          </tr>
+        </table>
+         </div>
     <jsp:include page="footer.jsp" />
     </body>
 </html>
