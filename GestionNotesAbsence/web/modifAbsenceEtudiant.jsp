@@ -12,6 +12,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css" >
+            <jsp:include page="css/gestion.css" />
+        </style> 
         <title>Modifier l'absence d'un étudiant</title>
     </head>
     <body>

@@ -41,9 +41,7 @@ margin-right:auto;
 }
 .titre_etudiant{
    -moz-border-radius:15px 15px 15px 15px;
-    -moz-box-shadow:3px 3px 0 #AAAAAA;
-    background-color:#DEEDF7;
-    border:1px solid #AED0EA;
+    border:3px solid #003366;
     margin:5px 0 26px 112px;
     padding:7px;
     width:-moz-max-content;

@@ -12,6 +12,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css" >
+             <jsp:include page="/jquery/css/ui-lightness/jquery-ui-1.8.6.custom.css" />
+        </style> 
         <title>JSP Page</title>
     </head>
     <body>

@@ -12,7 +12,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <style type="text/css" >
+             <jsp:include page="css/gestion.css" />
+        </style>
+        <title>Editer une Note d'un étudiant</title>
     </head>
     <body>
         <jsp:include page="header.jsp" />
