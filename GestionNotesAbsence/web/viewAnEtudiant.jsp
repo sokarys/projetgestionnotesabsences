@@ -16,6 +16,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css" >
+             <jsp:include page="/jquery/css/ui-lightness/jquery-ui-1.8.6.custom.css" />
+             <jsp:include page="css/gestion.css" />
+        </style>
+        <script type="text/javascript">
+        <jsp:include page="/jquery/js/jquery-1.4.2.min.js" />
+        <jsp:include page="/jquery/js/jquery-ui-1.8.6.custom.min.js" />
+        jQuery(document).ready(function(){
+             $("#datepicker").datepicker({dateFormat:'dd/mm/yy'});
+            });
+         </script>
         <style type="" >
             <jsp:include page="css/gestion.css" />
         </style>
@@ -25,7 +36,7 @@
         <jsp:include page="header.jsp" />
         <jsp:include page="menu.jsp" />
          <div id="corps">
-        <h1>Informations Etudiant</h1>
+            <h1>Informations Etudiant</h1>
         
         <div class="titre_etudiant">
            Nom : <%= etudiant.getNom() %><br/>
@@ -78,7 +89,9 @@
         <td><a href="/GestionNotesAbsence/do/addNoteEtudiant?id=<%=etudiant.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une note" alt="Ajouter Note"/></a></td>
           </tr>
         </table>
+        <div id="datepicker"></div>
          </div>
+          
     <jsp:include page="footer.jsp" />
     </body>
 </html>
