@@ -23,7 +23,7 @@
         <jsp:include page="header.jsp" />
         <jsp:include page="menu.jsp" />
          <div id="corps">
-          <h1>Les Notes</h1>
+          <h1>Les Absences</h1>
         <a href="/GestionNotesAbsence/do/viewAllAbsence?groupe=allgroupe">Tous</a>
         <% for(String s : listeEtudiant.getGroupes() ) { %>
         <a href="/GestionNotesAbsence/do/viewAllAbsence?groupe=<%=s%>"><%=s%></a>
