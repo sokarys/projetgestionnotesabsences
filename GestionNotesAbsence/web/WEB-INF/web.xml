@@ -60,7 +60,11 @@
             30
         </session-timeout>
     </session-config>
-
+    	<servlet>
+		<servlet-name>ServletInit</servlet-name>
+		<servlet-class>fr.iut2.tc4.aideprojet2.ServletInit</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
     <welcome-file-list>
 <welcome-file> viewEtudiant.jsp </welcome-file>
 </welcome-file-list>
