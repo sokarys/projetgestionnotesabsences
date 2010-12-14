@@ -1,0 +1,101 @@
+
+targetdatabase = mysql
+
+correctGetters = 
+
+             
+
+
+
+
+
+
+
+
+
+    BasePeers generated in package fr.iut2.tc4.projet.torque.generated
+    BaseObjects generated in package fr.iut2.tc4.projet.torque.generated
+    BaseManagers generated in package fr.iut2.tc4.projet.torque.generated
+    BaseBeans generated in package fr.iut2.tc4.projet.torque.generated.bean
+    Maps generated in package fr.iut2.tc4.projet.torque.generated.map
+
+    Failed to create dir or dir already exists: C:\Users\Michael\Documents\NetBeansProjects\GestionNotesAbsence\src/fr\iut2\tc4\projet\torque\generated\
+
+    Failed to create dir or dir already exists: C:\Users\Michael\Documents\NetBeansProjects\GestionNotesAbsence\src/fr\iut2\tc4\projet\torque\generated\
+
+    Failed to create dir or dir already exists: C:\Users\Michael\Documents\NetBeansProjects\GestionNotesAbsence\src/fr\iut2\tc4\projet\torque\generated\map\
+
+
+
+    
+
+        test
+
+        
+
+        
+
+          
+
+
+          
+
+
+        author
+
+        
+
+        
+
+          
+
+
+          
+
+
+        book
+
+        
+
+        
+
+          
+
+
+          
+
+
+        reader
+
+        
+
+        
+
+          
+
+
+          
+
+
+        reference
+
+        
+
+        
+
+          
+
+
+          
+
+
+
+
+
+
+    
+
+;
+    Failed to create dir or dir already exists: C:\Users\Michael\Documents\NetBeansProjects\GestionNotesAbsence\src/org\apache\torque\linkage\
+    
+

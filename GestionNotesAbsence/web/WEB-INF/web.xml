@@ -62,7 +62,7 @@
     </session-config>
     	<servlet>
 		<servlet-name>ServletInit</servlet-name>
-		<servlet-class>fr.iut2.tc4.aideprojet2.ServletInit</servlet-class>
+		<servlet-class>fr.iut2.tc4.projet.ServletInit</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
     <welcome-file-list>

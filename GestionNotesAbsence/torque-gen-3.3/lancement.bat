@@ -1,0 +1,2 @@
+cd /D "C:\Users\Michael\Documents\Downloads\apache-ant-1.8.1\bin\"
+ant -f "C:\Users\Michael\Documents\NetBeansProjects\GestionNotesAbsence\torque-gen-3.3\build-torque.xml" create-db & ant -f "C:\Users\Michael\Documents\NetBeansProjects\GestionNotesAbsence\torque-gen-3.3\build-torque.xml" & ant -f "C:\Users\Michael\Documents\NetBeansProjects\GestionNotesAbsence\torque-gen-3.3\build-torque.xml" insert-sql

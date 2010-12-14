@@ -25,19 +25,19 @@
   name="gestion"
   defaultIdMethod="native">
   
-  <table name="publisher" description="Publisher Table">
+  <table name="test" description="Test Table">
     <column
-      name="publisher_id"
+      name="test_id"
       required="true"
       primaryKey="true"
       type="INTEGER"
-      description="Publisher Id"/>
+      description="test Id"/>
     <column
       name="name"
       required="true"
       type="VARCHAR"
       size="128"
-      description="Publisher Name"/>
+      description="Test Name"/>
   </table>
   
   <table name="author" description="Author Table">
@@ -82,19 +82,19 @@
       javaName="ISBN"
       description="ISBN Number"/>
     <column
-      name="publisher_id"
+      name="test_id"
       required="true"
       type="INTEGER"
-      description="Foreign Key Publisher"/>
+      description="Foreign Key test"/>
     <column
       name="author_id"
       required="true"
       type="INTEGER"
       description="Foreign Key Author"/>
-    <foreign-key foreignTable="publisher">
+    <foreign-key foreignTable="test">
       <reference
-        local="publisher_id"
-        foreign="publisher_id"/>
+        local="test_id"
+        foreign="test_id"/>
     </foreign-key>
     <foreign-key foreignTable="author">
       <reference
