@@ -19,7 +19,6 @@ public class GestionMapInit
         fr.iut2.tc4.projet.torque.AbsencePeer.getMapBuilder();
         fr.iut2.tc4.projet.torque.MatierePeer.getMapBuilder();
         fr.iut2.tc4.projet.torque.ClassePeer.getMapBuilder();
-        fr.iut2.tc4.projet.torque.NotePeer.getMapBuilder();
         fr.iut2.tc4.projet.torque.ControlePeer.getMapBuilder();
     }
 }

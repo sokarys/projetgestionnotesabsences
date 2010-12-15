@@ -56,7 +56,9 @@ public  class Etudiant
                     Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            return moy/coef;
+            if(coef != 0){
+                return moy/coef;
+            }
         } catch (TorqueException ex) {
             Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
         }

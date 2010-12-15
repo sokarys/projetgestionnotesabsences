@@ -20,8 +20,8 @@ drop table if exists absence;
 CREATE TABLE absence
 (
     absence_id INTEGER NOT NULL AUTO_INCREMENT,
-    dateDebut TIMESTAMP NOT NULL,
-    dateFin TIMESTAMP NOT NULL,
+    dateDebut DATETIME NOT NULL,
+    dateFin DATETIME NOT NULL,
     motif VARCHAR(128) NOT NULL,
     etudiant_id INTEGER NOT NULL,
     PRIMARY KEY(absence_id));
@@ -56,18 +56,6 @@ CREATE TABLE classe
 
 
 # -----------------------------------------------------------------------
-# note
-# -----------------------------------------------------------------------
-drop table if exists note;
-
-CREATE TABLE note
-(
-    note_id INTEGER NOT NULL AUTO_INCREMENT,
-    note FLOAT NOT NULL,
-    PRIMARY KEY(note_id));
-
-
-# -----------------------------------------------------------------------
 # controle
 # -----------------------------------------------------------------------
 drop table if exists controle;
@@ -76,9 +64,10 @@ CREATE TABLE controle
 (
     controle_id INTEGER NOT NULL AUTO_INCREMENT,
     coef INTEGER NOT NULL,
-    date TIMESTAMP NOT NULL,
+    date DATETIME NOT NULL,
+    note INTEGER NOT NULL,
     matiere_id INTEGER NOT NULL,
-    note_id INTEGER NOT NULL,
+    etudiant_id INTEGER NOT NULL,
     PRIMARY KEY(controle_id));
 
 ALTER TABLE absence
@@ -101,13 +90,13 @@ ALTER TABLE classe
 
 ALTER TABLE controle
     ADD CONSTRAINT controle_FK_1
-    FOREIGN KEY (matiere_id)
-    REFERENCES matiere (matiere_id)
+    FOREIGN KEY (etudiant_id)
+    REFERENCES etudiant (etudiant_id)
 ;
 
 ALTER TABLE controle
     ADD CONSTRAINT controle_FK_2
-    FOREIGN KEY (note_id)
-    REFERENCES note (note_id)
+    FOREIGN KEY (matiere_id)
+    REFERENCES matiere (matiere_id)
 ;
 

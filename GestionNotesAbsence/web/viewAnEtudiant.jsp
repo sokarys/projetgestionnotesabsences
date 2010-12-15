@@ -5,9 +5,9 @@
     Author     : sokarys
 --%>
 <%@page import="java.util.GregorianCalendar"%>
-<%@page import="fr.iut2.tc4.projet.data.Absence"%>
-<%@page import="fr.iut2.tc4.projet.data.Note"%>
-<jsp:useBean id="etudiant" class="fr.iut2.tc4.projet.data.Etudiant" scope="request" />
+<%@page import="fr.iut2.tc4.projet.torque.Absence"%>
+<%@page import="fr.iut2.tc4.projet.torque.Note"%>
+<jsp:useBean id="etudiant" class="fr.iut2.tc4.projet.torque.Etudiant" scope="request" />
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -86,7 +86,7 @@
                 <th>Ajouter Note</th>
             </tr>
         <tr>
-        <td><a href="/GestionNotesAbsence/do/addAbsenceEtudiant?id=<%=etudiant.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une absence" alt="Ajouter absence"/></a></td>
+        <td><a href="/GestionNotesAbsence/do/addAbsenceEtudiant?id=<%=etudian%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une absence" alt="Ajouter absence"/></a></td>
         <td><a href="/GestionNotesAbsence/do/addNoteEtudiant?id=<%=etudiant.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une note" alt="Ajouter Note"/></a></td>
           </tr>
         </table>

@@ -56,12 +56,12 @@
         <column
       name="dateDebut"
       required="true"
-      type="TIMESTAMP"
+      type="DATE"
       description="Date de debut"/>
       <column
       name="dateFin"
       required="true"
-      type="TIMESTAMP"
+      type="DATE"
       description="Date de fin"/>
       <column
       name="motif"
@@ -141,19 +141,6 @@
         foreign="matiere_id"/>
       </foreign-key>
     </table>
-    <table name="note" description="Table des notes">
-        <column
-      name="note_id"
-      required="true"
-      primaryKey="true"
-      type="INTEGER"
-      description="note Id"/>
-        <column
-      name="note"
-      required="true"
-      type="FLOAT"
-      description="note"/>
-    </table>
     <table name="controle" description="Table des controles">
         <column
       name="controle_id"
@@ -169,27 +156,32 @@
       <column
       name="date"
       required="true"
-      type="TIMESTAMP"
+      type="DATE"
       description="date du controle"/>
+       <column
+      name="note"
+      required="true"
+      type="INTEGER"
+      description="note du controle"/>
         <column
       name="matiere_id"
       required="true"
       type="INTEGER"
-      description="Matiere id"/>
-        <column
-      name="note_id"
+      description="Matiere id"/>      
+       <column
+      name="etudiant_id"
       required="true"
       type="INTEGER"
-      description="note id"/>
+      description="etudiant id"/>
+       <foreign-key foreignTable="etudiant">
+      <reference
+        local="etudiant_id"
+        foreign="etudiant_id"/>
+      </foreign-key>
       <foreign-key foreignTable="matiere">
       <reference
         local="matiere_id"
         foreign="matiere_id"/>
-      </foreign-key>
-      <foreign-key foreignTable="note">
-      <reference
-        local="note_id"
-        foreign="note_id"/>
-      </foreign-key>
+      </foreign-key>           
     </table> 
 </database>
