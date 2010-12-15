@@ -22,6 +22,7 @@ CREATE TABLE absence
     absence_id INTEGER NOT NULL AUTO_INCREMENT,
     dateDebut TIMESTAMP NOT NULL,
     dateFin TIMESTAMP NOT NULL,
+    motif VARCHAR(128) NOT NULL,
     etudiant_id INTEGER NOT NULL,
     PRIMARY KEY(absence_id));
 

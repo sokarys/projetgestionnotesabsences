@@ -64,6 +64,12 @@
       type="TIMESTAMP"
       description="Date de fin"/>
       <column
+      name="motif"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="motif d'absence"/>
+      <column
       name="etudiant_id"
       required="true"
       type="INTEGER"
