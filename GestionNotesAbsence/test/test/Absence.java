@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package fr.iut2.tc4.projet.data;
+package test;
 
 import java.util.GregorianCalendar;
 

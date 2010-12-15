@@ -43,14 +43,9 @@ public class ListeEtudiant {
         this.liste = liste;
     }
 
-    public void setListe(List liste){
-        try {
-            List l = BaseEtudiantPeer.doSelect(new Criteria());
+    public void setListe(List<Etudiant> liste){
             @SuppressWarnings("unchecked")
-            boolean addAll = liste.addAll(l);
-        } catch (TorqueException ex) {
-            Logger.getLogger(ListeEtudiant.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            boolean addAll = liste.addAll(liste);
     }
 
     public ArrayList<String> getGroupes(){
