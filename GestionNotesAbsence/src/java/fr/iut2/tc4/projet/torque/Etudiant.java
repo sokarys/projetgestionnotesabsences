@@ -27,7 +27,7 @@ public  class Etudiant
     public String getGroupe(){
         try {
             if (this.getClasses().size() > 0) {
-                return this.getClasses().get(0).toString();
+                return ((fr.iut2.tc4.projet.torque.Classe) this.getClasses().get(0)).getNom();
             }
         } catch (TorqueException ex) {
             Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
