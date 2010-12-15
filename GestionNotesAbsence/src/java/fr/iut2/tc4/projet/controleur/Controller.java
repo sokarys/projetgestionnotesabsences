@@ -12,6 +12,7 @@ package fr.iut2.tc4.projet.controleur;
 
 import fr.iut2.tc4.projet.data.ListeEtudiant;
 import fr.iut2.tc4.projet.torque.BaseEtudiantPeer;
+import fr.iut2.tc4.projet.torque.EtudiantPeer;
 import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -136,8 +137,8 @@ public class Controller extends HttpServlet {
         private void doEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             //request.setAttribute("etudiant",request.getAttribute("name"));
-            System.out.println(BaseEtudiantPeer.doSelect(new Criteria()).toArray());
-            listeetudiant.setListe(BaseEtudiantPeer.doSelect(new Criteria()));
+            System.out.println("Taille :::  " + EtudiantPeer.doSelect(new Criteria()).toArray().length);
+            listeetudiant.setListe(EtudiantPeer.doSelect(new Criteria()));
             request.setAttribute("listeEtudiant", listeetudiant);
             if (request.getParameter("groupe") == null) {
                 request.setAttribute("groupe", "allgroupe");
