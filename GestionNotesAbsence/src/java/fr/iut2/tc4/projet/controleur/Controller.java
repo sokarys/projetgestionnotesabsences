@@ -9,10 +9,8 @@ package fr.iut2.tc4.projet.controleur;
  *
  * @author sokarys
  */
-import fr.iut2.tc4.projet.data.Absence;
-import fr.iut2.tc4.projet.data.Etudiant;
-import fr.iut2.tc4.projet.data.ListeEtudiant;
-import fr.iut2.tc4.projet.data.Note;
+
+import fr.iut2.tc4.projet.torque.Etudiant;
 import java.io.IOException;
 import java.util.GregorianCalendar;
 
@@ -41,38 +39,11 @@ public class Controller extends HttpServlet {
         private String urlViewAnEtudiant;
 
 
-        private ListeEtudiant listeEtudiant;
 
         public Controller(){}
     @Override
     public void init() throws ServletException {
 
-        listeEtudiant = new ListeEtudiant();
-        
-        listeEtudiant.getListe().add(new Etudiant(0,"kikoo0","non","3IS"));
-        listeEtudiant.getListe().add(new Etudiant(1,"kikoo1","non","MIAM"));
-        listeEtudiant.getListe().add(new Etudiant(2,"kikoo2","non","MIAM"));
-        listeEtudiant.getListe().add(new Etudiant(3,"kikoo2","non","MESSI"));
-        
-        
-        listeEtudiant.getListe().get(0).addnote(new Note(0,12,"ENV1"));
-        listeEtudiant.getListe().get(1).addnote(new Note(0,12,"ENV1"));
-        listeEtudiant.getListe().get(2).addnote(new Note(0,12,"ENV1"));
-        listeEtudiant.getListe().get(1).addnote(new Note(1,12,"ENV1"));
-        listeEtudiant.getListe().get(0).addAbsence( new Absence(0,new GregorianCalendar(),"Neige"));
-        listeEtudiant.getListe().get(1).addAbsence(new Absence(0,new GregorianCalendar(),"Neige"));
-        listeEtudiant.getListe().get(2).addAbsence(new Absence(0,new GregorianCalendar(),"Neige"));
-        listeEtudiant.getListe().get(1).addAbsence(new Absence(1,new GregorianCalendar(),"Neige"));
-        urlViewEtudiant = getServletConfig().getInitParameter("urlViewEtudiant");
-        urlViewAnEtudiant = getServletConfig().getInitParameter("urlViewAnEtudiant");
-        urlAddEtudiant = getServletConfig().getInitParameter("urlAddEtudiant");
-        urlAddNote = getServletConfig().getInitParameter("urlAddNote");
-        urlAddAbsence = getServletConfig().getInitParameter("urlAddAbsence");
-        urlViewAllAbsence = getServletConfig().getInitParameter("urlViewAllAbsence");
-        urlViewAllNotes = getServletConfig().getInitParameter("urlViewAllNotes");
-        urlModifEtudiant = getServletConfig().getInitParameter("urlModifEtudiant");
-        urlModifNote = getServletConfig().getInitParameter("urlModifNoteEtudiant");
-        urlModifAbsence = getServletConfig().getInitParameter("urlModifAbsenceEtudiant");
 
     }
 

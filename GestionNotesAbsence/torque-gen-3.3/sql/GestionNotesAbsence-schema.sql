@@ -1,89 +1,112 @@
 
 # -----------------------------------------------------------------------
-# test
+# etudiant
 # -----------------------------------------------------------------------
-drop table if exists test;
+drop table if exists etudiant;
 
-CREATE TABLE test
+CREATE TABLE etudiant
 (
-    test_id INTEGER NOT NULL AUTO_INCREMENT,
-    name VARCHAR(128) NOT NULL,
-    PRIMARY KEY(test_id));
+    etudiant_id INTEGER NOT NULL AUTO_INCREMENT,
+    nom VARCHAR(128) NOT NULL,
+    prenom VARCHAR(128) NOT NULL,
+    PRIMARY KEY(etudiant_id));
 
 
 # -----------------------------------------------------------------------
-# author
+# absence
 # -----------------------------------------------------------------------
-drop table if exists author;
+drop table if exists absence;
 
-CREATE TABLE author
+CREATE TABLE absence
 (
-    author_id INTEGER NOT NULL AUTO_INCREMENT,
-    first_name VARCHAR(128) NOT NULL,
-    last_name VARCHAR(128) NOT NULL,
-    PRIMARY KEY(author_id));
+    absence_id INTEGER NOT NULL AUTO_INCREMENT,
+    dateDebut TIMESTAMP NOT NULL,
+    dateFin TIMESTAMP NOT NULL,
+    etudiant_id INTEGER NOT NULL,
+    PRIMARY KEY(absence_id));
 
 
 # -----------------------------------------------------------------------
-# book
+# matiere
 # -----------------------------------------------------------------------
-drop table if exists book;
+drop table if exists matiere;
 
-CREATE TABLE book
+CREATE TABLE matiere
 (
-    book_id INTEGER NOT NULL AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL,
-    isbn VARCHAR(24) NOT NULL,
-    test_id INTEGER NOT NULL,
-    author_id INTEGER NOT NULL,
-    PRIMARY KEY(book_id));
+    matiere_id INTEGER NOT NULL AUTO_INCREMENT,
+    nom VARCHAR(128) NOT NULL,
+    description VARCHAR(128) NOT NULL,
+    prof VARCHAR(128) NOT NULL,
+    PRIMARY KEY(matiere_id));
 
 
 # -----------------------------------------------------------------------
-# reader
+# classe
 # -----------------------------------------------------------------------
-drop table if exists reader;
+drop table if exists classe;
 
-CREATE TABLE reader
+CREATE TABLE classe
 (
-    reader_id INTEGER NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    PRIMARY KEY(reader_id));
+    classe_id INTEGER NOT NULL AUTO_INCREMENT,
+    nom VARCHAR(255) NOT NULL,
+    etudiant_id INTEGER NOT NULL,
+    matiere_id INTEGER NOT NULL,
+    PRIMARY KEY(classe_id));
 
 
 # -----------------------------------------------------------------------
-# reference
+# note
 # -----------------------------------------------------------------------
-drop table if exists reference;
+drop table if exists note;
 
-CREATE TABLE reference
+CREATE TABLE note
 (
-    book_id INTEGER NOT NULL,
-    reader_id INTEGER NOT NULL,
-    test VARCHAR(24),
-    PRIMARY KEY(book_id,reader_id));
+    note_id INTEGER NOT NULL AUTO_INCREMENT,
+    note FLOAT NOT NULL,
+    PRIMARY KEY(note_id));
 
-ALTER TABLE book
-    ADD CONSTRAINT book_FK_1
-    FOREIGN KEY (test_id)
-    REFERENCES test (test_id)
+
+# -----------------------------------------------------------------------
+# controle
+# -----------------------------------------------------------------------
+drop table if exists controle;
+
+CREATE TABLE controle
+(
+    controle_id INTEGER NOT NULL AUTO_INCREMENT,
+    coef INTEGER NOT NULL,
+    date TIMESTAMP NOT NULL,
+    matiere_id INTEGER NOT NULL,
+    note_id INTEGER NOT NULL,
+    PRIMARY KEY(controle_id));
+
+ALTER TABLE absence
+    ADD CONSTRAINT absence_FK_1
+    FOREIGN KEY (etudiant_id)
+    REFERENCES etudiant (etudiant_id)
 ;
 
-ALTER TABLE book
-    ADD CONSTRAINT book_FK_2
-    FOREIGN KEY (author_id)
-    REFERENCES author (author_id)
+ALTER TABLE classe
+    ADD CONSTRAINT classe_FK_1
+    FOREIGN KEY (etudiant_id)
+    REFERENCES etudiant (etudiant_id)
 ;
 
-ALTER TABLE reference
-    ADD CONSTRAINT reference_FK_1
-    FOREIGN KEY (book_id)
-    REFERENCES book (book_id)
+ALTER TABLE classe
+    ADD CONSTRAINT classe_FK_2
+    FOREIGN KEY (matiere_id)
+    REFERENCES matiere (matiere_id)
 ;
 
-ALTER TABLE reference
-    ADD CONSTRAINT reference_FK_2
-    FOREIGN KEY (reader_id)
-    REFERENCES reader (reader_id)
+ALTER TABLE controle
+    ADD CONSTRAINT controle_FK_1
+    FOREIGN KEY (matiere_id)
+    REFERENCES matiere (matiere_id)
+;
+
+ALTER TABLE controle
+    ADD CONSTRAINT controle_FK_2
+    FOREIGN KEY (note_id)
+    REFERENCES note (note_id)
 ;
 

@@ -24,128 +24,166 @@
 <database
   name="gestion"
   defaultIdMethod="native">
-  
-  <table name="test" description="Test Table">
-    <column
-      name="test_id"
+
+     <table name="etudiant" description="Table des etudiant">
+        <column
+      name="etudiant_id"
       required="true"
       primaryKey="true"
       type="INTEGER"
-      description="test Id"/>
-    <column
-      name="name"
+      description="etudiant Id"/>
+      <column
+      name="nom"
       required="true"
       type="VARCHAR"
       size="128"
-      description="Test Name"/>
-  </table>
-  
-  <table name="author" description="Author Table">
-    <column
-      name="author_id"
+      description="nom de l'etudiant"/>
+      <column
+      name="prenom"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="prenom de l'etudiant"/>
+     </table>
+
+     <table name="absence" description="Table des absences">
+        <column
+      name="absence_id"
       required="true"
       primaryKey="true"
       type="INTEGER"
-      description="Author Id"/>
-    <column
-      name="first_name"
+      description="absence Id"/>
+        <column
+      name="dateDebut"
       required="true"
-      type="VARCHAR"
-      size="128"
-      description="First Name"/>
-    <column
-      name="last_name"
+      type="TIMESTAMP"
+      description="Date de debut"/>
+      <column
+      name="dateFin"
       required="true"
-      type="VARCHAR"
-      size="128"
-      description="Last Name"/>
-  </table>
-  
-  <table name="book" description="Book Table">
-    <column
-      name="book_id"
+      type="TIMESTAMP"
+      description="Date de fin"/>
+      <column
+      name="etudiant_id"
+      required="true"
+      type="INTEGER"
+      description="etudiant id"/>
+      <foreign-key foreignTable="etudiant">
+      <reference
+        local="etudiant_id"
+        foreign="etudiant_id"/>
+      </foreign-key>
+    </table>
+    <table name="matiere" description="Table des matieres">
+        <column
+      name="matiere_id"
       required="true"
       primaryKey="true"
       type="INTEGER"
-      description="Book Id"/>
-    <column
-      name="title"
+      description="matiere Id"/>
+      <column
+      name="nom"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="nom de la matiere"/>
+      <column
+      name="description"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="Description de la matiere"/>
+      <column
+      name="prof"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="nom du prof"/>
+     </table>
+
+    <table name="classe" description="Table des classes">
+          <column
+      name="classe_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="classe Id"/>
+        <column
+      name="nom"
       required="true"
       type="VARCHAR"
       size="255"
-      description="Book Title"/>
-    <column
-      name="isbn"
-      required="true"
-      type="VARCHAR"
-      size="24"
-      javaName="ISBN"
-      description="ISBN Number"/>
-    <column
-      name="test_id"
-      required="true"
-      type="INTEGER"
-      description="Foreign Key test"/>
-    <column
-      name="author_id"
-      required="true"
-      type="INTEGER"
-      description="Foreign Key Author"/>
-    <foreign-key foreignTable="test">
-      <reference
-        local="test_id"
-        foreign="test_id"/>
-    </foreign-key>
-    <foreign-key foreignTable="author">
-      <reference
-        local="author_id"
-        foreign="author_id"/>
-    </foreign-key>
-  </table>
-  
-   <table name="reader" description="Reader Table">
-    <column
-      name="reader_id"
-      required="true"
-      primaryKey="true"
-      type="INTEGER"
-      description="Reader Id"/>
-    <column
-      name="name"
-      required="true"
-      type="VARCHAR"
-      size="255"
-      description="Name Reader"/>
-  </table>
-  
-  <table name="reference" idMethod="none" description="Reference Table">
-    <column
-      name="book_id"
-      required="true"
-      primaryKey="true"
-      type="INTEGER"
-      description="Book Id"/>
-     <column
-      name="reader_id"
-      required="true"
-      primaryKey="true"
-      type="INTEGER"
-      description="Reader Id"/>
+      description="nom de la classe"/>
        <column
-      name="test"
-      type="VARCHAR"
-      size="24"
-      description="test"/>
-      <foreign-key foreignTable="book">
+      name="etudiant_id"
+      required="true"
+      type="INTEGER"
+      description="etudiant id"/>
+       <column
+      name="matiere_id"
+      required="true"
+      type="INTEGER"
+      description="matiere id"/>
+      <foreign-key foreignTable="etudiant">
       <reference
-        local="book_id"
-        foreign="book_id"/>
-    </foreign-key>
-    <foreign-key foreignTable="reader">
+        local="etudiant_id"
+        foreign="etudiant_id"/>
+      </foreign-key>
+      <foreign-key foreignTable="matiere">
       <reference
-        local="reader_id"
-        foreign="reader_id"/>
-    </foreign-key>
-  </table>
- 
+        local="matiere_id"
+        foreign="matiere_id"/>
+      </foreign-key>
+    </table>
+    <table name="note" description="Table des notes">
+        <column
+      name="note_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="note Id"/>
+        <column
+      name="note"
+      required="true"
+      type="FLOAT"
+      description="note"/>
+    </table>
+    <table name="controle" description="Table des controles">
+        <column
+      name="controle_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="Controle Id"/>
+        <column
+      name="coef"
+      required="true"
+      type="INTEGER"
+      description="coefficient"/>
+      <column
+      name="date"
+      required="true"
+      type="TIMESTAMP"
+      description="date du controle"/>
+        <column
+      name="matiere_id"
+      required="true"
+      type="INTEGER"
+      description="Matiere id"/>
+        <column
+      name="note_id"
+      required="true"
+      type="INTEGER"
+      description="note id"/>
+      <foreign-key foreignTable="matiere">
+      <reference
+        local="matiere_id"
+        foreign="matiere_id"/>
+      </foreign-key>
+      <foreign-key foreignTable="note">
+      <reference
+        local="note_id"
+        foreign="note_id"/>
+      </foreign-key>
+    </table> 
 </database>
