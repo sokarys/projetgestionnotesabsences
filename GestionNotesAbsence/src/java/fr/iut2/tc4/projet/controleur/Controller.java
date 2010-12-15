@@ -54,6 +54,17 @@ public class Controller extends HttpServlet {
     @Override
     public void init() throws ServletException {
             listeetudiant = new ListeEtudiant();
+            urlViewEtudiant = getServletConfig().getInitParameter("urlViewEtudiant");
+            urlViewAnEtudiant = getServletConfig().getInitParameter("urlViewAnEtudiant");
+            urlAddEtudiant = getServletConfig().getInitParameter("urlAddEtudiant");
+            urlAddNote = getServletConfig().getInitParameter("urlAddNote");
+            urlAddAbsence = getServletConfig().getInitParameter("urlAddAbsence");
+            urlViewAllAbsence = getServletConfig().getInitParameter("urlViewAllAbsence");
+            urlViewAllNotes = getServletConfig().getInitParameter("urlViewAllNotes");
+            urlModifEtudiant = getServletConfig().getInitParameter("urlModifEtudiant");
+            urlModifNote = getServletConfig().getInitParameter("urlModifNoteEtudiant");
+            urlModifAbsence = getServletConfig().getInitParameter("urlModifAbsenceEtudiant");
+
     }
 
 	// POST
