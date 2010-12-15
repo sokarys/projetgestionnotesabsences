@@ -136,7 +136,7 @@ public class Controller extends HttpServlet {
 	
 
         private void doEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
+     /*   try {
             //request.setAttribute("etudiant",request.getAttribute("name"));
             System.out.println("Taille :::  " + EtudiantPeer.doSelect(new Criteria()).toArray());
             @SuppressWarnings("unchecked")
@@ -148,11 +148,11 @@ public class Controller extends HttpServlet {
                 request.setAttribute("groupe", "allgroupe");
             } else {
                 request.setAttribute("groupe", request.getParameter("groupe"));
-            }
+            }*/
             loadJSP(this.urlViewEtudiant, request, response);
-        } catch (TorqueException ex) {
+       /* } catch (TorqueException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
 
         }
        /*  private void doAddAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

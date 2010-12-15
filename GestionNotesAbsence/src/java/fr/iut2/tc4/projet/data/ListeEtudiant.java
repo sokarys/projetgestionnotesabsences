@@ -46,6 +46,7 @@ public class ListeEtudiant {
     public void setListe(List<Etudiant> liste){
             @SuppressWarnings("unchecked")
             boolean addAll = liste.addAll(liste);
+            System.out.print("tttt a ala acon " + this.getListe().size());
     }
 
     public ArrayList<String> getGroupes(){
