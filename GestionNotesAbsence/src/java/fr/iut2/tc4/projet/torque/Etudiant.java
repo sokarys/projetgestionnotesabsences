@@ -1,6 +1,9 @@
 package fr.iut2.tc4.projet.torque;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.torque.TorqueException;
 import org.apache.torque.om.Persistent;
 
 /**
@@ -20,5 +23,16 @@ public  class Etudiant
 {
     /** Serial version */
     private static final long serialVersionUID = 1292399433659L;
+
+    public String getGroupe(){
+        try {
+            if (this.getClasses().size() > 0) {
+                return this.getClasses().get(0).toString();
+            }
+        } catch (TorqueException ex) {
+            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
 
 }
