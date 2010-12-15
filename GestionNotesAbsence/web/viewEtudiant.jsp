@@ -51,9 +51,9 @@
         <tr>
             <td><%= e.getNom() %></td>
             <td><%= e.getPrenom() %></td>
-            <td><% if(e.getClasses().size()>0){%> <%= e.getClasses().get(0) %><% } %></td>
+            <td><%= e.getGroupe() %></td>
             <td></td>
-           <td><%= e.getAbsences().size() %></td> -->
+           <td><%= e.getAbsences().size() %></td>
             <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getEtudiantId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
             <td><a href="/GestionNotesAbsence/do/modifEtudiant?id=<%= e.getEtudiantId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="modifier" alt="modifier"/></a></td>
             <td><a href="/GestionNotesAbsence/do/dellEtudiant?id=<%= e.getEtudiantId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="supprimer" alt="supprimer"/></a></td>

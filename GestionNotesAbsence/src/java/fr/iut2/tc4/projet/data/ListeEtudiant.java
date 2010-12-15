@@ -6,6 +6,8 @@
 package fr.iut2.tc4.projet.data;
 
 import fr.iut2.tc4.projet.torque.BaseEtudiantPeer;
+import fr.iut2.tc4.projet.torque.Classe;
+import fr.iut2.tc4.projet.torque.ClassePeer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -44,6 +46,7 @@ public class ListeEtudiant {
     }*/
 
     public void setListe(List<Etudiant> liste){
+            this.liste.clear();
             @SuppressWarnings("unchecked")
             boolean addAll = this.liste.addAll(liste);
             System.out.print("tttt a ala acon " + this.getListe().size());
@@ -51,10 +54,15 @@ public class ListeEtudiant {
 
     public ArrayList<String> getGroupes(){
         ArrayList<String> lg = new ArrayList<String>();
-        for(Etudiant e : liste){
-            if(!lg.contains(e.getGroupe())){
-                lg.add(e.getGroupe());
+        try {
+            List<Classe> l = ClassePeer.doSelect(new Criteria());
+            for(Classe c : l){
+                if (!lg.contains(c.getNom())) {
+                    lg.add(c.getNom());
+                }
             }
+        } catch (TorqueException ex) {
+            Logger.getLogger(ListeEtudiant.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lg;
     }
