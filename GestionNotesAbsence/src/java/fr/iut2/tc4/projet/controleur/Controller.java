@@ -10,9 +10,11 @@ package fr.iut2.tc4.projet.controleur;
  * @author sokarys
  */
 
-import fr.iut2.tc4.projet.torque.Etudiant;
+import fr.iut2.tc4.projet.torque.BaseEtudiantPeer;
 import java.io.IOException;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -20,6 +22,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.torque.TorqueException;
+import org.apache.torque.util.Criteria;
 
 //import fr.iut2.tc4.jeumvc.data.Jeu;
 //import fr.iut2.tc4.jeumvc.data.Resultat;
@@ -75,7 +79,7 @@ public class Controller extends HttpServlet {
 
 		// Exécution action
 
-		if (methode.equals("get") && action.equals("/addEtudiant")) {
+	/*	if (methode.equals("get") && action.equals("/addEtudiant")) {
 			
                         System.out.print("Postttt");
                         doAddEtudiant(request, response);
@@ -117,7 +121,7 @@ public class Controller extends HttpServlet {
                         doModifNoteEtudiant(request, response);
 		}else if (methode.equals("post") && action.equals("/modifiedEtudiant")) {
                         doModifiedEtudiant(request, response);
-		}else {
+		}else */{
                     
                     doEtudiant(request, response);
                 }
@@ -127,17 +131,21 @@ public class Controller extends HttpServlet {
 	
 
         private void doEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
             //request.setAttribute("etudiant",request.getAttribute("name"));
-             request.setAttribute("listeEtudiant", listeEtudiant);
-             if( request.getParameter("groupe") == null){
+            request.setAttribute("listeEtudiant", BaseEtudiantPeer.doSelect(new Criteria()));
+            if (request.getParameter("groupe") == null) {
                 request.setAttribute("groupe", "allgroupe");
-             }else{
-                 request.setAttribute("groupe", request.getParameter("groupe"));
+            } else {
+                request.setAttribute("groupe", request.getParameter("groupe"));
             }
-             loadJSP(this.urlViewEtudiant, request, response);
+            loadJSP(this.urlViewEtudiant, request, response);
+        } catch (TorqueException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         }
-         private void doAddAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       /*  private void doAddAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              
              int index = Integer.valueOf(request.getParameter("id"));
@@ -367,7 +375,7 @@ public class Controller extends HttpServlet {
               request.setAttribute("note", listeEtudiant.getListe().get(index).getNote(indexNote));
               loadJSP(this.urlModifNote, request, response);
             }
-	
+	*/
 
 	public void loadJSP(String url, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
