@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.torque.TorqueException;
 import org.apache.torque.om.Persistent;
+import org.apache.torque.util.Criteria;
 
 /**
  * Table des etudiant
@@ -40,7 +41,7 @@ public  class Etudiant
         try {
             double moy = 0.0;
             double coef = 0;
-            List<Classe> clist = this.getClasses();
+            List<Classe> clist = this.getClassesJoinEtudiant(new Criteria());
             for (Classe c : clist) {
                 try {
                     System.out.println(c.getNom());
