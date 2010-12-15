@@ -10,6 +10,7 @@ package fr.iut2.tc4.projet.controleur;
  * @author sokarys
  */
 
+import fr.iut2.tc4.projet.data.ListeEtudiant;
 import fr.iut2.tc4.projet.torque.BaseEtudiantPeer;
 import java.io.IOException;
 import java.util.GregorianCalendar;
@@ -41,6 +42,8 @@ public class Controller extends HttpServlet {
         private String urlViewAllAbsence;
         private String urlViewAllNotes;
         private String urlViewAnEtudiant;
+
+        private ListeEtudiant listeetudiant;
 
 
 
@@ -133,7 +136,9 @@ public class Controller extends HttpServlet {
         private void doEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             //request.setAttribute("etudiant",request.getAttribute("name"));
-            request.setAttribute("listeEtudiant", BaseEtudiantPeer.doSelect(new Criteria()));
+            System.out.println(BaseEtudiantPeer.doSelect(new Criteria()).toArray());
+            listeetudiant.setListe(BaseEtudiantPeer.doSelect(new Criteria()));
+            request.setAttribute("listeEtudiant", listeetudiant);
             if (request.getParameter("groupe") == null) {
                 request.setAttribute("groupe", "allgroupe");
             } else {
