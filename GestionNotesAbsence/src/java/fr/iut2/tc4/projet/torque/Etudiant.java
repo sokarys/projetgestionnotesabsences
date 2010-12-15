@@ -1,6 +1,7 @@
 package fr.iut2.tc4.projet.torque;
 
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.torque.TorqueException;
@@ -34,5 +35,30 @@ public  class Etudiant
         }
         return "";
     }
+
+    public double getMoyenne(){
+        try {
+            double moy = 0.0;
+            double coef = 0;
+            List<Classe> clist = this.getClasses();
+            for (Classe c : clist) {
+                try {
+                    List<Controle> controleList = c.getMatiere().getControles();
+                    for(Controle cont : controleList){
+                        coef += cont.getCoef();
+                        moy += cont.getNote().getNote();
+                    }
+                } catch (TorqueException ex) {
+                    Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            return moy/coef;
+        } catch (TorqueException ex) {
+            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+
 
 }
