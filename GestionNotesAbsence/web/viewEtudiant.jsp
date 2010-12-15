@@ -3,7 +3,7 @@
     Created on : 30 nov. 2010, 11:32:33
     Author     : sokarys
 --%>
-<%@page import="fr.iut2.tc4.projet.data.Etudiant"%>
+<%@page import="fr.iut2.tc4.projet.torque.Etudiant"%>
 <%@page import="java.util.ArrayList"%>
 <jsp:useBean id="listeEtudiant" class="fr.iut2.tc4.projet.data.ListeEtudiant" scope="request" />
 <jsp:useBean id="groupe" class="java.lang.String" scope="request" />
