@@ -16,6 +16,7 @@ import fr.iut2.tc4.projet.torque.EtudiantPeer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -139,7 +140,10 @@ public class Controller extends HttpServlet {
         try {
             //request.setAttribute("etudiant",request.getAttribute("name"));
             System.out.println("Taille :::  " + EtudiantPeer.doSelect(new Criteria()).toArray());
-            listeetudiant.setListe((ArrayList<fr.iut2.tc4.projet.torque.Etudiant>)EtudiantPeer.doSelect(new Criteria()));
+            @SuppressWarnings("unchecked")
+            List<fr.iut2.tc4.projet.torque.Etudiant> l =  EtudiantPeer.doSelect(new Criteria());
+            System.out.println("Mion NOMMMMMM  "  + l.get(0).getNom());
+            listeetudiant.setListe(l);
             request.setAttribute("listeEtudiant", listeetudiant);
             if (request.getParameter("groupe") == null) {
                 request.setAttribute("groupe", "allgroupe");
