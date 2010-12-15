@@ -46,7 +46,7 @@ public  class Etudiant
                     List<Controle> controleList = c.getMatiere().getControles();
                     for(Controle cont : controleList){
                         coef += cont.getCoef();
-                        moy += cont.getNote().getNote();
+                        moy += cont.getNote().getNote()*coef;
                     }
                 } catch (TorqueException ex) {
                     Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
