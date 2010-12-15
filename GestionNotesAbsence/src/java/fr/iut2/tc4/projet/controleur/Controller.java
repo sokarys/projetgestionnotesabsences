@@ -137,7 +137,7 @@ public class Controller extends HttpServlet {
         private void doEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             //request.setAttribute("etudiant",request.getAttribute("name"));
-            System.out.println("Taille :::  " + EtudiantPeer.doSelect(new Criteria()).toArray().length);
+            System.out.println("Taille :::  " + EtudiantPeer.doSelect(new Criteria()).toArray()[0]);
             listeetudiant.setListe(EtudiantPeer.doSelect(new Criteria()));
             request.setAttribute("listeEtudiant", listeetudiant);
             if (request.getParameter("groupe") == null) {

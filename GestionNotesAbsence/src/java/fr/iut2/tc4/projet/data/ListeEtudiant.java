@@ -12,13 +12,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.torque.TorqueException;
 import org.apache.torque.util.Criteria;
+import fr.iut2.tc4.projet.torque.Etudiant;
 
 /**
  *
  * @author sokarys
  */
 public class ListeEtudiant {
-    public ArrayList<Etudiant> liste;
+    public ArrayList<fr.iut2.tc4.projet.torque.Etudiant> liste;
 
     public ListeEtudiant() {
         this.liste = new ArrayList<Etudiant>();
