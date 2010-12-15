@@ -43,6 +43,7 @@ public  class Etudiant
             List<Classe> clist = this.getClasses();
             for (Classe c : clist) {
                 try {
+                    System.out.println(c.getNom());
                     List<Controle> controleList = c.getMatiere().getControles();
                     for(Controle cont : controleList){
                         coef += cont.getCoef();
