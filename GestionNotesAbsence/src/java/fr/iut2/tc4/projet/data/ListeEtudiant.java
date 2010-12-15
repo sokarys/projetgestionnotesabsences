@@ -39,13 +39,13 @@ public class ListeEtudiant {
         return l;
     }
 
-    public void setListe(ArrayList<Etudiant> liste) {
+    /*public void setListe(ArrayList<Etudiant> liste) {
         this.liste = liste;
-    }
+    }*/
 
     public void setListe(List<Etudiant> liste){
             @SuppressWarnings("unchecked")
-            boolean addAll = liste.addAll(liste);
+            boolean addAll = this.liste.addAll(liste);
             System.out.print("tttt a ala acon " + this.getListe().size());
     }
 
