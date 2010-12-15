@@ -53,8 +53,7 @@ public class Controller extends HttpServlet {
         public Controller(){}
     @Override
     public void init() throws ServletException {
-
-
+            listeetudiant = new ListeEtudiant();
     }
 
 	// POST
