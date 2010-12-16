@@ -15,10 +15,12 @@ public class GestionMapInit
     public static final void init()
         throws TorqueException
     {
-        fr.iut2.tc4.projet.torque.EtudiantPeer.getMapBuilder();
-        fr.iut2.tc4.projet.torque.AbsencePeer.getMapBuilder();
         fr.iut2.tc4.projet.torque.MatierePeer.getMapBuilder();
         fr.iut2.tc4.projet.torque.ClassePeer.getMapBuilder();
+        fr.iut2.tc4.projet.torque.EtudiantPeer.getMapBuilder();
+        fr.iut2.tc4.projet.torque.AbsencePeer.getMapBuilder();
+        fr.iut2.tc4.projet.torque.CoursPeer.getMapBuilder();
         fr.iut2.tc4.projet.torque.ControlePeer.getMapBuilder();
+        fr.iut2.tc4.projet.torque.NotePeer.getMapBuilder();
     }
 }

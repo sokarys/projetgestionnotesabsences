@@ -29,30 +29,6 @@ correctGetters =
 
     
 
-        etudiant
-
-        
-
-        
-
-          
-
-
-          
-
-
-        absence
-
-        
-
-        
-
-          
-
-
-          
-
-
         matiere
 
         
@@ -77,7 +53,55 @@ correctGetters =
           
 
 
+        etudiant
+
+        
+
+        
+
+          
+
+
+          
+
+
+        absence
+
+        
+
+        
+
+          
+
+
+          
+
+
+        cours
+
+        
+
+        
+
+          
+
+
+          
+
+
         controle
+
+        
+
+        
+
+          
+
+
+          
+
+
+        note
 
         
 

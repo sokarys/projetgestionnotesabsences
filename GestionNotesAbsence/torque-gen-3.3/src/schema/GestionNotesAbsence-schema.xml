@@ -25,6 +25,47 @@
   name="gestion"
   defaultIdMethod="native">
 
+        <table name="matiere" description="Table des matieres">
+        <column
+      name="matiere_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="matiere Id"/>
+      <column
+      name="nom"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="nom de la matiere"/>
+      <column
+      name="description"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="Description de la matiere"/>
+      <column
+      name="prof"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="nom du prof"/>
+     </table>
+     <table name="classe" description="Table des classes">
+          <column
+      name="classe_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="classe Id"/>
+        <column
+      name="nom"
+      required="true"
+      type="VARCHAR"
+      size="255"
+      description="nom de la classe"/>
+     </table>
+
      <table name="etudiant" description="Table des etudiant">
         <column
       name="etudiant_id"
@@ -44,9 +85,20 @@
       type="VARCHAR"
       size="128"
       description="prenom de l'etudiant"/>
+      <column
+      name="classe_id"
+      required="true"
+      type="INTEGER"
+      description="classe id"/>
+      <foreign-key foreignTable="classe">
+      <reference
+        local="classe_id"
+        foreign="classe_id"/>
+      </foreign-key>
      </table>
 
-     <table name="absence" description="Table des absences">
+     
+<table name="absence" description="Table des absences">
         <column
       name="absence_id"
       required="true"
@@ -80,65 +132,32 @@
         foreign="etudiant_id"/>
       </foreign-key>
     </table>
-    <table name="matiere" description="Table des matieres">
+       <table name="cours" description="Table des cours">
         <column
-      name="matiere_id"
+      name="cours_id"
       required="true"
       primaryKey="true"
       type="INTEGER"
-      description="matiere Id"/>
+      description="cours Id"/>
       <column
-      name="nom"
-      required="true"
-      type="VARCHAR"
-      size="128"
-      description="nom de la matiere"/>
-      <column
-      name="description"
-      required="true"
-      type="VARCHAR"
-      size="128"
-      description="Description de la matiere"/>
-      <column
-      name="prof"
-      required="true"
-      type="VARCHAR"
-      size="128"
-      description="nom du prof"/>
-     </table>
-
-    <table name="classe" description="Table des classes">
-          <column
-      name="classe_id"
-      required="true"
-      primaryKey="true"
-      type="INTEGER"
-      description="classe Id"/>
-        <column
-      name="nom"
-      required="true"
-      type="VARCHAR"
-      size="255"
-      description="nom de la classe"/>
-       <column
       name="etudiant_id"
       required="true"
       type="INTEGER"
       description="etudiant id"/>
-       <column
-      name="matiere_id"
+      <column
+      name="classe_id"
       required="true"
       type="INTEGER"
-      description="matiere id"/>
+      description="etudiant id"/>
       <foreign-key foreignTable="etudiant">
       <reference
         local="etudiant_id"
         foreign="etudiant_id"/>
       </foreign-key>
-      <foreign-key foreignTable="matiere">
+      <foreign-key foreignTable="classe">
       <reference
-        local="matiere_id"
-        foreign="matiere_id"/>
+        local="classe_id"
+        foreign="classe_id"/>
       </foreign-key>
     </table>
     <table name="controle" description="Table des controles">
@@ -157,31 +176,50 @@
       name="date"
       required="true"
       type="DATE"
-      description="date du controle"/>
+      description="date du controle"/>           
        <column
+      name="cours_id"
+      required="true"
+      type="INTEGER"
+      description="cours id"/>
+       <foreign-key foreignTable="cours">
+      <reference
+        local="cours_id"
+        foreign="cours_id"/>
+      </foreign-key>                 
+    </table>
+        <table name="note" description="Table des notes">
+        <column
+      name="note_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="note Id"/>
+        <column
       name="note"
       required="true"
       type="INTEGER"
-      description="note du controle"/>
-        <column
-      name="matiere_id"
+      description="note"/>
+      <column
+      name="controle_id"
       required="true"
       type="INTEGER"
-      description="Matiere id"/>      
+      description="controle id"/>
        <column
       name="etudiant_id"
       required="true"
       type="INTEGER"
       description="etudiant id"/>
+       <foreign-key foreignTable="controle">
+      <reference
+        local="controle_id"
+        foreign="controle_id"/>
+      </foreign-key>
        <foreign-key foreignTable="etudiant">
       <reference
         local="etudiant_id"
         foreign="etudiant_id"/>
       </foreign-key>
-      <foreign-key foreignTable="matiere">
-      <reference
-        local="matiere_id"
-        foreign="matiere_id"/>
-      </foreign-key>           
-    </table> 
+    </table>
+
 </database>
