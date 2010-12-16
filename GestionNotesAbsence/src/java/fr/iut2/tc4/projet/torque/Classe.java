@@ -21,4 +21,11 @@ public  class Classe
     /** Serial version */
     private static final long serialVersionUID = 1292399433659L;
 
+    @Override
+    public String toString() {
+        return this.getNom();
+    }
+
+
+
 }
