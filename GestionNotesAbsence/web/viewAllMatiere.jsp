@@ -47,6 +47,16 @@
                 </tr>
             <%}%>
          </table>
+          <table class="table">
+            <tr>
+                <th>Ajouter une matière</th>
+                 <th>Modifier les matières</th>
+            </tr>
+        <tr>
+        <td><a href="/GestionNotesAbsence/do/addMatiere"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une matière" alt="Ajouter Matière"/></a></td>
+        <td><a href="/GestionNotesAbsence/do/modifMatiere"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer les matières" alt="Modifier"/></a></td>
+          </tr>
+        </table>
     </div>
             <jsp:include page="footer.jsp" />
     </body>
