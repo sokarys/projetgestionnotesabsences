@@ -140,19 +140,19 @@
       type="INTEGER"
       description="cours Id"/>
       <column
-      name="etudiant_id"
+      name="matiere_id"
       required="true"
       type="INTEGER"
-      description="etudiant id"/>
+      description="matiere id"/>
       <column
       name="classe_id"
       required="true"
       type="INTEGER"
       description="etudiant id"/>
-      <foreign-key foreignTable="etudiant">
+      <foreign-key foreignTable="matiere">
       <reference
-        local="etudiant_id"
-        foreign="etudiant_id"/>
+        local="matiere_id"
+        foreign="matiere_id"/>
       </foreign-key>
       <foreign-key foreignTable="classe">
       <reference
