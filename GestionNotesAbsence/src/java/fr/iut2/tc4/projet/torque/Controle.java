@@ -1,6 +1,10 @@
 package fr.iut2.tc4.projet.torque;
 
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.torque.TorqueException;
 import org.apache.torque.om.Persistent;
 
 /**
@@ -21,4 +25,21 @@ public  class Controle
     /** Serial version */
     private static final long serialVersionUID = 1292399433659L;
 
+     public double getMoyenne(){
+        try {
+            double moy = 0.0;
+            double coef = 0;
+            List<Note> clist = this.getNotes();
+                   for(Note cont : clist){
+                            coef += cont.getControle().getCoef();
+                            moy += cont.getNote()*cont.getControle().getCoef();
+                    }
+                    if(coef != 0){
+                        return moy/coef;
+                    }
+                } catch (TorqueException ex) {
+                    Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        return 0;
+    }
 }

@@ -23,7 +23,7 @@ INSERT INTO cours (matiere_id,classe_id)
                 (2,3);
 INSERT INTO controle (coef,date,cours_id)
        VALUES  (5,CURRENT_DATE,1),
-                (10,CURRENT_DATE,4);
+               (10,CURRENT_DATE,4);
 INSERT INTO note (note,controle_id,etudiant_id)
        VALUES  (20,1,1),
                 (15,1,2),
