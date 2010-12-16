@@ -61,7 +61,7 @@
         <% } }%>
             </table>
             <table class="table">
-            <tr><th>Ajouter un étudiant</th><th>Voir notes</th><th>Voir Absence</th></tr>
+            <tr><th>Ajouter un étudiant</th><th>Voir Absence</th></tr>
             <tr>
                 <td><a href="/GestionNotesAbsence/do/addEtudiant"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="ajouter un étudiant" alt="ajouter un étudiant"/></a></td>
                 <td><a href="/GestionNotesAbsence/do/viewAllAbsence"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir la liste des Absences" alt="Voir Absence"/></a></td>
