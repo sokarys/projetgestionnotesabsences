@@ -196,9 +196,6 @@ public class Controller extends HttpServlet {
                  } catch (TorqueException ex) {
                     Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-
-                
             }
 
             loadJSP(this.urlViewEtudiant, request, response);
