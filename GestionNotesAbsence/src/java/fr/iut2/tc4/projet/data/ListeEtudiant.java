@@ -31,10 +31,10 @@ public class ListeEtudiant {
         return liste;
     }
 
-    public ArrayList<Etudiant> getListe(String groupe) {
+    public ArrayList<Etudiant> getListe(String classe) throws TorqueException{
         ArrayList<Etudiant> l = new ArrayList<Etudiant>();
         for(Etudiant e : liste){
-            if(e.getGroupe().equals(groupe)){
+            if(e.getClasse().getNom().equals(classe)){
                 l.add(e);
             }
         }

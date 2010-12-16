@@ -62,7 +62,7 @@ drop table if exists cours;
 CREATE TABLE cours
 (
     cours_id INTEGER NOT NULL AUTO_INCREMENT,
-    etudiant_id INTEGER NOT NULL,
+    matiere_id INTEGER NOT NULL,
     classe_id INTEGER NOT NULL,
     PRIMARY KEY(cours_id));
 
@@ -108,8 +108,8 @@ ALTER TABLE absence
 
 ALTER TABLE cours
     ADD CONSTRAINT cours_FK_1
-    FOREIGN KEY (etudiant_id)
-    REFERENCES etudiant (etudiant_id)
+    FOREIGN KEY (matiere_id)
+    REFERENCES matiere (matiere_id)
 ;
 
 ALTER TABLE cours

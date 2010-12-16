@@ -26,45 +26,23 @@ public  class Etudiant
     /** Serial version */
     private static final long serialVersionUID = 1292399433659L;
 
-    public String getGroupe(){
-        try {
-            if (this.getClasses().size() > 0) {
-                return ((fr.iut2.tc4.projet.torque.Classe) this.getClasses().get(0)).getNom();
-            }
-        } catch (TorqueException ex) {
-            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "";
-    }
-
     public double getMoyenne(){
         try {
             double moy = 0.0;
             double coef = 0;
-            List<Classe> clist = this.getClassesJoinEtudiant(new Criteria());
-            for (Classe c : clist) {
-                try {
-                    System.out.println(c.getNom());
-                    List<Controle> controleList = c.getMatiere().getControles();
-                    for(Controle cont : controleList){
-                        if(cont.getEtudiantId() == this.getEtudiantId()){
-                            coef += cont.getCoef();
-                            moy += cont.getNote()*cont.getCoef();
-                        }
+            List<Note> clist = this.getNotes();
+                   for(Note cont : clist){
+                            coef += cont.getControle().getCoef();
+                            moy += cont.getNote()*cont.getControle().getCoef();
+                    }
+                    if(coef != 0){
+                        return moy/coef;
                     }
                 } catch (TorqueException ex) {
                     Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            if(coef != 0){
-                return moy/coef;
-            }
-        } catch (TorqueException ex) {
-            Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
-        }
         return 0;
-    }
-
-
+  }
+  
 
 }
