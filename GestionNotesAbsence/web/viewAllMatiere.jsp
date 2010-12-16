@@ -34,11 +34,12 @@
         <%}%>
         </div>
             <table class="table">
-                <tr><th>Nom</th><th>Description</th><th>Classes</th></tr>
+                <tr><th>Nom</th><th>Description</th><th>Professeur</th><th>Classes</th></tr>
             <% for(Matiere m : listeMatiere.getListe()){%>            
                 <tr>
                 <td><%=m.getNom()%></td>
                 <td><%=m.getDescription()%></td>
+                <td><%=m.getProf()%></td>
                 <td>
                 <% for(Cours c : (List<Cours>) m.getCourss()){ %>
                     <a href="/GestionNotesAbsence/do/viewEtudiant?groupe=<%=c.getClasse()%>"><%=c.getClasse()%></a><br/>
