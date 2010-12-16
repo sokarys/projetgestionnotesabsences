@@ -4,6 +4,8 @@
     Author     : sokarys
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="fr.iut2.tc4.projet.torque.Cours"%>
 <%@page import="fr.iut2.tc4.projet.torque.Matiere"%>
 <jsp:useBean id="listeEtudiant" class="fr.iut2.tc4.projet.data.ListeEtudiant" scope="request" />
 <jsp:useBean id="listeMatiere" class="fr.iut2.tc4.projet.data.ListeMatiere" scope="request" />
@@ -31,35 +33,18 @@
         <a href="/GestionNotesAbsence/do/viewAllMatiere?groupe=<%=s%>"><%=s%></a>
         <%}%>
         </div>
-        <table class="table">
-            <tr>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Groupe</th>
-                <th>Matiere</th>
-                <th>Notes</th>
-                <th>Voir Informations</th>
-                <th>Modifier</th>
-                <th>Supprimer</th>
-            </tr>
-            <% for(Matiere e : listeMatiere.getListe()){
-                if(e.get().equals(groupe) || groupe.equals("allgroupe")){
-            %>
-                <% for(Note n : e.getListNote()){ %>
+        
+            <% for(Matiere m : listeMatiere.getListe()){%>
+            <table class="table">
                 <tr>
-                    <td><%=e.getNom()%></td>
-                    <td><%=e.getPrenom()%></td>
-                    <td><%=e.getGroupe()%></td>
-                    <td><%=n.getMatiere() %></td>
-                    <td><%=n.getStringNote() %></td>
-                    <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
-                    <td><a href="/GestionNotesAbsence/do/modifNoteEtudiant?id=<%=e.getId()%>&idNote=<%=n.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifier la note" alt="Modifier"/></a></td>
-                    <td><a href="/GestionNotesAbsence/do/dellNoteEtudiant?id=<%=e.getId()%>&idNote=<%=n.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer la note" alt="Supprimer"/></a></td>
-
+                    <th>Matiere : <%=m.getNom()%></th>
                 </tr>
-            <% } } }%>
-            <tr
-        </table>
+                <% for(Cours c : (List<Cours>) m.getCourss()){ %>
+                    <tr><td><a href="/GestionNotesAbsence/do/viewEtudiant?groupe=<%=c.getClasse()%>"><%=c.getClasse()%></a></td></tr>
+                <%}%>
+                </table>
+            <%}%>
+        
     </div>
             <jsp:include page="footer.jsp" />
     </body>
