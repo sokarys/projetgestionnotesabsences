@@ -57,6 +57,16 @@
                 </tr>
             <%}%>
          </table>
+         <table class="table">
+            <tr>
+                <th>Ajouter un controle</th>
+                 <th>Modifier les controles</th>
+            </tr>
+            <tr>
+                <td><a href="/GestionNotesAbsence/do/addControle"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter un controle" alt="Ajouter Controle"/></a></td>
+                <td><a href="/GestionNotesAbsence/do/modifControle"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer les controles" alt="Modifier"/></a></td>
+          </tr>
+        </table>
     </div>
             <jsp:include page="footer.jsp" />
     </body>
