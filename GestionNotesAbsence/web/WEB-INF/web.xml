@@ -36,8 +36,8 @@
             <param-value>/viewAllAbsences.jsp</param-value>
         </init-param>
         <init-param>
-            <param-name>urlViewAllNotes</param-name>
-            <param-value>/viewAllNotes.jsp</param-value>
+            <param-name>urlViewAllMatiere</param-name>
+            <param-value>/viewAllMatiere.jsp</param-value>
         </init-param>
         <init-param>
             <param-name>urlViewEtudiant</param-name>
