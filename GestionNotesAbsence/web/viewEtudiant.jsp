@@ -40,8 +40,7 @@
                 <th> Moyenne</th>
                 <th> Nb Absence</th>
                 <th> Voir Informations</th>
-                <th> Modifier</th>
-                 <th> Supprimer</th>
+                <th> Supprimer</th>
             </tr>
             </thead>
         <% for(Etudiant e : listeEtudiant.getListe()) { 
@@ -53,17 +52,17 @@
             <td><%= e.getPrenom() %></td>
             <td><%= e.getClasse() %></td>
             <td><%= String.valueOf(e.getMoyenne()) %></td>
-           <td><%= e.getAbsences().size() %></td>
+            <td><%= e.getAbsences().size() %></td>
             <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getEtudiantId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
-            <td><a href="/GestionNotesAbsence/do/modifEtudiant?id=<%= e.getEtudiantId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="modifier" alt="modifier"/></a></td>
             <td><a href="/GestionNotesAbsence/do/dellEtudiant?id=<%= e.getEtudiantId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="supprimer" alt="supprimer"/></a></td>
         </tr>
         <% } }%>
             </table>
             <table class="table">
-            <tr><th>Ajouter un étudiant</th><th>Voir Absence</th></tr>
+            <tr><th>Ajouter un étudiant</th<th>Modifier la liste</th><th>Voir Absence</th></tr>
             <tr>
                 <td><a href="/GestionNotesAbsence/do/addEtudiant"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="ajouter un étudiant" alt="ajouter un étudiant"/></a></td>
+                <td><a href="/GestionNotesAbsence/do/modifEtudiant"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="modifier" alt="modifier"/></a></td>
                 <td><a href="/GestionNotesAbsence/do/viewAllAbsence"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir la liste des Absences" alt="Voir Absence"/></a></td>
             </tr></table>
         </div>
