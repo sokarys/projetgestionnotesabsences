@@ -32,6 +32,7 @@ public class ListeEtudiant {
     }
 
     public ArrayList<Etudiant> getListe(String classe) throws TorqueException{
+        if(classe.equals("allgroupe")){ return liste; }
         ArrayList<Etudiant> l = new ArrayList<Etudiant>();
         for(Etudiant e : liste){
             if(e.getClasse().getNom().equals(classe)){

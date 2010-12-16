@@ -27,6 +27,7 @@ public class ListeMatiere {
     }
 
     public ArrayList<Matiere> getListe(String classe) throws TorqueException {
+        if(classe.equals("allgroupe")){ return liste; }
         ArrayList<Matiere> l = new ArrayList<Matiere>();
         for(Matiere e : liste){
             List<Cours> lc = e.getCourss();
