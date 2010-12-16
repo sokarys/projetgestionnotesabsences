@@ -26,25 +26,27 @@
         <jsp:include page="header.jsp" />
         <jsp:include page="menu.jsp" />
          <div id="corps">
-        <h1>Les Notes</h1>
+        <h1>Les Matières</h1>
         <div id="groupe">
         <a href="/GestionNotesAbsence/do/viewAllMatiere?groupe=allgroupe">Tous</a>
         <% for(String s : listeEtudiant.getGroupes() ) { %>
         <a href="/GestionNotesAbsence/do/viewAllMatiere?groupe=<%=s%>"><%=s%></a>
         <%}%>
         </div>
-        
-            <% for(Matiere m : listeMatiere.getListe()){%>
             <table class="table">
+                <tr><th>Nom</th><th>Description</th><th>Classes</th></tr>
+            <% for(Matiere m : listeMatiere.getListe()){%>            
                 <tr>
-                    <th>Matiere : <%=m.getNom()%></th>
-                </tr>
+                <td><%=m.getNom()%></td>
+                <td><%=m.getDescription()%></td>
+                <td>
                 <% for(Cours c : (List<Cours>) m.getCourss()){ %>
-                    <tr><td><a href="/GestionNotesAbsence/do/viewEtudiant?groupe=<%=c.getClasse()%>"><%=c.getClasse()%></a></td></tr>
+                    <a href="/GestionNotesAbsence/do/viewEtudiant?groupe=<%=c.getClasse()%>"><%=c.getClasse()%></a><br/>
                 <%}%>
-                </table>
+                    </td>
+                </tr>
             <%}%>
-        
+         </table>
     </div>
             <jsp:include page="footer.jsp" />
     </body>
