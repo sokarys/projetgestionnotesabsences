@@ -18,17 +18,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style type="text/css" >
-             <jsp:include page="/jquery/css/ui-lightness/jquery-ui-1.8.6.custom.css" />
-             <jsp:include page="css/gestion.css" />
-        </style>
-        <script type="text/javascript">
-        <jsp:include page="/jquery/js/jquery-1.4.2.min.js" />
-        <jsp:include page="/jquery/js/jquery-ui-1.8.6.custom.min.js" />
-        jQuery(document).ready(function(){
-             $("#datepicker").datepicker({dateFormat:'dd/mm/yy'});
-            });
-         </script>
-        <style type="" >
             <jsp:include page="css/gestion.css" />
         </style>
         <title>Information de l'étudiant</title>
