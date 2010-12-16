@@ -8,5 +8,6 @@
     <p id="title_menu">Menu</p>
     <a href="/GestionNotesAbsence/do/viewEtudiant?groupe=allgroupe">Voir les etudiants</a><br />
     <a href="/GestionNotesAbsence/do/viewAllAbsence?groupe=allgroupe">Voir les absences</a><br />
+    <a href="/GestionNotesAbsence/do/viewAllControle?groupe=allgroupe">Voir les controles</a><br />
     <a href="/GestionNotesAbsence/do/viewAllMatiere?groupe=allgroupe">Voir les matières</a><br />
 </div>
