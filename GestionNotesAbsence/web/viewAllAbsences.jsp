@@ -3,8 +3,9 @@
     Created on : 30 nov. 2010, 10:54:29
     Author     : sokarys
 --%>
-<%@page import="fr.iut2.tc4.projet.data.Absence"%>
-<%@page import="fr.iut2.tc4.projet.data.Etudiant"%>
+<%@page import="java.util.List"%>
+<%@page import="fr.iut2.tc4.projet.torque.Absence"%>
+<%@page import="fr.iut2.tc4.projet.torque.Etudiant"%>
 <jsp:useBean id="listeEtudiant" class="fr.iut2.tc4.projet.data.ListeEtudiant" scope="request" />
 <jsp:useBean id="groupe" class="java.lang.String" scope="request" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -35,7 +36,8 @@
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Groupe</th>
-                <th>Date</th>
+                <th>Date Debut</th>
+                <th>Date Fin</th>
                 <th>Motif</th>
                 <th>Voir Informations</th>
                 <th>Modifier</th>
@@ -43,18 +45,19 @@
                 
             </tr>
             <% for(Etudiant e : listeEtudiant.getListe()){
-                if(e.getGroupe().equals(groupe) || groupe.equals("allgroupe")){
+                if(e.getClasse().toString().equals(groupe) || groupe.equals("allgroupe")){
             %>
-                <% for(Absence a : e.getListAbsences()){ %>
+                <% for(Absence a : (List<Absence>) e.getAbsences()){ %>
                 <tr>
                     <td><%=e.getNom()%></td>
                     <td><%=e.getPrenom()%></td>
-                    <td><%=e.getGroupe()%></td>
-                    <td><%=a.getFormatDate() %></td>
+                    <td><%=e.getClasse()%></td>
+                    <td><%=a.getDatedebut() %></td>
+                    <td><%=a.getDatefin() %></td>
                     <td><%=a.getMotif() %></td>
-                    <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
-                    <td><a href="/GestionNotesAbsence/do/modifAbsenceEtudiant?id=<%=e.getId()%>&idAbsence=<%=a.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer l'absence" alt="Modifier"/></a></td>
-                    <td><a href="/GestionNotesAbsence/do/dellAbsenceEtudiant?id=<%=e.getId()%>&idAbsence=<%=a.getId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer l'absence" alt="Supprimer"/></a></td>
+                    <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getEtudiantId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
+                    <td><a href="/GestionNotesAbsence/do/modifAbsenceEtudiant?id=<%=e.getEtudiantId()%>&idAbsence=<%=a.getAbsenceId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer l'absence" alt="Modifier"/></a></td>
+                    <td><a href="/GestionNotesAbsence/do/dellAbsenceEtudiant?id=<%=e.getEtudiantId()%>&idAbsence=<%=a.getAbsenceId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer l'absence" alt="Supprimer"/></a></td>
 
                 </tr>
             <% } } }%>

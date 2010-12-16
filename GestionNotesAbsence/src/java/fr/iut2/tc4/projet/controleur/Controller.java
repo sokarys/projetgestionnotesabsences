@@ -123,9 +123,9 @@ public class Controller extends HttpServlet {
 
 		}else if (methode.equals("get") && action.equals("/viewAllNotes")) {
                         doViewAllNotes(request, response);
-		}else if (methode.equals("get") && action.equals("/viewAllAbsence")) {
+		}else*/ if (methode.equals("get") && action.equals("/viewAllAbsence")) {
                         doViewAllAbsence(request, response);
-		}else*/ if (methode.equals("get") && action.equals("/viewAnEtudiant")) {
+		}else if (methode.equals("get") && action.equals("/viewAnEtudiant")) {
                         doViewAnEtudiant(request, response);
 		}/*else if (methode.equals("get") && action.equals("/addAbsenceEtudiant")) {
                         doAddAbsenceEtudiant(request, response);
@@ -252,7 +252,7 @@ public class Controller extends HttpServlet {
 
         }
 
-           private void doViewAllAbsence(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+          */ private void doViewAllAbsence(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              //response.
               request.setAttribute("listeEtudiant", listeEtudiant);
@@ -264,7 +264,7 @@ public class Controller extends HttpServlet {
               loadJSP(this.urlViewAllAbsence, request, response);
 
         }
-
+/*
             private void doDellEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              //response.
