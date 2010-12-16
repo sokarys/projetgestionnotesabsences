@@ -20,7 +20,7 @@
         <style type="text/css" >
             <jsp:include page="css/gestion.css" />
         </style>
-        <title>JSP Page</title>
+        <title>Voir toutes les matières</title>
     </head>
     <body>
         <jsp:include page="header.jsp" />
