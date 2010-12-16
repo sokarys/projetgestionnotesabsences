@@ -40,6 +40,10 @@
             <param-value>/viewAllMatiere.jsp</param-value>
         </init-param>
         <init-param>
+            <param-name>urlViewAllControle</param-name>
+            <param-value>/viewAllControle.jsp</param-value>
+        </init-param>
+        <init-param>
             <param-name>urlViewEtudiant</param-name>
             <param-value>/viewEtudiant.jsp</param-value>
         </init-param>

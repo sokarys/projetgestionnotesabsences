@@ -49,9 +49,11 @@ public class Controller extends HttpServlet {
         private String urlViewAllNotes;
         private String urlViewAnEtudiant;
         private String urlViewAllMatiere;
+        private String urlViewAllControle;
         
         private ListeEtudiant listeEtudiant;
         private ListeMatiere listeMatiere;
+
 
 
 
@@ -71,7 +73,7 @@ public class Controller extends HttpServlet {
             urlModifEtudiant = getServletConfig().getInitParameter("urlModifEtudiant");
             urlModifNote = getServletConfig().getInitParameter("urlModifNoteEtudiant");
             urlModifAbsence = getServletConfig().getInitParameter("urlModifAbsenceEtudiant");
-
+            urlViewAllControle = getServletConfig().getInitParameter("urlViewAllControle");
            
             @SuppressWarnings("unchecked")
             List<fr.iut2.tc4.projet.torque.Etudiant> l;
@@ -143,6 +145,8 @@ public class Controller extends HttpServlet {
                         doViewAnEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/viewAllMatiere")) {
                         doViewAllMatiere(request, response);
+		}else if (methode.equals("get") && action.equals("/viewAllControle")) {
+                        doViewAllControle(request, response);
 		}/*else if (methode.equals("get") && action.equals("/addAbsenceEtudiant")) {
                         doAddAbsenceEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/addNoteEtudiant")) {
@@ -222,6 +226,31 @@ public class Controller extends HttpServlet {
              int index = Integer.valueOf(request.getParameter("id"));
              request.setAttribute("etudiant", listeEtudiant.getEtudiantWithId(index));
              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+
+
+        private void doViewAllControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+
+           request.setAttribute("listeEtudiant", listeEtudiant);
+
+            if (request.getParameter("groupe") == null) {
+                request.setAttribute("groupe", "allgroupe");
+                request.setAttribute("listeMatiere", listeMatiere);
+            } else {
+            try {
+                String gp = request.getParameter("groupe");
+                request.setAttribute("groupe", gp);
+                ListeMatiere m = new ListeMatiere();
+                m.setListe(listeMatiere.getListe(gp));
+                request.setAttribute("listeMatiere", m);
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            }
+             loadJSP(this.urlViewAllControle, request, response);
 
         }
 
