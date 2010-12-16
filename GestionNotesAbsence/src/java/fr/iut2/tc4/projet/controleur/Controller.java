@@ -182,13 +182,19 @@ public class Controller extends HttpServlet {
                 request.setAttribute("groupe", "allgroupe");
                 request.setAttribute("listeEtudiant", listeEtudiant);
             } else {
-                String gp = request.getParameter("groupe");
-                request.setAttribute("groupe", gp);
+
                 try {
-                    request.setAttribute("listeEtudiant", listeEtudiant.getListe(gp));
-                } catch (TorqueException ex) {
+                String gp = request.getParameter("groupe");
+                request.setAttribute("groupe",gp );
+                ListeEtudiant le = new ListeEtudiant();
+                 le.setListe(listeEtudiant.getListe(gp));
+                 request.setAttribute("listeEtudiant", le);
+                 } catch (TorqueException ex) {
                     Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
+
+                
             }
 
             loadJSP(this.urlViewEtudiant, request, response);
@@ -228,13 +234,16 @@ public class Controller extends HttpServlet {
                 request.setAttribute("groupe", "allgroupe");
                 request.setAttribute("listeMatiere", listeMatiere);
             } else {
-               String gp = request.getParameter("groupe");
-                request.setAttribute("groupe", gp);
             try {
-                request.setAttribute("listeMatiere", listeMatiere.getListe(gp));
+                String gp = request.getParameter("groupe");
+                request.setAttribute("groupe", gp);
+                ListeMatiere m = new ListeMatiere();
+                m.setListe(listeMatiere.getListe(gp));
+                request.setAttribute("listeMatiere", m);
             } catch (TorqueException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
             }
              loadJSP(this.urlViewAllMatiere, request, response);
 
