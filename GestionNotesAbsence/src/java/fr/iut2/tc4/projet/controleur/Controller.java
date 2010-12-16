@@ -11,8 +11,11 @@ package fr.iut2.tc4.projet.controleur;
  */
 
 import fr.iut2.tc4.projet.data.ListeEtudiant;
+import fr.iut2.tc4.projet.data.ListeMatiere;
 import fr.iut2.tc4.projet.torque.BaseEtudiantPeer;
 import fr.iut2.tc4.projet.torque.EtudiantPeer;
+import fr.iut2.tc4.projet.torque.Matiere;
+import fr.iut2.tc4.projet.torque.MatierePeer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -45,12 +48,16 @@ public class Controller extends HttpServlet {
         private String urlViewAllAbsence;
         private String urlViewAllNotes;
         private String urlViewAnEtudiant;
-
+        private String urlViewAllMatiere;
+        
         private ListeEtudiant listeEtudiant;
+        private ListeMatiere listeMatiere;
 
 
 
-        public Controller(){}
+
+    public Controller(){}
+    
     @Override
     public void init() throws ServletException {
             listeEtudiant = new ListeEtudiant();
@@ -60,7 +67,7 @@ public class Controller extends HttpServlet {
             urlAddNote = getServletConfig().getInitParameter("urlAddNote");
             urlAddAbsence = getServletConfig().getInitParameter("urlAddAbsence");
             urlViewAllAbsence = getServletConfig().getInitParameter("urlViewAllAbsence");
-            urlViewAllNotes = getServletConfig().getInitParameter("urlViewAllNotes");
+            urlViewAllMatiere = getServletConfig().getInitParameter("urlViewAllMatiere");
             urlModifEtudiant = getServletConfig().getInitParameter("urlModifEtudiant");
             urlModifNote = getServletConfig().getInitParameter("urlModifNoteEtudiant");
             urlModifAbsence = getServletConfig().getInitParameter("urlModifAbsenceEtudiant");
@@ -74,7 +81,14 @@ public class Controller extends HttpServlet {
             } catch (TorqueException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
-           
+
+
+            this.listeMatiere = new ListeMatiere();
+            try {
+                listeMatiere.setListe((List<Matiere>) MatierePeer.doSelect(new Criteria()));
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
            
 
     }
@@ -127,6 +141,8 @@ public class Controller extends HttpServlet {
                         doViewAllAbsence(request, response);
 		}else if (methode.equals("get") && action.equals("/viewAnEtudiant")) {
                         doViewAnEtudiant(request, response);
+		}else if (methode.equals("get") && action.equals("/viewAllMatiere")) {
+                        doViewAllMatiere(request, response);
 		}/*else if (methode.equals("get") && action.equals("/addAbsenceEtudiant")) {
                         doAddAbsenceEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/addNoteEtudiant")) {
@@ -161,12 +177,20 @@ public class Controller extends HttpServlet {
         private void doEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
             
-            request.setAttribute("listeEtudiant", listeEtudiant);
+            
             if (request.getParameter("groupe") == null) {
                 request.setAttribute("groupe", "allgroupe");
+                request.setAttribute("listeEtudiant", listeEtudiant);
             } else {
-                request.setAttribute("groupe", request.getParameter("groupe"));
+                String gp = request.getParameter("groupe");
+                request.setAttribute("groupe", gp);
+                try {
+                    request.setAttribute("listeEtudiant", listeEtudiant.getListe(gp));
+                } catch (TorqueException ex) {
+                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+
             loadJSP(this.urlViewEtudiant, request, response);
      
         }
@@ -190,10 +214,92 @@ public class Controller extends HttpServlet {
        */ private void doViewAnEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              int index = Integer.valueOf(request.getParameter("id"));
-             request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+             request.setAttribute("etudiant", listeEtudiant.getEtudiantWithId(index));
              loadJSP(this.urlViewAnEtudiant, request, response);
 
-        }/*
+        }
+
+       private void doViewAllMatiere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+
+           request.setAttribute("listeEtudiant", listeEtudiant);
+            
+            if (request.getParameter("groupe") == null) {
+                request.setAttribute("groupe", "allgroupe");
+                request.setAttribute("listeMatiere", listeMatiere);
+            } else {
+               String gp = request.getParameter("groupe");
+                request.setAttribute("groupe", gp);
+            try {
+                request.setAttribute("listeMatiere", listeMatiere.getListe(gp));
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+             loadJSP(this.urlViewAllMatiere, request, response);
+
+        }
+       
+       /*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
         
         private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));

@@ -67,4 +67,13 @@ public class ListeEtudiant {
         return lg;
     }
 
+    public Etudiant getEtudiantWithId(int index){
+        for(Etudiant e : liste){
+            if(e.getEtudiantId() == index){
+                return e;
+            }
+        }
+        return null;
+    }
+
 }
