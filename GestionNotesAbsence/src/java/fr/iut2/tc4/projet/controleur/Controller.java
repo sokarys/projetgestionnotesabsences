@@ -57,6 +57,7 @@ public class Controller extends HttpServlet {
         private ListeEtudiant listeEtudiant;
         private ListeMatiere listeMatiere;
     private ListeControle listeControle;
+    private String urlViewAnControle;
 
 
 
@@ -78,6 +79,7 @@ public class Controller extends HttpServlet {
             urlModifNote = getServletConfig().getInitParameter("urlModifNoteEtudiant");
             urlModifAbsence = getServletConfig().getInitParameter("urlModifAbsenceEtudiant");
             urlViewAllControle = getServletConfig().getInitParameter("urlViewAllControle");
+            urlViewAnControle =  getServletConfig().getInitParameter("urlViewAnControle");
 
             @SuppressWarnings("unchecked")
             List<fr.iut2.tc4.projet.torque.Etudiant> l;
