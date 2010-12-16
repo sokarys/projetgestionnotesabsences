@@ -45,13 +45,13 @@
             </tr>
             </thead>
         <% for(Etudiant e : listeEtudiant.getListe()) { 
-            if(e.getGroupe().equals(groupe) || groupe.equals("allgroupe")){
+            if(e.getClasse().getNom().equals(groupe) || groupe.equals("allgroupe")){
         %>
 
         <tr>
             <td><%= e.getNom() %></td>
             <td><%= e.getPrenom() %></td>
-            <td><%= e.getGroupe() %></td>
+            <td><%= e.getClasse().getNom() %></td>
             <td><%= String.valueOf(e.getMoyenne()) %></td>
            <td><%= e.getAbsences().size() %></td>
             <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getEtudiantId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
