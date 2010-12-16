@@ -45,7 +45,7 @@
             </tr>
             </thead>
         <% for(Etudiant e : listeEtudiant.getListe()) { 
-            if(e.getClasse().equals(groupe) || groupe.equals("allgroupe")){
+            if(e.getClasse().toString().equals(groupe) || groupe.equals("allgroupe")){
         %>
 
         <tr>
