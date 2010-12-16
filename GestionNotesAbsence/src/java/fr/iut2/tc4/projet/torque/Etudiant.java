@@ -42,7 +42,7 @@ public  class Etudiant
                     Logger.getLogger(Etudiant.class.getName()).log(Level.SEVERE, null, ex);
                 }
         return 0;
-  }
+    }
   
 
 }
