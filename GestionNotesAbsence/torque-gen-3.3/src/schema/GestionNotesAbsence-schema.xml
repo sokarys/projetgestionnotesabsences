@@ -108,12 +108,14 @@
         <column
       name="dateDebut"
       required="true"
-      type="DATE"
+      type="VARCHAR"
+      size="128"
       description="Date de debut"/>
       <column
       name="dateFin"
       required="true"
-      type="DATE"
+      type="VARCHAR"
+      size="128"
       description="Date de fin"/>
       <column
       name="motif"
@@ -175,7 +177,8 @@
       <column
       name="date"
       required="true"
-      type="DATE"
+      type="VARCHAR"
+      size="128"
       description="date du controle"/>           
        <column
       name="cours_id"
