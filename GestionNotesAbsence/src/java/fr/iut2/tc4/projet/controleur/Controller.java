@@ -625,15 +625,36 @@ public class Controller extends HttpServlet {
                 m.setNom(request.getParameter(m.getMatiereId() + "_name"));
                 m.setProf(request.getParameter(m.getMatiereId() + "_prof"));
                 m.setDescription(request.getParameter(m.getMatiereId() + "_descrip"));
-                String[] lc = request.getParameterValues(m.getMatiereId() + "_cour");
-                /*Criteria cm = new Criteria();
+               /* String[] lc = request.getParameterValues(m.getMatiereId() + "_classe");
+                Criteria cm = new Criteria();
                 cm.add(CoursPeer.MATIERE_ID,m.getMatiereId());
-                CoursPeer.doDelete(cm);
-               for(int i=0; i<lc.length; i++){
-                    Cours cour = new Cours();
-                    cour.setClasseId(Integer.parseInt(lc[i]));
-                    cour.setMatiereId(m.getMatiereId());
-                    cour.save();
+                List<Cours> listC = CoursPeer.doSelect(cm);
+                ArrayList<Cours> notIn = new ArrayList<Cours>();
+                ArrayList<Cours> isIn = new ArrayList<Cours>();
+               for(Cours c : listC){
+                  if(!c.isInTheseClass(lc)){
+                      notIn.add(c);
+                  }else{
+                      isIn.add(c);
+                  }
+               }
+               for(Cours c : notIn){
+                   Criteria isinbd = new Criteria();
+                   isinbd.add(CoursPeer.CLASSE_ID,c.getClasseId());
+                   isinbd.add(CoursPeer.MATIERE_ID,m.getMatiereId());
+                   List<Cours> aDell = CoursPeer.doSelect(isinbd);
+                   if(aDell.size()>0){
+                       for(Cours del : aDell){
+                           Criteria i = new Criteria(); i.add(ControlePeer.COURS_ID,del.getCoursId());
+                           ControlePeer.doDelete(i);
+                           CoursPeer.doDelete(del);
+                       }
+                   }else{
+                        Cours nc = new Cours();
+                        nc.setMatiere(m);
+                        nc.setClasseId(c.getClasseId());
+                        nc.save();
+                   }
                }*/
             }
             doViewAllMatiere(request, response);
