@@ -63,6 +63,10 @@
             <param-name>urlModifAnControle</param-name>
             <param-value>/modifAnControle.jsp</param-value>
         </init-param>
+         <init-param>
+            <param-name>urlModifAllMatiere</param-name>
+            <param-value>/modifAllMatiere.jsp</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
