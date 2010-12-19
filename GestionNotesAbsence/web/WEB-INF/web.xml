@@ -29,7 +29,7 @@
         </init-param>
         <init-param>
             <param-name>urlModifAllAbsence</param-name>
-            <param-value>/modifAllAbsence.jsp</param-value>
+            <param-value>/modifAllAbsences.jsp</param-value>
         </init-param>
         <init-param>
             <param-name>urlViewAllAbsence</param-name>

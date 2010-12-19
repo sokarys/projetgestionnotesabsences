@@ -67,7 +67,7 @@
             </tr>
             <tr>
                 <td><a href="/GestionNotesAbsence/do/addAbsence?groupe=<%=groupe%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une absence" alt="Ajouter Absence"/></a></td>
-                <td><a href="/GestionNotesAbsence/do/modifAbsence"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer les absences" alt="Modifier"/></a></td>
+                <td><a href="/GestionNotesAbsence/do/modifAllAbsences"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer les absences" alt="Modifier"/></a></td>
           </tr>
         </table>
          </div>

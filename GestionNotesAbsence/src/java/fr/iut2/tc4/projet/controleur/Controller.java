@@ -344,7 +344,7 @@ public class Controller extends HttpServlet {
                     }
                     
                     request.setAttribute("controle", controle.get(0));
-                    loadJSP(this.urlModifAnControle, request, response);
+                    loadJSP(this.urlViewAnControle, request, response);
                 } catch (Exception ex) {
                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
