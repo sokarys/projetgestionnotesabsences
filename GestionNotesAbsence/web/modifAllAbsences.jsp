@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : absences
     Created on : 30 nov. 2010, 10:54:29
     Author     : sokarys
@@ -39,35 +39,35 @@
                 <th>Date Debut</th>
                 <th>Date Fin</th>
                 <th>Motif</th>
-                <th>Voir Informations</th>                
+                <th>Voir Informations</th>
                 <th>Supprimer</th>
-                
+
             </tr>
+            
             <% for(Etudiant e : listeEtudiant.getListe()){
-                if(e.getClasse().toString().equals(groupe) || groupe.equals("allgroupe")){
             %>
+            <form method="post" action="/GestionNotesAbsence/do/modifiedAllAbsences?groupe=<%=groupe%>">
                 <% for(Absence a : (List<Absence>) e.getAbsences()){ %>
                 <tr>
                     <td><%=e.getNom()%></td>
                     <td><%=e.getPrenom()%></td>
                     <td><%=e.getClasse()%></td>
-                    <td><%=a.getDatedebut() %></td>
-                    <td><%=a.getDatefin() %></td>
-                    <td><%=a.getMotif() %></td>
+                    <td><input type="text" name="<%=a.getAbsenceId() +"_db"%>" value="<%=a.getDatedebut()%>" /></td>
+                    <td><input type="text" name="<%=a.getAbsenceId() +"_df"%>" value="<%=a.getDatefin()%>" /></td>
+                    <td><input type="text" name="<%=a.getAbsenceId() +"_m"%>" value="<%=a.getMotif()%>" /></td>
                     <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getEtudiantId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
                     <td><a href="/GestionNotesAbsence/do/dellAbsence?id=<%=e.getEtudiantId()%>&idAbsence=<%=a.getAbsenceId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer l'absence" alt="Supprimer"/></a></td>
                 </tr>
-            <% } } }%>
-            <tr
+            <% }}%>
+            <input type="submit" />
+            </form>
         </table>
         <table class="table">
             <tr>
                 <th>Ajouter une absence</th>
-                 <th>Modifier les absences</th>
             </tr>
             <tr>
                 <td><a href="/GestionNotesAbsence/do/addAbsence?groupe=<%=groupe%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une absence" alt="Ajouter Absence"/></a></td>
-                <td><a href="/GestionNotesAbsence/do/modifAbsence"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer les absences" alt="Modifier"/></a></td>
           </tr>
         </table>
          </div>

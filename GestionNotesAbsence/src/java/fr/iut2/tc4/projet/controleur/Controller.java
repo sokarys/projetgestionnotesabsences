@@ -14,9 +14,11 @@ import fr.iut2.tc4.projet.data.ListeControle;
 import fr.iut2.tc4.projet.data.ListeEtudiant;
 import fr.iut2.tc4.projet.data.ListeMatiere;
 import fr.iut2.tc4.projet.torque.Absence;
+import fr.iut2.tc4.projet.torque.AbsencePeer;
 import fr.iut2.tc4.projet.torque.BaseEtudiantPeer;
 import fr.iut2.tc4.projet.torque.Controle;
 import fr.iut2.tc4.projet.torque.ControlePeer;
+import fr.iut2.tc4.projet.torque.Etudiant;
 import fr.iut2.tc4.projet.torque.EtudiantPeer;
 import fr.iut2.tc4.projet.torque.Matiere;
 import fr.iut2.tc4.projet.torque.MatierePeer;
@@ -51,7 +53,7 @@ public class Controller extends HttpServlet {
         private String urlAddAbsence;
         private String urlModifEtudiant;
         private String urlModifNote;
-        private String urlModifAbsence;
+        private String urlModifAllAbsence;
         private String urlViewAllAbsence;
         private String urlViewAllNotes;
         private String urlViewAnEtudiant;
@@ -75,7 +77,7 @@ public class Controller extends HttpServlet {
             urlViewAllMatiere = getServletConfig().getInitParameter("urlViewAllMatiere");
             urlModifEtudiant = getServletConfig().getInitParameter("urlModifEtudiant");
             urlModifNote = getServletConfig().getInitParameter("urlModifNoteEtudiant");
-            urlModifAbsence = getServletConfig().getInitParameter("urlModifAbsenceEtudiant");
+            urlModifAllAbsence = getServletConfig().getInitParameter("urlModifAllAbsence");
             urlViewAllControle = getServletConfig().getInitParameter("urlViewAllControle");
             urlViewAnControle =  getServletConfig().getInitParameter("urlViewAnControle");
             urlModifAnControle =  getServletConfig().getInitParameter("urlModifAnControle");
@@ -175,11 +177,13 @@ public class Controller extends HttpServlet {
                         doAddAbsence(request, response);
 		}else if (methode.equals("post") && action.equals("/addedAbsence")) {
                         doAddedAbsence(request, response);
-		}/*else if (methode.equals("get") && action.equals("/dellEtudiant")) {
-                        doDellEtudiant(request, response);
-		}else if (methode.equals("get") && action.equals("/dellNoteEtudiant")) {
-                        doDellNoteEtudiant(request, response);
-		}else if (methode.equals("get") && action.equals("/dellAbsenceEtudiant")) {
+		}else if (methode.equals("get") && action.equals("/dellAbsence")) {
+                        doDellAbsence(request, response);
+		}else if (methode.equals("post") && action.equals("/modifiedAllAbsences")) {
+                        doModifiedAllAbsence(request, response);
+		}else if (methode.equals("get") && action.equals("/modifAllAbsences")) {
+                        doModifAllAbsence(request, response);
+		}/*else if (methode.equals("get") && action.equals("/dellAbsenceEtudiant")) {
                         doDellAbsenceEtudiant(request, response);
 		}else if (methode.equals("post") && action.equals("/modifiedAbsenceEtudiant")) {
                         doModifiedAbsenceEtudiant(request, response);
@@ -264,15 +268,11 @@ public class Controller extends HttpServlet {
             String date = request.getParameter("dateDeb");
             String dateFin = request.getParameter("dateFin");
             String motif = request.getParameter("motif");
-            GregorianCalendar gc = new GregorianCalendar();
-            gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1]) - 1, Integer.valueOf(date.split("/")[0]));
-            GregorianCalendar gcF = new GregorianCalendar();
-            gcF.set(Integer.valueOf(dateFin.split("/")[2]), Integer.valueOf(dateFin.split("/")[1]) - 1, Integer.valueOf(dateFin.split("/")[0]));
             Absence a = new Absence();
             a.setEtudiantId(index);
             a.setMotif(motif);
-            a.setDatedebut(gc.getGregorianChange());
-            a.setDatefin(gcF.getGregorianChange());
+            a.setDatedebut(date);
+            a.setDatefin(dateFin);
             a.save();
             
             doViewAllAbsence(request,response);
@@ -307,6 +307,7 @@ public class Controller extends HttpServlet {
             
 
         }
+
         private void doModifAnControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              int index = Integer.valueOf(request.getParameter("id"));
@@ -537,6 +538,45 @@ public class Controller extends HttpServlet {
               loadJSP(this.urlViewAllAbsence, request, response);
 
         }
+
+          private void doModifAllAbsence(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                request.setAttribute("listeEtudiant", getListeEtudiant());
+                 }else{
+                    try {
+                        String gp = request.getParameter("groupe");
+                        request.setAttribute("groupe", gp);
+                        ListeEtudiant le = new ListeEtudiant();
+                        le.setListe(getListeEtudiant().getListe(gp));
+                        request.setAttribute("listeEtudiant", le);
+                    } catch (TorqueException ex) {
+                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+              loadJSP(this.urlModifAllAbsence, request, response);
+
+        }
+
+          private void doModifiedAllAbsence(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            try {
+                List<Absence> la = AbsencePeer.doSelect(new Criteria());
+                for(Absence a : la){
+                    String db = request.getParameter(a.getAbsenceId()+"_db");
+                    String df = request.getParameter(a.getAbsenceId()+"_df");
+                    String m = request.getParameter(a.getAbsenceId()+"_m");
+                    a.setDatedebut(db);
+                    a.setDatefin(df);
+                    a.setMotif(m);
+                    a.save();
+                }
+
+            } catch (Exception ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            doViewAllAbsence(request,response);
+
+        }
 /*
             private void doDellEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
@@ -568,23 +608,23 @@ public class Controller extends HttpServlet {
               loadJSP(this.urlViewAnEtudiant, request, response);
             }
 
-             private void doDellAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            //request.setAttribute("etudiant",request.getAttribute("name"));
-             //response.
-                 System.out.print("Pass ici");
-                 System.out.print(request.getAttribute("id"));
-
+             */private void doDellAbsence(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  
               int index = Integer.valueOf(request.getParameter("id"));
               int indexAbsence = Integer.valueOf(request.getParameter("idAbsence"));
-              if(indexAbsence < listeEtudiant.getListe().get(index).getListAbsences().size()){
-                  listeEtudiant.getListe().get(index).getListAbsences().remove(indexAbsence);
-                  for(int i=0; i<listeEtudiant.getListe().get(index).getNbAbsences(); i++){
-                      listeEtudiant.getListe().get(index).getListAbsences().get(i).setId(i);
-                  }
-               }
-              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
-              loadJSP(this.urlViewAnEtudiant, request, response);
+
+              Etudiant e = this.getListeEtudiant().getEtudiantWithId(index);
+              Criteria c = new Criteria();
+              c.add(AbsencePeer.ABSENCE_ID,indexAbsence );
+                try {
+                    AbsencePeer.doDelete(c);
+                } catch (TorqueException ex) {
+                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+                 doViewAllAbsence(request,response);
             }
+             /*
 
            private void doModifiedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));

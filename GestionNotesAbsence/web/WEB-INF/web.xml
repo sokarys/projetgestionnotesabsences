@@ -28,8 +28,8 @@
             <param-value>/modifNoteEtudiant.jsp</param-value>
         </init-param>
         <init-param>
-            <param-name>urlModifAbsenceEtudiant</param-name>
-            <param-value>/modifAbsenceEtudiant.jsp</param-value>
+            <param-name>urlModifAllAbsence</param-name>
+            <param-value>/modifAllAbsence.jsp</param-value>
         </init-param>
         <init-param>
             <param-name>urlViewAllAbsence</param-name>
