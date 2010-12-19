@@ -1,6 +1,9 @@
 package fr.iut2.tc4.projet.torque;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.torque.TorqueException;
 import org.apache.torque.om.Persistent;
 
 /**
@@ -20,5 +23,14 @@ public  class Matiere
 {
     /** Serial version */
     private static final long serialVersionUID = 1292399433659L;
+
+    public boolean isInClasse(String classe) throws TorqueException{
+        for(Cours c : (List<Cours>) this.getCourss()){
+                if(c.getClasse().getNom().equals(classe)){
+                    return true;
+                }
+        }
+        return false;
+    }
 
 }
