@@ -56,7 +56,7 @@
             <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getEtudiantId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
             <td><a href="/GestionNotesAbsence/do/dellEtudiant?id=<%= e.getEtudiantId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="supprimer" alt="supprimer"/></a></td>
         </tr>
-        <% } //}%>
+        <% }%>
             </table>
             <table class="table">
             <tr><th>Ajouter un étudiant</th<th>Modifier la liste</th><th>Voir Absence</th></tr>
