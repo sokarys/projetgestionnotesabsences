@@ -55,6 +55,10 @@
             <param-name>urlViewAnControle</param-name>
             <param-value>/viewAnControle.jsp</param-value>
         </init-param>
+        <init-param>
+            <param-name>urlModifAnControle</param-name>
+            <param-value>/ModifAnControle.jsp</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>

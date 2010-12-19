@@ -59,6 +59,7 @@ public class Controller extends HttpServlet {
         private ListeMatiere listeMatiere;
     private ListeControle listeControle;
     private String urlViewAnControle;
+    private String urlModifAnControle;
 
 
 
@@ -81,6 +82,7 @@ public class Controller extends HttpServlet {
             urlModifAbsence = getServletConfig().getInitParameter("urlModifAbsenceEtudiant");
             urlViewAllControle = getServletConfig().getInitParameter("urlViewAllControle");
             urlViewAnControle =  getServletConfig().getInitParameter("urlViewAnControle");
+            urlModifAnControle =  getServletConfig().getInitParameter("urlModifAnControle");
 
             @SuppressWarnings("unchecked")
             List<fr.iut2.tc4.projet.torque.Etudiant> l;
@@ -163,6 +165,8 @@ public class Controller extends HttpServlet {
                         doViewAllControle(request, response);
 		}else if (methode.equals("get") && action.equals("/viewAnControle")) {
                         doViewAnControle(request, response);
+		}else if (methode.equals("get") && action.equals("/modifAnControle")) {
+                        doModifAnControle(request, response);
 		}/*else if (methode.equals("get") && action.equals("/addAbsenceEtudiant")) {
                         doAddAbsenceEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/addNoteEtudiant")) {
@@ -258,6 +262,22 @@ public class Controller extends HttpServlet {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
             
+
+        }
+        private void doModifAnControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             int index = Integer.valueOf(request.getParameter("id"));
+             Criteria n = new Criteria();
+             n.add(ControlePeer.CONTROLE_ID, index);
+             List<Controle> controle;
+            try {
+                controle = ControlePeer.doSelect(n);
+                request.setAttribute("controle", controle.get(0));
+                loadJSP(this.urlViewAnControle, request, response);
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
 
         }
 
