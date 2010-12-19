@@ -227,7 +227,7 @@ public class Controller extends HttpServlet {
                         doAddControleMatiere(request, response);
                 }else if (methode.equals("get") && action.equals("/addControle")) {
                         doAddControle(request, response);
-                }else if (methode.equals("get") && action.equals("/addedControle")) {
+                }else if (methode.equals("post") && action.equals("/addedControle")) {
                         doAddedControle(request, response);
                 }
             /*else if (methode.equals("post") && action.equals("/modifiedNoteEtudiant")) {

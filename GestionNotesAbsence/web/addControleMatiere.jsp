@@ -29,7 +29,7 @@
          <div id="corps">
         <h1>Ajouter un controle</h1>
         <table class="table">
-            <form method="post" action="/GestionNotesAbsence/do/addControle">
+            <form method="post" action="/GestionNotesAbsence/do/addedControle">
                 <caption>Liste des Etudiant de ce controle</caption>
                 <tr>
                     <th>Nom</th>
