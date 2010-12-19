@@ -44,7 +44,6 @@
            Classe : <select name="classe">
                <% for(Classe cs : listeClasse.getListe()){ %>
                <option value="<%=cs.getClasseId()%>" <%if(etudiant.getClasse().getNom().equals(cs.getNom())){%>selected="selected"<%}%>><%=cs.getNom()%></option>
-
                <%}%>
                </select>
         </div>
