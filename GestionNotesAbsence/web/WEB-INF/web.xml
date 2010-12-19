@@ -67,6 +67,14 @@
             <param-name>urlModifAllMatiere</param-name>
             <param-value>/modifAllMatiere.jsp</param-value>
         </init-param>
+          <init-param>
+            <param-name>urlAddControle</param-name>
+            <param-value>/addControle.jsp</param-value>
+        </init-param>
+          <init-param>
+            <param-name>urlAddControleMatiere</param-name>
+            <param-value>/addControleMatiere.jsp</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
