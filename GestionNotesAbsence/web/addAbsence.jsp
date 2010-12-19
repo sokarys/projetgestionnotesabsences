@@ -31,11 +31,17 @@
     <body>
          <jsp:include page="header.jsp" />
         <jsp:include page="menu.jsp" />
+        <div id="groupe">
+        <a href="/GestionNotesAbsence/do/addAbsence?groupe=allgroupe">Tous</a>
+        <% for(String s : listeEtudiant.getGroupes() ) { %>
+        <a href="/GestionNotesAbsence/do/addAbsence?groupe=<%=s%>"><%=s%></a>
+        <%}%>
+        </div>
          <div id="corps">
          <form method="post" action="/GestionNotesAbsence/do/addedAbsenceEtudiant">
             <select name="id">
                  <% for(Etudiant e : listeEtudiant.getListe()) { %>
-		<option value="<%=e.getEtudiantId() %>"><%=e.getNom()%> <%=e.getPrenom()%></option>
+                    <option value="<%=e.getEtudiantId() %>"><%=e.getNom()%> <%=e.getPrenom()%></option>
                  <%}%>
             </select>
 

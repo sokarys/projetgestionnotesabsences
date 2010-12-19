@@ -17,7 +17,7 @@
         </init-param>
         <init-param>
             <param-name>urlAddAbsence</param-name>
-            <param-value>/addAbsenceEtudiant.jsp</param-value>
+            <param-value>/addAbsence.jsp</param-value>
         </init-param>
          <init-param>
             <param-name>urlModifEtudiant</param-name>
