@@ -41,6 +41,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.torque.NoRowsException;
+import org.apache.torque.TooManyRowsException;
 import org.apache.torque.TorqueException;
 import org.apache.torque.util.Criteria;
 
@@ -56,6 +58,8 @@ public class Controller extends HttpServlet {
         private String urlAddAbsence;
         private String urlModifAnEtudiant;
         private String urlModifNote;
+        private String urlAddControleMatiere;
+        private String urlAddControle;
         private String urlModifAllAbsence;
         private String urlViewAllAbsence;
         private String urlViewAllNotes;
@@ -86,7 +90,9 @@ public class Controller extends HttpServlet {
             urlViewAnControle =  getServletConfig().getInitParameter("urlViewAnControle");
             urlModifAnControle =  getServletConfig().getInitParameter("urlModifAnControle");
             urlAddAbsenceEtudiant = getServletConfig().getInitParameter("urlAddAbsenceEtudiant");
- 
+
+            urlAddControleMatiere =  getServletConfig().getInitParameter("urlAddControleMatiere");
+            urlAddControle = getServletConfig().getInitParameter("urlAddControle");
 
     }
 
@@ -205,7 +211,12 @@ public class Controller extends HttpServlet {
                         doAddedEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/addAnEtudiant")) {
                         doAddAnEtudiant(request, response);
-		}/*else if (methode.equals("get") && action.equals("/dellAbsenceEtudiant")) {
+		}else if (methode.equals("post") && action.equals("/addControleMatiere")) {
+                        doAddControleMatiere(request, response);
+		}else if (methode.equals("post") && action.equals("/addControle")) {
+                        doAddControle(request, response);
+		}
+               /*else if (methode.equals("get") && action.equals("/dellAbsenceEtudiant")) {
                         doDellAbsenceEtudiant(request, response);
 		}else if (methode.equals("post") && action.equals("/modifiedAbsenceEtudiant")) {
                         doModifiedAbsenceEtudiant(request, response);
@@ -548,7 +559,35 @@ public class Controller extends HttpServlet {
              request.setAttribute("groupe", "allgroupe");
              loadJSP(this.urlViewEtudiant, request, response);
 
-        }/*
+        }
+         private void doAddControleMatiere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            try {
+                request.setAttribute("date", request.getParameter("date"));
+                request.setAttribute("coef", request.getParameter("coef"));
+                request.setAttribute("matiere", MatierePeer.retrieveByPK(Integer.valueOf(request.getParameter("idMatiere"))));
+                loadJSP(this.urlAddControleMatiere, request, response);
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+         private void doAddControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+             try {
+                Controle c = new Controle();
+                c.setCoursId(v);
+                c.setCoef(Integer.valueOf(request.getParameter("coef")));
+                c.setDate(request.getParameter("date"));
+                c.save();
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (Exception ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+             request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewAllControle, request, response);
+        }
+         /*
           private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              //response.
