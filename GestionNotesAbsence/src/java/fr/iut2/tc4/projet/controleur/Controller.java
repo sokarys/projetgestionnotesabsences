@@ -195,6 +195,8 @@ public class Controller extends HttpServlet {
                         doAddAbsence(request, response);
 		}else if (methode.equals("post") && action.equals("/addedAbsence")) {
                         doAddedAbsence(request, response);
+		}else if (methode.equals("get") && action.equals("/dellAbsenceEtudiant")) { //
+                        doDellAbsenceEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/dellAbsence")) {
                         doDellAbsence(request, response);
 		}else if (methode.equals("post") && action.equals("/modifiedAllAbsences")) {
@@ -205,6 +207,8 @@ public class Controller extends HttpServlet {
                         doAddAbsenceEtudiant(request, response);
 		}else if (methode.equals("post") && action.equals("/addedAbsenceEtudiant")) {
                         doAddedAbsenceEtudiant(request, response);
+		}else if (methode.equals("get") && action.equals("/dellAnEtudiant")) {
+                        doDellAnEtudiant(request, response);
 		}/*else if (methode.equals("get") && action.equals("/dellAbsenceEtudiant")) {
                         doDellAbsenceEtudiant(request, response);
 		}else if (methode.equals("post") && action.equals("/modifiedAbsenceEtudiant")) {
@@ -249,6 +253,28 @@ public class Controller extends HttpServlet {
             loadJSP(this.urlViewEtudiant, request, response);
 
         }
+
+        private void doDellAnEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+            int index = Integer.valueOf(request.getParameter("id"));
+            Criteria cnote = new Criteria();
+            cnote.add(NotePeer.ETUDIANT_ID, index);
+            NotePeer.doDelete(cnote);
+            Criteria cabs = new Criteria();
+            cabs.add(AbsencePeer.ETUDIANT_ID, index);
+            AbsencePeer.doDelete(cabs);
+            Criteria ce = new Criteria();
+            ce.add(EtudiantPeer.ETUDIANT_ID, index);
+            EtudiantPeer.doDelete(ce);
+
+            doEtudiant(request,response);
+        } catch (TorqueException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        }
+
 
          private void doAddAbsence(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
@@ -712,8 +738,11 @@ public class Controller extends HttpServlet {
               loadJSP(this.urlViewAnEtudiant, request, response);
             }
 
-             */private void doDellAbsence(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  
+             */
+
+
+           private void doDellAbsence(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
               int index = Integer.valueOf(request.getParameter("id"));
               int indexAbsence = Integer.valueOf(request.getParameter("idAbsence"));
 
@@ -725,8 +754,25 @@ public class Controller extends HttpServlet {
                 } catch (TorqueException ex) {
                     Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            
+
                  doViewAllAbsence(request,response);
+            }
+
+           private void doDellAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+              int index = Integer.valueOf(request.getParameter("id"));
+              int indexAbsence = Integer.valueOf(request.getParameter("idAbsence"));
+
+              Etudiant e = this.getListeEtudiant().getEtudiantWithId(index);
+              Criteria c = new Criteria();
+              c.add(AbsencePeer.ABSENCE_ID,indexAbsence );
+                try {
+                    AbsencePeer.doDelete(c);
+                } catch (TorqueException ex) {
+                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                 doViewAnEtudiant(request,response);
             }
              /*
 
