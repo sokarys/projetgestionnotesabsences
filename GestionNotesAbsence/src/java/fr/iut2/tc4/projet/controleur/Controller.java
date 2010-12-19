@@ -17,6 +17,7 @@ import fr.iut2.tc4.projet.data.ListeMatiere;
 import fr.iut2.tc4.projet.torque.Absence;
 import fr.iut2.tc4.projet.torque.AbsencePeer;
 import fr.iut2.tc4.projet.torque.BaseEtudiantPeer;
+import fr.iut2.tc4.projet.torque.Classe;
 import fr.iut2.tc4.projet.torque.ClassePeer;
 import fr.iut2.tc4.projet.torque.Controle;
 import fr.iut2.tc4.projet.torque.ControlePeer;
@@ -55,6 +56,7 @@ public class Controller extends HttpServlet {
 	private String urlViewEtudiant;
         private String urlAddEtudiant;
         private String urlAddNote;
+        private String urlAddClasse;
         private String urlAddAbsence;
         private String urlModifAnEtudiant;
         private String urlModifNote;
@@ -91,6 +93,7 @@ public class Controller extends HttpServlet {
             urlModifAnControle =  getServletConfig().getInitParameter("urlModifAnControle");
             urlAddAbsenceEtudiant = getServletConfig().getInitParameter("urlAddAbsenceEtudiant");
             urlModifAllMatiere = getServletConfig().getInitParameter("urlModifAllMatiere");
+            urlAddClasse = getServletConfig().getInitParameter("urlAddClasse");
  
     }
 
@@ -213,6 +216,8 @@ public class Controller extends HttpServlet {
                         doModifAllMatiere(request, response);
 		}else if (methode.equals("post") && action.equals("/modifiedAllMatiere")) {
                         doModifiedAllMatiere(request, response);
+		}else if (methode.equals("post") && action.equals("/addedClasse")) {
+                        doAddedClasse(request, response);
 		}/*else if (methode.equals("post") && action.equals("/modifiedNoteEtudiant")) {
                         doModifiedNoteEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/modifAbsenceEtudiant")) {
@@ -389,7 +394,16 @@ public class Controller extends HttpServlet {
         } 
 
         }
-
+       private void doAddedClasse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Classe c = new Classe();
+            c.setNom(request.getParameter("nom"));
+            c.save();
+            loadJSP(this.urlViewEtudiant, request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       }
        private void doViewAnControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              int index = Integer.valueOf(request.getParameter("id"));

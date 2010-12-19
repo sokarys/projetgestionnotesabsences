@@ -47,8 +47,8 @@ drop table if exists absence;
 CREATE TABLE absence
 (
     absence_id INTEGER NOT NULL AUTO_INCREMENT,
-    dateDebut DATETIME NOT NULL,
-    dateFin DATETIME NOT NULL,
+    dateDebut VARCHAR(128) NOT NULL,
+    dateFin VARCHAR(128) NOT NULL,
     motif VARCHAR(128) NOT NULL,
     etudiant_id INTEGER NOT NULL,
     PRIMARY KEY(absence_id));
@@ -76,7 +76,7 @@ CREATE TABLE controle
 (
     controle_id INTEGER NOT NULL AUTO_INCREMENT,
     coef INTEGER NOT NULL,
-    date DATETIME NOT NULL,
+    date VARCHAR(128) NOT NULL,
     cours_id INTEGER NOT NULL,
     PRIMARY KEY(controle_id));
 
