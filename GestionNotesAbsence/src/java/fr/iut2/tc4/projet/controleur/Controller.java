@@ -570,7 +570,7 @@ public class Controller extends HttpServlet {
                 m.setProf(request.getParameter(m.getMatiereId() + "_prof"));
                 m.setDescription(request.getParameter(m.getMatiereId() + "_descrip"));
                 String[] lc = request.getParameterValues(m.getMatiereId() + "_cour");
-                Criteria cm = new Criteria();
+                /*Criteria cm = new Criteria();
                 cm.add(CoursPeer.MATIERE_ID,m.getMatiereId());
                 CoursPeer.doDelete(cm);
                for(int i=0; i<lc.length; i++){
@@ -578,7 +578,7 @@ public class Controller extends HttpServlet {
                     cour.setClasseId(Integer.parseInt(lc[i]));
                     cour.setMatiereId(m.getMatiereId());
                     cour.save();
-               }
+               }*/
             }
             doViewAllMatiere(request, response);
         } catch (Exception ex) {
