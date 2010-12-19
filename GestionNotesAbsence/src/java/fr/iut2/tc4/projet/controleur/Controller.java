@@ -20,6 +20,7 @@ import fr.iut2.tc4.projet.torque.BaseEtudiantPeer;
 import fr.iut2.tc4.projet.torque.ClassePeer;
 import fr.iut2.tc4.projet.torque.Controle;
 import fr.iut2.tc4.projet.torque.ControlePeer;
+import fr.iut2.tc4.projet.torque.Cours;
 import fr.iut2.tc4.projet.torque.Etudiant;
 import fr.iut2.tc4.projet.torque.EtudiantPeer;
 import fr.iut2.tc4.projet.torque.Matiere;
@@ -573,11 +574,22 @@ public class Controller extends HttpServlet {
         }
          private void doAddControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
              try {
+                Matiere m= MatierePeer.retrieveByPK(Integer.valueOf(request.getParameter("idMatiere")));
                 Controle c = new Controle();
-                c.setCoursId(v);
+                Cours cour =(Cours)m.getCourss().get(0);
+                c.setCoursId(cour.getCoursId());
                 c.setCoef(Integer.valueOf(request.getParameter("coef")));
                 c.setDate(request.getParameter("date"));
                 c.save();
+                for(Cours unCours : (List<Cours>) m.getCourss()){
+                     for(Etudiant e : (List<Etudiant>) unCours.getClasse().getEtudiants()){
+                         Note n = new Note();
+                         n.setNote(Integer.valueOf(request.getParameter(String.valueOf(e.getEtudiantId()))));
+                         n.setEtudiantId(e.getEtudiantId());
+                         n.setControleId(c.getControleId());
+                         n.save();
+                     }
+                 }
             } catch (TorqueException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }catch (Exception ex) {
