@@ -19,6 +19,7 @@ import fr.iut2.tc4.projet.torque.ControlePeer;
 import fr.iut2.tc4.projet.torque.EtudiantPeer;
 import fr.iut2.tc4.projet.torque.Matiere;
 import fr.iut2.tc4.projet.torque.MatierePeer;
+import fr.iut2.tc4.projet.torque.Note;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -54,13 +55,13 @@ public class Controller extends HttpServlet {
         private String urlViewAnEtudiant;
         private String urlViewAllMatiere;
         private String urlViewAllControle;
+        private String urlViewAnControle;
+        private String urlModifAnControle;
+
 
         private ListeEtudiant listeEtudiant;
         private ListeMatiere listeMatiere;
-    private ListeControle listeControle;
-    private String urlViewAnControle;
-    private String urlModifAnControle;
-
+        private ListeControle listeControle;
 
 
 
@@ -109,6 +110,16 @@ public class Controller extends HttpServlet {
             }
 
 
+    }
+
+    private ListeMatiere getListeMatiere(){
+        ListeMatiere m = new ListeMatiere();
+        try {
+                listeMatiere.setListe((List<Matiere>) MatierePeer.doSelect(new Criteria()));
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return null;
     }
 
 	// POST
@@ -167,7 +178,7 @@ public class Controller extends HttpServlet {
                         doViewAnControle(request, response);
 		}else if (methode.equals("get") && action.equals("/modifAnControle")) {
                         doModifAnControle(request, response);
-		}else if (methode.equals("get") && action.equals("/modifiedAnControle")) {
+		}else if (methode.equals("post") && action.equals("/modifiedAnControle")) {
                         doModifiedAnControle(request, response);
 		}/*else if (methode.equals("get") && action.equals("/addAbsenceEtudiant")) {
                         doAddAbsenceEtudiant(request, response);
@@ -289,15 +300,22 @@ public class Controller extends HttpServlet {
              Criteria n = new Criteria();
              n.add(ControlePeer.CONTROLE_ID, index);
              List<Controle> controle;
-            try {
-                controle = ControlePeer.doSelect(n);
-                request.setAttribute("controle", controle.get(0));
-                loadJSP(this.urlModifAnControle, request, response);
-            } catch (TorqueException ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-
+                try {
+                    controle = ControlePeer.doSelect(n);
+                    Controle c = (Controle) controle.get(0);
+                    c.setCoef(Integer.valueOf(request.getParameter("coef")));
+                    List<Note> ln = c.getNotes();
+                    for(Note note : ln){
+                        int noteEtudiant = Integer.valueOf(request.getParameter(String.valueOf(note.getEtudiantId())));
+                        note.setNote(noteEtudiant);
+                        note.save();
+                    }
+                    
+                    request.setAttribute("controle", controle.get(0));
+                    loadJSP(this.urlModifAnControle, request, response);
+                } catch (Exception ex) {
+                   Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
         }
 
 

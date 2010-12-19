@@ -35,6 +35,7 @@
                     <th>Classe</th>
                 </tr>
                 <form method="post" action="/GestionNotesAbsence/do/modifiedAnControle?id=<%=controle.getControleId()%>">
+                    <tr> <td> Coef : <input type="text" name="coef" value="<%=controle.getCoef()%>"/> </td> </tr>
             <% for(Note n : (List<Note>) controle.getNotes() ){ %>
                 <tr>
                     <td><%= n.getEtudiant().getNom() %></td>
