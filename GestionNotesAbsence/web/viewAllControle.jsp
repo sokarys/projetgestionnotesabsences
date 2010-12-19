@@ -55,7 +55,7 @@
                     <td>
                     <a href="/GestionNotesAbsence/do/viewEtudiant?groupe=<%=c.getCours().getClasse() %>"><%=c.getCours().getClasse()%></a><br/>
                     </td>
-                    <td><a href="/GestionNotesAbsence/do/viewAnControle?id=<%=c.getControleId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer les controles" alt="Modifier"/></a></td>
+                    <td><a href="/GestionNotesAbsence/do/viewAnControle?id=<%=c.getControleId()%>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Infomations sur le controle" alt="Infomations"/></a></td>
                 </tr>
             <%}%>
          </table>

@@ -27,6 +27,8 @@
         <jsp:include page="menu.jsp" />
          <div id="corps">
         <h1>Un Controle</h1>
+            Coef : <%=controle.getCoef()%>
+            Date : <%=controle.getDate()%>
             <table class="table">
                 <tr>
                     <th>Nom</th>
