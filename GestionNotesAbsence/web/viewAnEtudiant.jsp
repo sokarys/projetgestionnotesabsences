@@ -47,7 +47,6 @@
                 <td><%=n.getControle().getCours().getMatiere().getNom() %></td>
                 <td><%=n.getNote() %></td>
                 <td><%=n.getControle().getCoef() %></td>               
-                <td><a href="/GestionNotesAbsence/do/dellNoteEtudiant?id=<%=etudiant.getEtudiantId()%>&idNote=<%=n.getNoteId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer la note" alt="Supprimer"/></a></td>
             </tr>
             <% } %>
         </table>
