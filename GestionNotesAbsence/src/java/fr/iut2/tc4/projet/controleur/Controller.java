@@ -221,7 +221,9 @@ public class Controller extends HttpServlet {
                         doModifAllMatiere(request, response);
 		}else if (methode.equals("post") && action.equals("/modifiedAllMatiere")) {
                         doModifiedAllMatiere(request, response);
-		}else if (methode.equals("post") && action.equals("/addedClasse")) {
+		}else if (methode.equals("get") && action.equals("/addClasse")) {
+                        doAddClasse(request, response);
+                }else if (methode.equals("post") && action.equals("/addedClasse")) {
                         doAddedClasse(request, response);
 		}else if (methode.equals("post") && action.equals("/addControleMatiere")) {
                         doAddControleMatiere(request, response);
@@ -450,6 +452,9 @@ public class Controller extends HttpServlet {
         } 
 
         }
+        private void doAddClasse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        loadJSP(this.urlAddClasse, request, response);
+       }
        private void doAddedClasse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Classe c = new Classe();
