@@ -10,12 +10,14 @@ package fr.iut2.tc4.projet.controleur;
  * @author sokarys
  */
 
+import fr.iut2.tc4.projet.data.ListeClasse;
 import fr.iut2.tc4.projet.data.ListeControle;
 import fr.iut2.tc4.projet.data.ListeEtudiant;
 import fr.iut2.tc4.projet.data.ListeMatiere;
 import fr.iut2.tc4.projet.torque.Absence;
 import fr.iut2.tc4.projet.torque.AbsencePeer;
 import fr.iut2.tc4.projet.torque.BaseEtudiantPeer;
+import fr.iut2.tc4.projet.torque.ClassePeer;
 import fr.iut2.tc4.projet.torque.Controle;
 import fr.iut2.tc4.projet.torque.ControlePeer;
 import fr.iut2.tc4.projet.torque.Etudiant;
@@ -23,6 +25,7 @@ import fr.iut2.tc4.projet.torque.EtudiantPeer;
 import fr.iut2.tc4.projet.torque.Matiere;
 import fr.iut2.tc4.projet.torque.MatierePeer;
 import fr.iut2.tc4.projet.torque.Note;
+import fr.iut2.tc4.projet.torque.NotePeer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +54,7 @@ public class Controller extends HttpServlet {
         private String urlAddEtudiant;
         private String urlAddNote;
         private String urlAddAbsence;
-        private String urlModifEtudiant;
+        private String urlModifAnEtudiant;
         private String urlModifNote;
         private String urlModifAllAbsence;
         private String urlViewAllAbsence;
@@ -76,7 +79,7 @@ public class Controller extends HttpServlet {
             urlAddAbsence = getServletConfig().getInitParameter("urlAddAbsence");
             urlViewAllAbsence = getServletConfig().getInitParameter("urlViewAllAbsence");
             urlViewAllMatiere = getServletConfig().getInitParameter("urlViewAllMatiere");
-            urlModifEtudiant = getServletConfig().getInitParameter("urlModifEtudiant");
+            urlModifAnEtudiant = getServletConfig().getInitParameter("urlModifAnEtudiant");
             urlModifNote = getServletConfig().getInitParameter("urlModifNoteEtudiant");
             urlModifAllAbsence = getServletConfig().getInitParameter("urlModifAllAbsence");
             urlViewAllControle = getServletConfig().getInitParameter("urlViewAllControle");
@@ -111,6 +114,16 @@ public class Controller extends HttpServlet {
         ListeEtudiant l = new ListeEtudiant();
         try {
                 l.setListe(EtudiantPeer.doSelect(new Criteria()));
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return l;
+    }
+
+     private ListeClasse getListeClasse(){
+        ListeClasse l = new ListeClasse();
+        try {
+                l.setListe(ClassePeer.doSelect(new Criteria()));
             } catch (TorqueException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -164,6 +177,10 @@ public class Controller extends HttpServlet {
                         doViewAllAbsence(request, response);
 		}else if (methode.equals("get") && action.equals("/viewAnEtudiant")) {
                         doViewAnEtudiant(request, response);
+		}else if (methode.equals("get") && action.equals("/modifAnEtudiant")) {
+                        doModifAnEtudiant(request, response);
+		}else if (methode.equals("post") && action.equals("/modifiedAnEtudiant")) {
+                        doModifiedAnEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/viewAllMatiere")) {
                         doViewAllMatiere(request, response);
 		}else if (methode.equals("get") && action.equals("/viewAllControle")) {
@@ -291,6 +308,59 @@ public class Controller extends HttpServlet {
              int index = Integer.valueOf(request.getParameter("id"));
              request.setAttribute("etudiant", getListeEtudiant().getEtudiantWithId(index));
              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+
+        private void doModifAnEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+             int index = Integer.valueOf(request.getParameter("id"));
+             request.setAttribute("etudiant", getListeEtudiant().getEtudiantWithId(index));
+             request.setAttribute("listeClasse", getListeClasse());
+             loadJSP(this.urlModifAnEtudiant, request, response);
+
+        }
+
+        private void doModifiedAnEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+            int index = Integer.valueOf(request.getParameter("id"));
+            String name = request.getParameter("nom");
+            String prenom = request.getParameter("prenom");
+            int classe = Integer.valueOf(request.getParameter("classe"));
+            Etudiant e = this.getListeEtudiant().getEtudiantWithId(index);
+            //Modfi etudiant
+            e.setNom(name);
+            e.setPrenom(prenom);
+            try {
+                e.setClasseId(classe);
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            e.save();
+            //Modif Note ETu
+            Criteria c = new Criteria();
+            c.add(NotePeer.ETUDIANT_ID, index);
+            List<Note> ln = NotePeer.doSelect(c);
+            for (Note n : ln) {
+                n.setNote(Integer.valueOf(request.getParameter(n.getNoteId() + "_note")));
+                n.save();
+              }
+            //Modif Abs Etu
+            Criteria c2 = new Criteria();
+            c2.add(AbsencePeer.ETUDIANT_ID,index);
+            List<Absence> la = AbsencePeer.doSelect(c2);
+            for(Absence a : la){
+                a.setMotif(request.getParameter(a.getAbsenceId() + "_absM"));
+                a.setDatedebut(request.getParameter(a.getAbsenceId() + "_absDb"));
+                a.setDatefin(request.getParameter(a.getAbsenceId() + "_absDf"));
+                a.save();
+            }
+
+            doViewAnEtudiant(request, response);
+        }catch (TorqueException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } 
 
         }
 
