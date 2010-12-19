@@ -57,6 +57,7 @@ public class Controller extends HttpServlet {
         private String urlAddEtudiant;
         private String urlAddNote;
         private String urlAddClasse;
+        private String urlAddMatiere;
         private String urlAddAbsence;
         private String urlModifAnEtudiant;
         private String urlModifNote;
@@ -97,6 +98,7 @@ public class Controller extends HttpServlet {
             urlAddAbsenceEtudiant = getServletConfig().getInitParameter("urlAddAbsenceEtudiant");
             urlModifAllMatiere = getServletConfig().getInitParameter("urlModifAllMatiere");
             urlAddClasse = getServletConfig().getInitParameter("urlAddClasse");
+            urlAddMatiere = getServletConfig().getInitParameter("urlAddMatiere");
             urlAddControle = getServletConfig().getInitParameter("urlAddControle");
             urlAddControleMatiere = getServletConfig().getInitParameter("urlAddControleMatiere");
  
@@ -225,6 +227,10 @@ public class Controller extends HttpServlet {
                         doAddClasse(request, response);
                 }else if (methode.equals("post") && action.equals("/addedClasse")) {
                         doAddedClasse(request, response);
+		}else if (methode.equals("get") && action.equals("/addMatiere")) {
+                        doAddMatiere(request, response);
+                }else if (methode.equals("post") && action.equals("/addedMatiere")) {
+                        doAddedMatiere(request, response);
 		}else if (methode.equals("post") && action.equals("/addControleMatiere")) {
                         doAddControleMatiere(request, response);
                 }else if (methode.equals("get") && action.equals("/addControle")) {
@@ -461,6 +467,29 @@ public class Controller extends HttpServlet {
             c.setNom(request.getParameter("nom"));
             c.save();
             loadJSP(this.urlViewEtudiant, request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       }
+       private void doAddMatiere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("listeClasse", getListeClasse());
+        loadJSP(this.urlAddMatiere, request, response);
+       }
+       private void doAddedMatiere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Matiere m = new Matiere();
+            m.setNom(request.getParameter("nom"));
+            m.setDescription(request.getParameter("description"));
+            m.setProf(request.getParameter("prof"));
+            m.save();
+            String[] classes =request.getParameterValues("classe");
+                for(String cla : classes){
+                    Cours cour = new Cours();
+                    cour.setMatiereId(m.getMatiereId());
+                    cour.setClasseId(Integer.valueOf(cla));
+                    cour.save();
+                }
+            loadJSP(this.urlViewAllMatiere, request, response);
         } catch (Exception ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -24,7 +24,7 @@
          <div id="corps">
         <h1>Ajouter une Matière</h1>
         <table class="table">
-            <form method="post" action="/GestionNotesAbsence/do/addedMatière">
+            <form method="post" action="/GestionNotesAbsence/do/addedMatiere">
             Nom de la matière : <input type="text" name="nom" value=""/>
             Description : <input type="text" name="description" value=""/>
             Professeur : <input type="text" name="prof" value=""/>

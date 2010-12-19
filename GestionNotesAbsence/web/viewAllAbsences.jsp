@@ -18,7 +18,7 @@
          <style type="text/css" >
             <jsp:include page="css/gestion.css" />
         </style>
-        <title>JSP Page</title>
+        <title>Voir les absences</title>
     </head>
     <body>
         <jsp:include page="header.jsp" />
