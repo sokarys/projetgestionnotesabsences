@@ -22,6 +22,13 @@
         <style type="text/css" >
             <jsp:include page="css/gestion.css" />
         </style>
+        <script type="text/javascript">
+        <jsp:include page="/jquery/js/jquery-1.4.2.min.js" />
+        <jsp:include page="/jquery/js/jquery-ui-1.8.6.custom.min.js" />
+        jQuery(document).ready(function(){
+             $(".datepicker").datepicker({dateFormat:'dd/mm/yy'});
+            });
+         </script>
         <title>Information de l'étudiant</title>
     </head>
     <body>
@@ -36,7 +43,8 @@
            Prénom : <input type="text" name="prenom" value="<%= etudiant.getPrenom() %>" /><br/>
            Classe : <select name="classe">
                <% for(Classe cs : listeClasse.getListe()){ %>
-                    <option value="<%=cs.getClasseId()%>"><%=cs.getNom()%></option>
+               <option value="<%=cs.getClasseId()%>" <%if(etudiant.getClasse().getNom().equals(cs.getNom())){%>selected="selected"<%}%>><%=cs.getNom()%></option>
+
                <%}%>
                </select>
         </div>
@@ -70,8 +78,8 @@
              %>
             <tr>
                 <td><input type="text" name="<%= a.getAbsenceId()+"_absM" %>" value="<%=a.getMotif()%>" /></td>
-                <td><input type="text" name="<%= a.getAbsenceId()+"_absDb" %>" value="<%=a.getDatedebut()%>" /></td>
-                <td><input type="text" name="<%= a.getAbsenceId()+"_absDf" %>" value="<%=a.getDatefin()%>" /></td>
+                <td><input type="text" class="datepicker" name="<%= a.getAbsenceId()+"_absDb" %>" value="<%=a.getDatedebut()%>" /></td>
+                <td><input type="text" class="datepicker" name="<%= a.getAbsenceId()+"_absDf" %>" value="<%=a.getDatefin()%>" /></td>
                 <td><a href="/GestionNotesAbsence/do/dellAbsenceEtudiant?id=<%=etudiant.getEtudiantId()%>&idAbsence=<%=a.getAbsenceId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer l'absence" alt="Supprimer"/></a></td>
            </tr>
             <% } %>
