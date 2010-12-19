@@ -48,6 +48,7 @@
             
             <input type="hidden" name="date" value="<%= date %>"/>
             <input type="hidden" name="coef" value="<%= coef %>"/>
+            <input type="hidden" name="idMatiere" value="<%= matiere.getMatiereId() %>"/>
             <input type="submit" />
         
             </form>
