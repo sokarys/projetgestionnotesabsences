@@ -13,6 +13,7 @@ package fr.iut2.tc4.projet.controleur;
 import fr.iut2.tc4.projet.data.ListeControle;
 import fr.iut2.tc4.projet.data.ListeEtudiant;
 import fr.iut2.tc4.projet.data.ListeMatiere;
+import fr.iut2.tc4.projet.torque.Absence;
 import fr.iut2.tc4.projet.torque.BaseEtudiantPeer;
 import fr.iut2.tc4.projet.torque.Controle;
 import fr.iut2.tc4.projet.torque.ControlePeer;
@@ -22,6 +23,7 @@ import fr.iut2.tc4.projet.torque.MatierePeer;
 import fr.iut2.tc4.projet.torque.Note;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
@@ -171,9 +173,9 @@ public class Controller extends HttpServlet {
                         doModifiedAnControle(request, response);
 		}else if (methode.equals("get") && action.equals("/addAbsence")) {
                         doAddAbsence(request, response);
-		}/*else if (methode.equals("get") && action.equals("/addNoteEtudiant")) {
-                        doAddNoteEtudiant(request, response);
-		}else if (methode.equals("get") && action.equals("/dellEtudiant")) {
+		}else if (methode.equals("post") && action.equals("/addedAbsence")) {
+                        doAddedAbsence(request, response);
+		}/*else if (methode.equals("get") && action.equals("/dellEtudiant")) {
                         doDellEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/dellNoteEtudiant")) {
                         doDellNoteEtudiant(request, response);
@@ -253,7 +255,33 @@ public class Controller extends HttpServlet {
 
         }
 
-       */ private void doViewAnEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       */
+         private void doAddedAbsence(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+            //response.
+            int index = Integer.valueOf(request.getParameter("id"));
+            String date = request.getParameter("dateDeb");
+            String dateFin = request.getParameter("dateFin");
+            String motif = request.getParameter("motif");
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1]) - 1, Integer.valueOf(date.split("/")[0]));
+            GregorianCalendar gcF = new GregorianCalendar();
+            gcF.set(Integer.valueOf(dateFin.split("/")[2]), Integer.valueOf(dateFin.split("/")[1]) - 1, Integer.valueOf(dateFin.split("/")[0]));
+            Absence a = new Absence();
+            a.setEtudiantId(index);
+            a.setMotif(motif);
+            a.setDatedebut(gc.getGregorianChange());
+            a.setDatefin(gcF.getGregorianChange());
+            a.save();
+            
+            doViewAllAbsence(request,response);
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        }
+         
+         private void doViewAnEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              int index = Integer.valueOf(request.getParameter("id"));
              request.setAttribute("etudiant", getListeEtudiant().getEtudiantWithId(index));
@@ -491,11 +519,20 @@ public class Controller extends HttpServlet {
           */ private void doViewAllAbsence(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              //response.
-              request.setAttribute("listeEtudiant", getListeEtudiant());
+              
               if( request.getParameter("groupe") == null){
                 request.setAttribute("groupe", "allgroupe");
+                request.setAttribute("listeEtudiant", getListeEtudiant());
                  }else{
-                     request.setAttribute("groupe", request.getParameter("groupe"));
+                    try {
+                        String gp = request.getParameter("groupe");
+                        request.setAttribute("groupe", gp);
+                        ListeEtudiant le = new ListeEtudiant();
+                        le.setListe(getListeEtudiant().getListe(gp));
+                        request.setAttribute("listeEtudiant", le);
+                    } catch (TorqueException ex) {
+                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
               loadJSP(this.urlViewAllAbsence, request, response);
 

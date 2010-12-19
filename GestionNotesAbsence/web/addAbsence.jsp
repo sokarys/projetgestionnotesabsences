@@ -23,7 +23,7 @@
         <jsp:include page="/jquery/js/jquery-1.4.2.min.js" />
         <jsp:include page="/jquery/js/jquery-ui-1.8.6.custom.min.js" />
         jQuery(document).ready(function(){
-             $("#datepicker").datepicker({dateFormat:'dd/mm/yy'});
+             $(".datepicker").datepicker({dateFormat:'dd/mm/yy'});
             });
          </script>
         <title>Ajouter une absence</title>
@@ -38,14 +38,15 @@
         <%}%>
         </div>
          <div id="corps">
-         <form method="post" action="/GestionNotesAbsence/do/addedAbsenceEtudiant">
+         <form method="post" action="/GestionNotesAbsence/do/addedAbsence">
             <select name="id">
                  <% for(Etudiant e : listeEtudiant.getListe()) { %>
                     <option value="<%=e.getEtudiantId() %>"><%=e.getNom()%> <%=e.getPrenom()%></option>
                  <%}%>
             </select>
 
-            Date : <input type="text" name="date" id="datepicker"/><br />
+            Date Debut : <input type="text" name="dateDeb" class="datepicker"/><br />
+             Date Fin : <input type="text" name="dateFin" class="datepicker"/><br />
             Motif : <input type="text" name="motif" /><br />
             <input type="submit" />
         </form>
