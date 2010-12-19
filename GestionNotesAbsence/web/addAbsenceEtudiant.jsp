@@ -21,7 +21,7 @@
         <jsp:include page="/jquery/js/jquery-1.4.2.min.js" />
         <jsp:include page="/jquery/js/jquery-ui-1.8.6.custom.min.js" />
         jQuery(document).ready(function(){
-             $("#datepicker").datepicker({dateFormat:'dd/mm/yy'});
+             $(".datepicker").datepicker({dateFormat:'dd/mm/yy'});
             });
          </script>
         <title>Ajouter une absence</title>

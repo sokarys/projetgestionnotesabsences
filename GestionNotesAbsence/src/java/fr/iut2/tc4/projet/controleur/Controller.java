@@ -280,7 +280,7 @@ public class Controller extends HttpServlet {
             a.setDatefin(dateFin);
             a.save();
             
-            doViewAllAbsence(request,response);
+            doViewAnEtudiant(request,response);
         } catch (Exception ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -325,14 +325,20 @@ public class Controller extends HttpServlet {
             String motif = request.getParameter("motif");
             request.setAttribute("etudiant", this.getListeEtudiant().getEtudiantWithId(index));
             Absence a = new Absence();
-            a.setEtudiantId(index);
+            try {
+                a.setEtudiantId(index);
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
             a.setMotif(motif);
             a.setDatedebut(dateDeb);
             a.setDatefin(dateFin);
+            a.save();
             doViewAnEtudiant(request, response);
-        } catch (TorqueException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         }
 
         private void doModifAnControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
