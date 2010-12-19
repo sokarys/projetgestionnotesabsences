@@ -572,17 +572,14 @@ public class Controller extends HttpServlet {
                 String[] lc = request.getParameterValues(m.getMatiereId() + "_cour");
                 Criteria cm = new Criteria();
                 cm.add(CoursPeer.MATIERE_ID,m.getMatiereId());
-                List<Cours> listeCours = CoursPeer.doSelect(cm);
-                //List<Cours> aDell = new List<Cours>();
-                for(int i=0; i<lc.length; i++){
-                    Criteria c = new Criteria(); c.add(CoursPeer.MATIERE_ID,m.getMatiereId()); c.add(CoursPeer.COURS_ID,Integer.parseInt(lc[i]));
+                CoursPeer.doDelete(cm);
+               for(int i=0; i<lc.length; i++){
                     Cours cour = new Cours();
                     cour.setClasseId(Integer.parseInt(lc[i]));
                     cour.setMatiereId(m.getMatiereId());
                     cour.save();
                }
             }
-
             doViewAllMatiere(request, response);
         } catch (Exception ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
