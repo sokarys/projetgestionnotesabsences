@@ -567,6 +567,7 @@ public class Controller extends HttpServlet {
                 loadJSP(this.urlViewAnControle, request, response);
             } catch (TorqueException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                doEtudiant(request, response);
             }
         }
 
@@ -587,16 +588,19 @@ public class Controller extends HttpServlet {
             Absence a = new Absence();
             try {
                 a.setEtudiantId(index);
-            } catch (TorqueException ex) {
+                a.setMotif(motif);
+                a.setDatedebut(dateDeb);
+                a.setDatefin(dateFin);
+                a.save();
+                doViewAnEtudiant(request, response);
+             } catch (TorqueException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                doEtudiant(request, response);
             }
-            a.setMotif(motif);
-            a.setDatedebut(dateDeb);
-            a.setDatefin(dateFin);
-            a.save();
-            doViewAnEtudiant(request, response);
+            
         } catch (Exception ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            doEtudiant(request, response);
         }
         
         }
@@ -641,6 +645,7 @@ public class Controller extends HttpServlet {
                     loadJSP(this.urlViewAnControle, request, response);
                 } catch (Exception ex) {
                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                   doEtudiant(request, response);
                 }
         }
 
