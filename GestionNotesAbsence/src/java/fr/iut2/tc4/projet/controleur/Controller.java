@@ -167,6 +167,8 @@ public class Controller extends HttpServlet {
                         doViewAnControle(request, response);
 		}else if (methode.equals("get") && action.equals("/modifAnControle")) {
                         doModifAnControle(request, response);
+		}else if (methode.equals("get") && action.equals("/modifiedAnControle")) {
+                        doModifiedAnControle(request, response);
 		}/*else if (methode.equals("get") && action.equals("/addAbsenceEtudiant")) {
                         doAddAbsenceEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/addNoteEtudiant")) {
@@ -273,7 +275,24 @@ public class Controller extends HttpServlet {
             try {
                 controle = ControlePeer.doSelect(n);
                 request.setAttribute("controle", controle.get(0));
-                loadJSP(this.urlViewAnControle, request, response);
+                loadJSP(this.urlModifAnControle, request, response);
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+        }
+
+         private void doModifiedAnControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             int index = Integer.valueOf(request.getParameter("id"));
+             Criteria n = new Criteria();
+             n.add(ControlePeer.CONTROLE_ID, index);
+             List<Controle> controle;
+            try {
+                controle = ControlePeer.doSelect(n);
+                request.setAttribute("controle", controle.get(0));
+                loadJSP(this.urlModifAnControle, request, response);
             } catch (TorqueException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }

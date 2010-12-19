@@ -49,7 +49,7 @@
                  <th>Modifier le controle</th>
             </tr>
             <tr>
-                <td><a href="/GestionNotesAbsence/do/modifControle"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer les controles" alt="Modifier"/></a></td>
+                <td><a href="/GestionNotesAbsence/do/modifAnControle?id=<%=controle.getControleId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer les controles" alt="Modifier"/></a></td>
           </tr>
         </table>
     </div>

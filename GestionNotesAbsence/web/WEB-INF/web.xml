@@ -57,7 +57,7 @@
         </init-param>
         <init-param>
             <param-name>urlModifAnControle</param-name>
-            <param-value>/ModifAnControle.jsp</param-value>
+            <param-value>/modifAnControle.jsp</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

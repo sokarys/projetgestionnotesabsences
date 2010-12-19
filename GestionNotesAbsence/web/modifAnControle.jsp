@@ -39,7 +39,7 @@
                 <tr>
                     <td><%= n.getEtudiant().getNom() %></td>
                     <td><%= n.getEtudiant().getPrenom() %></td>
-                    <td><input type="text" name="<%=n.getEtudiantId()%>"<%= n.getNote() %></td>
+                    <td><input type="text" name="<%=n.getEtudiantId()%>" value="<%= n.getNote()%>" /></td>
                     <td><%= n.getEtudiant().getClasse() %></td>
                 </tr>
             <%}%>
