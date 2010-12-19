@@ -460,6 +460,7 @@ public class Controller extends HttpServlet {
                     controle = ControlePeer.doSelect(n);
                     Controle c = (Controle) controle.get(0);
                     c.setCoef(Integer.valueOf(request.getParameter("coef")));
+                    c.setDate(request.getParameter("date"));
                     c.save();
                     List<Note> ln = c.getNotes();
                     for(Note note : ln){
@@ -501,10 +502,7 @@ public class Controller extends HttpServlet {
         }
 
        private void doViewAllMatiere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            //request.setAttribute("etudiant",request.getAttribute("name"));
-
            request.setAttribute("listeEtudiant", getListeEtudiant());
-
             if (request.getParameter("groupe") == null) {
                 request.setAttribute("groupe", "allgroupe");
                 request.setAttribute("listeMatiere", getListeMatiere());
