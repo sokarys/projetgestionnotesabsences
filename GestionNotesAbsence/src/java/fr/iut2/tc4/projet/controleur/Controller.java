@@ -70,6 +70,9 @@ public class Controller extends HttpServlet {
         private String urlModifAnControle;
         private String urlAddAbsenceEtudiant;
         private String urlModifAllMatiere;
+        private String urlAddControle;
+    private String urlAddControleMatiere;
+
 
  
        
@@ -94,6 +97,8 @@ public class Controller extends HttpServlet {
             urlAddAbsenceEtudiant = getServletConfig().getInitParameter("urlAddAbsenceEtudiant");
             urlModifAllMatiere = getServletConfig().getInitParameter("urlModifAllMatiere");
             urlAddClasse = getServletConfig().getInitParameter("urlAddClasse");
+            urlAddControle = getServletConfig().getInitParameter("urlAddControle");
+            urlAddControleMatiere = getServletConfig().getInitParameter("urlAddControleMatiere");
  
     }
 
@@ -218,7 +223,12 @@ public class Controller extends HttpServlet {
                         doModifiedAllMatiere(request, response);
 		}else if (methode.equals("post") && action.equals("/addedClasse")) {
                         doAddedClasse(request, response);
-		}/*else if (methode.equals("post") && action.equals("/modifiedNoteEtudiant")) {
+		}else if (methode.equals("post") && action.equals("/addControleMatiere")) {
+                        doAddControleMatiere(request, response);
+                }else if (methode.equals("post") && action.equals("/addControle")) {
+                        doAddControle(request, response);
+                }
+            /*else if (methode.equals("post") && action.equals("/modifiedNoteEtudiant")) {
                         doModifiedNoteEtudiant(request, response);
 		}else if (methode.equals("get") && action.equals("/modifAbsenceEtudiant")) {
                         doModifAbsenceEtudiant(request, response);
@@ -234,6 +244,45 @@ public class Controller extends HttpServlet {
                 }
 
 	}
+
+     private void doAddControleMatiere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            try {
+                request.setAttribute("date", request.getParameter("date"));
+                request.setAttribute("coef", request.getParameter("coef"));
+                request.setAttribute("matiere", MatierePeer.retrieveByPK(Integer.valueOf(request.getParameter("idMatiere"))));
+                loadJSP(this.urlAddControleMatiere, request, response);
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+         private void doAddControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+             try {
+                Matiere m= MatierePeer.retrieveByPK(Integer.valueOf(request.getParameter("idMatiere")));
+                Controle c = new Controle();
+                Cours cour =(Cours)m.getCourss().get(0);
+                c.setCoursId(cour.getCoursId());
+                c.setCoef(Integer.valueOf(request.getParameter("coef")));
+                c.setDate(request.getParameter("date"));
+                c.save();
+                for(Cours unCours : (List<Cours>) m.getCourss()){
+                     for(Etudiant e : (List<Etudiant>) unCours.getClasse().getEtudiants()){
+                         Note n = new Note();
+                         n.setNote(Integer.valueOf(request.getParameter(String.valueOf(e.getEtudiantId()))));
+                         n.setEtudiantId(e.getEtudiantId());
+                         n.setControleId(c.getControleId());
+                         n.save();
+                     }
+                 }
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (Exception ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+             request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewAllControle, request, response);
+        }
 
 
 
@@ -615,6 +664,1230 @@ public class Controller extends HttpServlet {
              loadJSP(this.urlViewEtudiant, request, response);
 
         }/*
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
+
+        private void doAddEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             request.setAttribute("addEtudiant", listeEtudiant);
+             loadJSP(this.urlAddEtudiant, request, response);
+
+        }
+         private void doAddedEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+             listeEtudiant.getListe().add(new Etudiant(this.listeEtudiant.getListe().size(),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("groupe")) );
+              request.setAttribute("listeEtudiant", listeEtudiant);
+               request.setAttribute("groupe", "allgroupe");
+             loadJSP(this.urlViewEtudiant, request, response);
+
+        }
+          private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              int index = Integer.valueOf(request.getParameter("id"));
+              int note = Integer.valueOf(request.getParameter("note"));
+              String matiere = request.getParameter("matiere");
+
+              listeEtudiant.getListe().get(index).addnote(new Note(listeEtudiant.getListe().get(index).getNbNote(),note,matiere));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+             loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+           private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+               int index = Integer.valueOf(request.getParameter("id"));
+               String date = request.getParameter("date");
+               String motif = request.getParameter("motif");
+               GregorianCalendar gc = new GregorianCalendar();
+               gc.set(Integer.valueOf(date.split("/")[2]), Integer.valueOf(date.split("/")[1])-1, Integer.valueOf(date.split("/")[0]));
+               Absence a = new Absence(listeEtudiant.getListe().get(index).getListAbsences().size(),gc,motif);
+              listeEtudiant.getListe().get(index).addAbsence(a);
+              //.addAbsence(new Absence(new GregorianCalendar(request.getAttribute("date"),request.getAttribute("motif"))));
+              request.setAttribute("etudiant", listeEtudiant.getListe().get(index));
+
+              loadJSP(this.urlViewAnEtudiant, request, response);
+
+        }
+          private void doViewAllNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            //request.setAttribute("etudiant",request.getAttribute("name"));
+             //response.
+              request.setAttribute("listeEtudiant", listeEtudiant);
+              if( request.getParameter("groupe") == null){
+                request.setAttribute("groupe", "allgroupe");
+                 }else{
+                     request.setAttribute("groupe", request.getParameter("groupe"));
+                }
+              loadJSP(this.urlViewAllNotes, request, response);
+
+        }
+
+          *//*
           private void doAddedNotesEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              //response.
