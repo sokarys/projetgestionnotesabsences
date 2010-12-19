@@ -73,13 +73,11 @@
             <tr>
                 <th>Ajouter absence</th>
                  <th>Modifier l'étudiant</th>
-                <th>Ajouter Note</th>
             </tr>
         <tr>
         <td><a href="/GestionNotesAbsence/do/addAbsenceEtudiant?id=<%=etudiant.getEtudiantId() %>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une absence" alt="Ajouter absence"/></a></td>
         <td><a href="/GestionNotesAbsence/do/modifAnEtudiant?id=<%=etudiant.getEtudiantId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer les informations de l'étudiant" alt="Modifier"/></a></td>
-        <td><a href="/GestionNotesAbsence/do/addNoteEtudiant?id=<%=etudiant.getEtudiantId()%>"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une note" alt="Ajouter Note"/></a></td>
-          </tr>
+        </tr>
         </table>
         <div id="datepicker"></div>
          </div>
