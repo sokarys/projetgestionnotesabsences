@@ -34,7 +34,7 @@
            Classe : <%= etudiant.getClasse() %>
         </div>
         <table class="table">
-           <% if(etudiant.getNotes().size()==0){%>style="display : none ;"<%}%>>
+           <% if(etudiant.getNotes().size()==0){%>style="display : none ;"<%}%>
         <caption>Liste des Notes</caption>
         <tr>
              <th>Matière</th>

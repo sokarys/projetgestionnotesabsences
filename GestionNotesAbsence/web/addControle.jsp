@@ -4,7 +4,6 @@
     Author     : Michael
 --%>
 <%@page import="fr.iut2.tc4.projet.torque.Matiere"%>
-<jsp:useBean id="controle" class="fr.iut2.tc4.projet.torque.Controle" scope="request" />
 <jsp:useBean id="listeMatiere" class="fr.iut2.tc4.projet.data.ListeMatiere" scope="request" />
 
 

@@ -225,8 +225,10 @@ public class Controller extends HttpServlet {
                         doAddedClasse(request, response);
 		}else if (methode.equals("post") && action.equals("/addControleMatiere")) {
                         doAddControleMatiere(request, response);
-                }else if (methode.equals("post") && action.equals("/addControle")) {
+                }else if (methode.equals("get") && action.equals("/addControle")) {
                         doAddControle(request, response);
+                }else if (methode.equals("get") && action.equals("/addedControle")) {
+                        doAddedControle(request, response);
                 }
             /*else if (methode.equals("post") && action.equals("/modifiedNoteEtudiant")) {
                         doModifiedNoteEtudiant(request, response);
@@ -256,7 +258,12 @@ public class Controller extends HttpServlet {
             }
 
         }
-         private void doAddControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        private void doAddControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+          request.setAttribute("listeMatiere",getListeMatiere());
+          loadJSP(this.urlAddControle, request, response);
+        }
+
+         private void doAddedControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
              try {
                 Matiere m= MatierePeer.retrieveByPK(Integer.valueOf(request.getParameter("idMatiere")));
                 Controle c = new Controle();

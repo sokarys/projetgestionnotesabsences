@@ -34,6 +34,7 @@
                 <tr>
                     <th>Nom</th>
                     <th>Prénom</th>
+                    <th>Classe</th>
                     <th>Note</th>
                 </tr>
                  <% for(Cours c : (List<Cours>) matiere.getCourss()){
