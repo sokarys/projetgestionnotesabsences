@@ -57,20 +57,13 @@ public class Controller extends HttpServlet {
         private String urlViewAllControle;
         private String urlViewAnControle;
         private String urlModifAnControle;
-
-
-        private ListeEtudiant listeEtudiant;
-        private ListeMatiere listeMatiere;
-        private ListeControle listeControle;
-
-
-
+ 
+       
 
     public Controller(){}
 
     @Override
     public void init() throws ServletException {
-            listeEtudiant = new ListeEtudiant();
             urlViewEtudiant = getServletConfig().getInitParameter("urlViewEtudiant");
             urlViewAnEtudiant = getServletConfig().getInitParameter("urlViewAnEtudiant");
             urlAddEtudiant = getServletConfig().getInitParameter("urlAddEtudiant");
@@ -84,42 +77,38 @@ public class Controller extends HttpServlet {
             urlViewAllControle = getServletConfig().getInitParameter("urlViewAllControle");
             urlViewAnControle =  getServletConfig().getInitParameter("urlViewAnControle");
             urlModifAnControle =  getServletConfig().getInitParameter("urlModifAnControle");
-
-            @SuppressWarnings("unchecked")
-            List<fr.iut2.tc4.projet.torque.Etudiant> l;
-            try {
-                l = EtudiantPeer.doSelect(new Criteria());
-                listeEtudiant.setListe(l);
-            } catch (TorqueException ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-
-            this.listeMatiere = new ListeMatiere();
-            try {
-                listeMatiere.setListe((List<Matiere>) MatierePeer.doSelect(new Criteria()));
-            } catch (TorqueException ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            this.listeControle = new ListeControle();
-            try {
-                listeControle.setListe((List<Controle>) ControlePeer.doSelect(new Criteria()));
-            } catch (TorqueException ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+ 
 
     }
 
     private ListeMatiere getListeMatiere(){
         ListeMatiere m = new ListeMatiere();
         try {
-                listeMatiere.setListe((List<Matiere>) MatierePeer.doSelect(new Criteria()));
+                m.setListe((List<Matiere>) MatierePeer.doSelect(new Criteria()));
             } catch (TorqueException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
-        return null;
+        return m;
+    }
+
+    private ListeControle getListeControle(){
+        ListeControle c = new ListeControle();
+        try {
+                c.setListe((List<Controle>) ControlePeer.doSelect(new Criteria()));
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return c;
+    }
+
+     private ListeEtudiant getListeEtudiant(){
+        ListeEtudiant l = new ListeEtudiant();
+        try {
+                l.setListe(EtudiantPeer.doSelect(new Criteria()));
+            } catch (TorqueException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return l;
     }
 
 	// POST
@@ -217,14 +206,14 @@ public class Controller extends HttpServlet {
 
             if (request.getParameter("groupe") == null) {
                 request.setAttribute("groupe", "allgroupe");
-                request.setAttribute("listeEtudiant", listeEtudiant);
+                request.setAttribute("listeEtudiant", getListeEtudiant());
             } else {
 
                 try {
                 String gp = request.getParameter("groupe");
                 request.setAttribute("groupe",gp );
                 ListeEtudiant le = new ListeEtudiant();
-                 le.setListe(listeEtudiant.getListe(gp));
+                 le.setListe(getListeEtudiant().getListe(gp));
                  request.setAttribute("listeEtudiant", le);
                  } catch (TorqueException ex) {
                     Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -254,7 +243,7 @@ public class Controller extends HttpServlet {
        */ private void doViewAnEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              int index = Integer.valueOf(request.getParameter("id"));
-             request.setAttribute("etudiant", listeEtudiant.getEtudiantWithId(index));
+             request.setAttribute("etudiant", getListeEtudiant().getEtudiantWithId(index));
              loadJSP(this.urlViewAnEtudiant, request, response);
 
         }
@@ -322,17 +311,17 @@ public class Controller extends HttpServlet {
         private void doViewAllControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
 
-           request.setAttribute("listeEtudiant", listeEtudiant);
+           request.setAttribute("listeEtudiant", getListeEtudiant());
 
             if (request.getParameter("groupe") == null) {
                 request.setAttribute("groupe", "allgroupe");
-                request.setAttribute("listeControle", listeControle);
+                request.setAttribute("listeControle", getListeControle());
             } else {
             try {
                 String gp = request.getParameter("groupe");
                 request.setAttribute("groupe", gp);
                 ListeControle m = new ListeControle();
-                m.setListe(listeControle.getListe(gp));
+                m.setListe(getListeControle().getListe(gp));
                 request.setAttribute("listeControle", m);
             } catch (TorqueException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -346,17 +335,17 @@ public class Controller extends HttpServlet {
        private void doViewAllMatiere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
 
-           request.setAttribute("listeEtudiant", listeEtudiant);
+           request.setAttribute("listeEtudiant", getListeEtudiant());
 
             if (request.getParameter("groupe") == null) {
                 request.setAttribute("groupe", "allgroupe");
-                request.setAttribute("listeMatiere", listeMatiere);
+                request.setAttribute("listeMatiere", getListeMatiere());
             } else {
             try {
                 String gp = request.getParameter("groupe");
                 request.setAttribute("groupe", gp);
                 ListeMatiere m = new ListeMatiere();
-                m.setListe(listeMatiere.getListe(gp));
+                m.setListe(getListeMatiere().getListe(gp));
                 request.setAttribute("listeMatiere", m);
             } catch (TorqueException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -488,7 +477,7 @@ public class Controller extends HttpServlet {
           */ private void doViewAllAbsence(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
              //response.
-              request.setAttribute("listeEtudiant", listeEtudiant);
+              request.setAttribute("listeEtudiant", getListeEtudiant());
               if( request.getParameter("groupe") == null){
                 request.setAttribute("groupe", "allgroupe");
                  }else{
