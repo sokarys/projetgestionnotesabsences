@@ -75,6 +75,10 @@
             <param-name>urlAddControleMatiere</param-name>
             <param-value>/addControleMatiere.jsp</param-value>
         </init-param>
+         <init-param>
+            <param-name>urlAddClasse</param-name>
+            <param-value>/addClasse.jsp</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
