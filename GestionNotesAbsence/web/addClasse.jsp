@@ -24,7 +24,7 @@
         <h1>Ajouter une Classe</h1>
         <table class="table">
             <form method="post" action="/GestionNotesAbsence/do/addedClasse">
-            <input type="text" name="nom" value=""/>
+            Nom de la classe : <input type="text" name="nom" value=""/>
             <input type="submit" />
             </form>
         </table>
