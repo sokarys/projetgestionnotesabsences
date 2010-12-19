@@ -40,7 +40,6 @@
              <th>Matière</th>
              <th>Note</th>
              <th>Coef</th>
-             <th>Supprimer</th>
          </tr>
          <% for(Note n : (List<Note>) etudiant.getNotes()) { %>
             <tr>
