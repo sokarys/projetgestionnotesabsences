@@ -39,8 +39,7 @@
                 <th>Date Debut</th>
                 <th>Date Fin</th>
                 <th>Motif</th>
-                <th>Voir Informations</th>
-                <th>Modifier</th>
+                <th>Voir Informations</th>                
                 <th>Supprimer</th>
                 
             </tr>
@@ -56,12 +55,20 @@
                     <td><%=a.getDatefin() %></td>
                     <td><%=a.getMotif() %></td>
                     <td><a href="/GestionNotesAbsence/do/viewAnEtudiant?id=<%= String.valueOf(e.getEtudiantId()) %>"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir les informations de l'étudiant" alt="Voir info"/></a></td>
-                    <td><a href="/GestionNotesAbsence/do/modifAbsenceEtudiant?id=<%=e.getEtudiantId()%>&idAbsence=<%=a.getAbsenceId()%>"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer l'absence" alt="Modifier"/></a></td>
                     <td><a href="/GestionNotesAbsence/do/dellAbsenceEtudiant?id=<%=e.getEtudiantId()%>&idAbsence=<%=a.getAbsenceId()%>"><img src="<%=getServletContext().getContextPath()%>/img/supprimer.png" title="Supprimer l'absence" alt="Supprimer"/></a></td>
-
                 </tr>
             <% } } }%>
             <tr
+        </table>
+        <table class="table">
+            <tr>
+                <th>Ajouter une absence</th>
+                 <th>Modifier les absences</th>
+            </tr>
+            <tr>
+                <td><a href="/GestionNotesAbsence/do/addAbsence"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="Ajouter une absence" alt="Ajouter Absence"/></a></td>
+                <td><a href="/GestionNotesAbsence/do/modifAbsence"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="Modifer les absences" alt="Modifier"/></a></td>
+          </tr>
         </table>
          </div>
             <jsp:include page="footer.jsp" />
