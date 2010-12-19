@@ -79,6 +79,14 @@
             <param-name>urlAddClasse</param-name>
             <param-value>/addClasse.jsp</param-value>
         </init-param>
+         <init-param>
+            <param-name>urlModifAllEtudiant</param-name>
+            <param-value>/modifAllEtudiant.jsp</param-value>
+        </init-param>
+         <init-param>
+            <param-name>urlAddMatiere</param-name>
+            <param-value>/addMatiere.jsp</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
