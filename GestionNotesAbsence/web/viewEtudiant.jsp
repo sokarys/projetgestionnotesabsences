@@ -61,7 +61,7 @@
             <table class="table">
             <tr><th>Ajouter un étudiant</th><th>Ajouter un groupe</th><th>Modifier la liste</th><th>Voir Absence</th></tr>
             <tr>
-                <td><a href="/GestionNotesAbsence/do/addEtudiant"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="ajouter un étudiant" alt="ajouter un étudiant"/></a></td>
+                <td><a href="/GestionNotesAbsence/do/addAnEtudiant"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="ajouter un étudiant" alt="ajouter un étudiant"/></a></td>
                 <td><a href="/GestionNotesAbsence/do/addGroupe"><img src="<%=getServletContext().getContextPath()%>/img/ajouter.png" title="ajouter un groupe" alt="ajouter un groupe"/></a></td>
                 <td><a href="/GestionNotesAbsence/do/modifEtudiant"><img src="<%=getServletContext().getContextPath()%>/img/modifier.png" title="modifier" alt="modifier"/></a></td>
                 <td><a href="/GestionNotesAbsence/do/viewAllAbsence"><img src="<%=getServletContext().getContextPath()%>/img/information.png" title="Voir la liste des Absences" alt="Voir Absence"/></a></td>
