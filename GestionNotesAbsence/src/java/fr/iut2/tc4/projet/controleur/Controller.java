@@ -61,6 +61,7 @@ public class Controller extends HttpServlet {
         private String urlViewAllControle;
         private String urlViewAnControle;
         private String urlModifAnControle;
+        private String urlAddAbsenceEtudiant;
  
        
 
@@ -81,6 +82,7 @@ public class Controller extends HttpServlet {
             urlViewAllControle = getServletConfig().getInitParameter("urlViewAllControle");
             urlViewAnControle =  getServletConfig().getInitParameter("urlViewAnControle");
             urlModifAnControle =  getServletConfig().getInitParameter("urlModifAnControle");
+            urlAddAbsenceEtudiant = getServletConfig().getInitParameter("urlAddAbsenceEtudiant");
  
 
     }
@@ -153,7 +155,6 @@ public class Controller extends HttpServlet {
 
 		}else if (methode.equals("post") && action.equals("/addedAbsenceEtudiant")) {
                         doAddedAbsenceEtudiant(request, response);
-
 		}else if (methode.equals("post") && action.equals("/addedNoteEtudiant")) {
                         doAddedNotesEtudiant(request, response);
 
@@ -183,6 +184,10 @@ public class Controller extends HttpServlet {
                         doModifiedAllAbsence(request, response);
 		}else if (methode.equals("get") && action.equals("/modifAllAbsences")) {
                         doModifAllAbsence(request, response);
+		}else if (methode.equals("get") && action.equals("/addAbsenceEtudiant")) {
+                        doAddAbsenceEtudiant(request, response);
+		}else if (methode.equals("post") && action.equals("/addedAbsenceEtudiant")) {
+                        doAddedAbsenceEtudiant(request, response);
 		}/*else if (methode.equals("get") && action.equals("/dellAbsenceEtudiant")) {
                         doDellAbsenceEtudiant(request, response);
 		}else if (methode.equals("post") && action.equals("/modifiedAbsenceEtudiant")) {
@@ -291,7 +296,6 @@ public class Controller extends HttpServlet {
 
        private void doViewAnControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
-           System.out.println("id cont = " +request.getParameter("id"));
              int index = Integer.valueOf(request.getParameter("id"));
 
              Criteria n = new Criteria();
@@ -304,8 +308,31 @@ public class Controller extends HttpServlet {
             } catch (TorqueException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+        }
 
+        private void doAddAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+             int index = Integer.valueOf(request.getParameter("id"));
+             request.setAttribute("etudiant", this.getListeEtudiant().getEtudiantWithId(index));
+             loadJSP(this.urlAddAbsenceEtudiant, request, response);
+        }
+
+         private void doAddedAbsenceEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            int index = Integer.valueOf(request.getParameter("id"));
+            String dateDeb = request.getParameter("dateDeb");
+            String dateFin = request.getParameter("dateFin");
+            String motif = request.getParameter("motif");
+            request.setAttribute("etudiant", this.getListeEtudiant().getEtudiantWithId(index));
+            Absence a = new Absence();
+            a.setEtudiantId(index);
+            a.setMotif(motif);
+            a.setDatedebut(dateDeb);
+            a.setDatefin(dateFin);
+            doViewAnEtudiant(request, response);
+        } catch (TorqueException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
 
         private void doModifAnControle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -577,6 +604,7 @@ public class Controller extends HttpServlet {
             doViewAllAbsence(request,response);
 
         }
+          
 /*
             private void doDellEtudiant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             //request.setAttribute("etudiant",request.getAttribute("name"));
