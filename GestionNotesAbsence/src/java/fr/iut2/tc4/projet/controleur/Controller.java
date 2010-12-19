@@ -559,7 +559,7 @@ public class Controller extends HttpServlet {
                 Criteria cm = new Criteria();
                 cm.add(CoursPeer.MATIERE_ID,m.getMatiereId());
                 List<Cours> listeCours = CoursPeer.doSelect(cm);
-                List<Cours> aDell = new List<Cours>();
+                //List<Cours> aDell = new List<Cours>();
                 for(int i=0; i<lc.length; i++){
                     Criteria c = new Criteria(); c.add(CoursPeer.MATIERE_ID,m.getMatiereId()); c.add(CoursPeer.COURS_ID,Integer.parseInt(lc[i]));
                     Cours cour = new Cours();
