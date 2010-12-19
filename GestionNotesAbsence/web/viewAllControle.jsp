@@ -42,6 +42,7 @@
                     <th>Date</th>
                     <th>Moyenne</th>
                     <th>Classe</th>
+                    <th>Modifier</th>
                 </tr>
             <% for(Controle c : listeControle.getListe()){%>
 
