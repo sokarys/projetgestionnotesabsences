@@ -44,7 +44,7 @@
                 <td><input type="text" name="<%=m.getMatiereId()%>_descrip" value="<%=m.getDescription()%>" /></td>
                 <td><input type="text" name="<%=m.getMatiereId()%>_prof" value="<%=m.getProf()%>" /></td>
                 <td>
-                    <select name="<%=m.getMatiereId()%>_cour" multiple="multiple" size="<%=listeClasse.getListe().size()%>">
+                    <select name="<%=m.getMatiereId()%>_classe" multiple="multiple" size="<%=listeClasse.getListe().size()%>">
                     <% for(Classe c : listeClasse.getListe()){ %>
                     <option value="<%= c.getClasseId()%>" <%if(m.isInClasse(c.getNom())){%>selected="selected"<%} %>>
                         <%=c%>
