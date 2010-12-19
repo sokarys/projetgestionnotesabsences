@@ -3,7 +3,7 @@
     Created on : 30 nov. 2010, 11:33:00
     Author     : sokarys
 --%>
-<jsp:useBean id="etudiant" class="fr.iut2.tc4.projet.data.Etudiant" scope="request" />
+<jsp:useBean id="etudiant" class="fr.iut2.tc4.projet.torque.Etudiant" scope="request" />
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -31,8 +31,9 @@
         <jsp:include page="menu.jsp" />
          <div id="corps">
         <h1>Rajouter une Absence pour <%= etudiant.getNom() +" " +  etudiant.getPrenom() %> </h1>
-        <form method="post" action="/GestionNotesAbsence/do/addedAbsenceEtudiant?id=<%=etudiant.getId()%>"> <!-- action : -->
-            Date : <input type="text" name="date" id="datepicker"/><br /> <!-- name = meme nom que la classe etudiant-->
+        <form method="post" action="/GestionNotesAbsence/do/addedAbsenceEtudiant?id=<%=etudiant.getEtudiantId() %>">
+            Date Debut : <input type="text" name="dateDeb" class="datepicker"/><br />
+            Date Fin : <input type="text" name="dateFin" class="datepicker"/><br />
             Motif : <input type="text" name="motif" /><br />
             <input type="submit" />
         </form>
