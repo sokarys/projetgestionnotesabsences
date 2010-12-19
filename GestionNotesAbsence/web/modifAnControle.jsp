@@ -26,7 +26,8 @@
         <jsp:include page="header.jsp" />
         <jsp:include page="menu.jsp" />
          <div id="corps">
-        <h1>Un Controle</h1>
+        <h1>Un Controle</h1
+        
             <table class="table">
                 <tr>
                     <th>Nom</th>
@@ -35,7 +36,7 @@
                     <th>Classe</th>
                 </tr>
                 <form method="post" action="/GestionNotesAbsence/do/modifiedAnControle?id=<%=controle.getControleId()%>">
-                    <tr> <td> Coef : <input type="text" name="coef" value="<%=controle.getCoef()%>"/> </td> </tr>
+                    <tr> <td>  </td> </tr>
             <% for(Note n : (List<Note>) controle.getNotes() ){ %>
                 <tr>
                     <td><%= n.getEtudiant().getNom() %></td>
@@ -44,6 +45,7 @@
                     <td><%= n.getEtudiant().getClasse() %></td>
                 </tr>
             <%}%>
+            Coef : <input type="text" name="coef" value="<%=controle.getCoef()%>"/>
                 <input type="submit" />
                 </form>
          </table>
